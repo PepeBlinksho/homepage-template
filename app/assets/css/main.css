@@ -1,0 +1,77 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/* フォント定義 */
+@theme static {
+  --font-serif: 'Noto Serif JP', 'Georgia', serif;
+  --font-sans: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+}
+
+/* ==========================================
+   ページトランジション
+   ========================================== */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* ==========================================
+   スクロールリビールアニメーション
+   ========================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(2.5rem);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================
+   グレインテクスチャ（ノイズ効果）
+   ========================================== */
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+}
+
+/* ==========================================
+   グラジエントテキスト
+   ========================================== */
+.text-gradient-amber {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==========================================
+   カードホバーリフト
+   ========================================== */
+.card-lift {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -12px rgb(0 0 0 / 0.15);
+}
+
+/* ==========================================
+   アンカーリンクのスクロールオフセット
+   ========================================== */
+[id] {
+  scroll-margin-top: 80px;
+}

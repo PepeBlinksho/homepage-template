@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx nuxi@latest init cafe-template --package-manager npm)",
+      "Bash(npx nuxi@latest init cafe-template --package-manager npm --template minimal)",
+      "Bash(npm install *)",
+      "Bash(npx nuxi@latest module add ui)",
+      "Bash(npm uninstall *)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('version:', d.get\\('version'\\)\\); print\\('main:', d.get\\('main','none'\\)\\); exports=d.get\\('exports',{}\\); print\\('exports keys:', list\\(exports.keys\\(\\)\\)[:5] if exports else 'none'\\)\")"
+    ]
+  }
+}

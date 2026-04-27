@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# デプロイ後、以下のURLをあなたのドメインに変更してください
+# NUXT_PUBLIC_SITE_URL 環境変数を設定すると sitemap.xml は自動的に正しいURLで配信されます
+Sitemap: https://example.com/sitemap.xml

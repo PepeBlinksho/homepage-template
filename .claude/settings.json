@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Bash(curl *)",
+      "Bash(pkill *)",
+      "Bash(pnpm dev *)",
+      "Bash(pnpm build *)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm install *)",
+      "Bash(pnpm run *)",
+      "Bash(pnpm *)",
+      "Bash(npx nuxi@latest *)",
+      "Bash(npx @playwright/mcp@latest *)"
+    ]
+  }
+}
