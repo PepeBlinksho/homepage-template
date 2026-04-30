@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- 背景 -->
+  <rect width="1200" height="630" fill="#1c1917"/>
+  <!-- グレイン風テクスチャ（擬似） -->
+  <rect width="1200" height="630" fill="url(#grain)" opacity="0.04"/>
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+  </defs>
+  <!-- アクセントライン -->
+  <rect x="80" y="260" width="48" height="2" fill="url(#amber)"/>
+  <!-- ラベル -->
+  <text x="80" y="240" font-family="serif" font-size="14" fill="#f59e0b" letter-spacing="8" text-transform="uppercase">CAFE</text>
+  <!-- 店舗名プレースホルダー -->
+  <text x="80" y="360" font-family="serif" font-size="72" font-weight="600" fill="white">店舗名をここに</text>
+  <!-- キャッチコピー -->
+  <text x="80" y="420" font-family="sans-serif" font-size="24" fill="#a8a29e">キャッチコピーをここに入力</text>
+  <!-- 右下装飾 -->
+  <circle cx="1100" cy="500" r="120" fill="#92400e" opacity="0.15"/>
+  <circle cx="1050" cy="420" r="60" fill="#b45309" opacity="0.10"/>
+  <!-- 注記（テンプレート購入者向け） -->
+  <text x="80" y="580" font-family="sans-serif" font-size="13" fill="#57534e">※ このファイルを 1200×630px の JPG/PNG に差し替えてください（site.ts の seo.ogImage を更新）</text>
+</svg>

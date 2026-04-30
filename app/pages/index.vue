@@ -30,17 +30,22 @@ useJsonLd()
       <AboutSection />
     </div>
 
-    <!-- ③ メニュー -->
+    <!-- ③ ギャラリー -->
+    <div id="snap-gallery" class="md:h-screen md:overflow-hidden">
+      <GallerySection />
+    </div>
+
+    <!-- ④ メニュー -->
     <div id="snap-menu" class="md:h-screen md:overflow-hidden">
       <MenuPreview :snap="true" />
     </div>
 
-    <!-- ④ お知らせ -->
+    <!-- ⑤ お知らせ -->
     <div id="snap-news" class="md:h-screen md:overflow-hidden">
       <NewsSection />
     </div>
 
-    <!-- ⑤ アクセス -->
+    <!-- ⑥ アクセス -->
     <div id="snap-access" class="md:h-screen md:overflow-hidden">
       <AccessSection />
     </div>
