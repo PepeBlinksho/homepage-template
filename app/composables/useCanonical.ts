@@ -4,7 +4,7 @@
  */
 export function useCanonical() {
   const route = useRoute()
-  const siteUrl = useRuntimeConfig().public.siteUrl as string
+  const { public: { siteUrl } } = useRuntimeConfig()
   const url = computed(() => `${siteUrl}${route.path}`)
 
   useHead({

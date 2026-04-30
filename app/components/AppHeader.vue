@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { siteConfig } from '~/config/site'
 
-const isScrolled = ref(false)
+const { scrollY } = useSharedScroll()
 const isMenuOpen = ref(false)
 const route = useRoute()
 
-// トップページ以外は常にヘッダー背景を表示（白背景ページで文字が消えるのを防ぐ）
 const isHomePage = computed(() => route.path === '/')
+const isScrolled = computed(() => scrollY.value > 80)
 const hasBackground = computed(() => !isHomePage.value || isScrolled.value)
 
 const navLinks = [
@@ -17,20 +17,7 @@ const navLinks = [
   { label: 'お問い合わせ', to: '/contact' },
 ]
 
-let scrollHandler: () => void
-
-onMounted(() => {
-  scrollHandler = () => {
-    isScrolled.value = window.scrollY > 80
-  }
-  window.addEventListener('scroll', scrollHandler, { passive: true })
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', scrollHandler)
-})
-
-watch(() => route.path, () => {
+watch(() => route.fullPath, () => {
   isMenuOpen.value = false
 })
 
@@ -67,7 +54,7 @@ function isActive(link: { to: string }): boolean {
           class="relative text-sm font-medium transition-colors duration-300 group py-1"
           :class="[
             hasBackground ? 'text-stone-600 hover:text-stone-900' : 'text-white/80 hover:text-white',
-            isActive(link) ? (hasBackground ? 'text-amber-600' : 'text-amber-300') : '',
+            isActive(link) ? (hasBackground ? 'text-amber-800' : 'text-amber-300') : '',
           ]"
         >
           {{ link.label }}
@@ -118,8 +105,8 @@ function isActive(link: { to: string }): boolean {
               v-for="(link, i) in navLinks"
               :key="link.to"
               :to="link.to"
-              class="flex items-center justify-between py-4 border-b border-stone-100 text-stone-700 hover:text-amber-600 transition-colors group"
-              :class="{ 'text-amber-600': isActive(link) }"
+              class="flex items-center justify-between py-4 border-b border-stone-100 text-stone-700 hover:text-amber-800 transition-colors group"
+              :class="{ 'text-amber-800 font-semibold': isActive(link) }"
               :style="{ transitionDelay: `${i * 50}ms` }"
               @click="isMenuOpen = false"
             >

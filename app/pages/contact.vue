@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
-import { siteConfig } from '~/config/site'
+import { siteConfig, buildFullAddress } from '~/config/site'
 
 useSeoMeta({
   title: `お問い合わせ | ${siteConfig.name}`,
@@ -14,10 +14,11 @@ useSeoMeta({
 useCanonical()
 
 const schema = z.object({
-  name: z.string().min(1, 'お名前を入力してください'),
-  email: z.string().email('正しいメールアドレスを入力してください'),
-  tel: z.string().optional(),
-  message: z.string().min(1, 'お問い合わせ内容を入力してください'),
+  name: z.string().min(1, 'お名前を入力してください').max(100),
+  email: z.string().email('正しいメールアドレスを入力してください').max(254),
+  tel: z.string().max(20).optional(),
+  message: z.string().min(1, 'お問い合わせ内容を入力してください').max(5000),
+  website: z.string().max(0).optional(),
 })
 
 type Schema = z.output<typeof schema>
@@ -27,6 +28,7 @@ const state = reactive<Partial<Schema>>({
   email: '',
   tel: '',
   message: '',
+  website: '',
 })
 
 const submitted = ref(false)
@@ -130,7 +132,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
                   住所
                 </p>
                 <p class="text-sm text-stone-700">
-                  {{ siteConfig.address.full }}
+                  {{ buildFullAddress(siteConfig.address) }}
                 </p>
               </div>
             </div>
@@ -248,6 +250,11 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
                 class="w-5 h-5 shrink-0 mt-0.5 text-red-500"
               />
               <p>{{ submitError }}</p>
+            </div>
+
+            <!-- ハニーポット（ボット検知用・人間には非表示） -->
+            <div aria-hidden="true" class="hidden" tabindex="-1">
+              <input v-model="state.website" type="text" name="website" autocomplete="off">
             </div>
 
             <UButton

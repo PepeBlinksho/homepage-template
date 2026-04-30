@@ -1,48 +1,12 @@
 <script setup lang="ts">
-interface SectionDot {
-  id: string
-  label: string
-}
-
-const sections: SectionDot[] = [
-  { id: 'snap-hero', label: 'Hero' },
-  { id: 'snap-about', label: 'About' },
-  { id: 'snap-menu', label: 'Menu' },
-  { id: 'snap-news', label: 'News' },
-  { id: 'snap-access', label: 'Access' },
-]
-
+const { sections, activeIndex } = useScrollSections()
 const nuxtApp = useNuxtApp()
-const activeIndex = ref(0)
-
-onMounted(() => {
-  // html ドキュメントを root にして各セクションの可視状態を監視
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-          const index = sections.findIndex(s => s.id === entry.target.id)
-          if (index >= 0) activeIndex.value = index
-        }
-      })
-    },
-    { threshold: 0.5 }, // root 省略 = viewport 基準
-  )
-
-  sections.forEach((s) => {
-    const el = document.getElementById(s.id)
-    if (el) observer.observe(el)
-  })
-
-  onUnmounted(() => observer.disconnect())
-})
 
 function scrollToSection(index: number) {
   const id = sections[index]?.id
   const section = id ? document.getElementById(id) : null
   if (!section) return
 
-  // lenis が利用可能な場合は lenis の scrollTo でスムーズに移動
   const lenis = nuxtApp.$lenis
   if (lenis) {
     lenis.scrollTo(section, { duration: 1.2 })

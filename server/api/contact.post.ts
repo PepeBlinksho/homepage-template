@@ -1,17 +1,35 @@
 import { Resend } from 'resend'
 import { z } from 'zod'
-import { siteConfig } from '../../app/config/site'
+import { siteConfig, buildFullAddress } from '../../app/config/site'
 
 const schema = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-  tel: z.string().optional(),
-  message: z.string().min(1),
+  name: z.string().min(1).max(100),
+  email: z.string().email().max(254),
+  tel: z.string().max(20).optional(),
+  message: z.string().min(1).max(5000),
+  website: z.string().optional(), // ハニーポット：人間は空のまま送信する
 })
+
+// シンプルなインメモリレートリミッター（単一インスタンス前提）
+const rateLimitMap = new Map<string, { count: number; reset: number }>()
+const RATE_LIMIT = 5
+const RATE_WINDOW_MS = 10 * 60 * 1000 // 10分
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now()
+  const entry = rateLimitMap.get(ip)
+  if (!entry || now > entry.reset) {
+    rateLimitMap.set(ip, { count: 1, reset: now + RATE_WINDOW_MS })
+    return true
+  }
+  if (entry.count >= RATE_LIMIT) return false
+  entry.count++
+  return true
+}
 
 function buildHtml(data: { name: string; email: string; tel?: string; message: string }) {
   const { name, email, tel, message } = data
-  const escaped = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  const escaped = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
   const messageHtml = escaped(message).replace(/\n/g, '<br>')
 
   return `<!DOCTYPE html>
@@ -78,7 +96,7 @@ function buildHtml(data: { name: string; email: string; tel?: string; message: s
 }
 
 function buildAutoReplyHtml(name: string) {
-  const escaped = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  const escaped = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
   return `<!DOCTYPE html>
 <html lang="ja">
 <head><meta charset="UTF-8"></head>
@@ -107,7 +125,7 @@ function buildAutoReplyHtml(name: string) {
             </p>
             <div style="margin-top:32px;padding-top:24px;border-top:1px solid #f5f5f4;">
               <p style="margin:0;font-size:14px;color:#78716c;font-weight:600;">${escaped(siteConfig.name)}</p>
-              <p style="margin:4px 0 0;font-size:13px;color:#a8a29e;">${escaped(siteConfig.address.full)}</p>
+              <p style="margin:4px 0 0;font-size:13px;color:#a8a29e;">${escaped(buildFullAddress(siteConfig.address))}</p>
               <p style="margin:4px 0 0;font-size:13px;color:#a8a29e;">TEL: ${escaped(siteConfig.tel)}</p>
             </div>
           </td>
@@ -120,16 +138,28 @@ function buildAutoReplyHtml(name: string) {
 }
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event)
+  // レートリミット（10分間に5回まで）
+  const ip = getRequestIP(event, { xForwardedFor: true }) ?? 'unknown'
+  if (!checkRateLimit(ip)) {
+    throw createError({ statusCode: 429, statusMessage: 'しばらく時間をおいてから再度お試しください' })
+  }
 
+  const body = await readBody(event)
   const result = schema.safeParse(body)
+
   if (!result.success) {
     throw createError({ statusCode: 400, statusMessage: '入力内容が正しくありません' })
   }
 
-  const apiKey = process.env.RESEND_API_KEY
-  const toEmail = process.env.CONTACT_EMAIL
-  const fromEmail = process.env.CONTACT_FROM_EMAIL || 'noreply@resend.dev'
+  // ハニーポット：ボットが website フィールドを埋めた場合は無言で成功を返す
+  if (result.data.website) {
+    return { success: true }
+  }
+
+  const { resendApiKey, contactEmail, contactFromEmail } = useRuntimeConfig()
+  const apiKey = resendApiKey as string
+  const toEmail = contactEmail as string
+  const fromEmail = (contactFromEmail as string) || 'noreply@resend.dev'
 
   if (!apiKey || !toEmail) {
     console.error('[contact] 環境変数 RESEND_API_KEY または CONTACT_EMAIL が未設定です')

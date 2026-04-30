@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { siteConfig } from '~/config/site'
+import { siteConfig, buildFullAddress } from '~/config/site'
 
 const { el, revealed } = useReveal()
-const googleMapsUrl = `https://maps.google.com/maps?q=${encodeURIComponent(siteConfig.address.full)}`
+const googleMapsUrl = `https://maps.google.com/maps?q=${encodeURIComponent(buildFullAddress(siteConfig.address))}`
 </script>
 
 <template>
@@ -76,7 +76,7 @@ const googleMapsUrl = `https://maps.google.com/maps?q=${encodeURIComponent(siteC
             <address class="not-italic text-stone-800 space-y-1 text-sm">
               <p class="text-stone-400">〒{{ siteConfig.address.zip }}</p>
               <p class="text-base font-medium">
-                {{ siteConfig.address.full }}
+                {{ buildFullAddress(siteConfig.address) }}
               </p>
               <p
                 v-if="siteConfig.address.building"
@@ -139,6 +139,7 @@ const googleMapsUrl = `https://maps.google.com/maps?q=${encodeURIComponent(siteC
             class="w-full h-full border-0"
             loading="lazy"
             allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
             :title="`${siteConfig.name}の地図`"
           />
         </div>

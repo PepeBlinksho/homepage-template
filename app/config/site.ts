@@ -34,7 +34,6 @@ export const siteConfig = {
     city: '小松市',
     street: '○○町0-0',
     building: '',
-    full: '石川県小松市○○町0-0',
   },
   tel: '000-000-0000',
   email: 'info@example.com',
@@ -74,41 +73,52 @@ export const siteConfig = {
   news: [
     {
       id: '1',
-      date: '2025-04-01',
+      date: '2026-04-01',
       category: 'お知らせ',
       title: 'ゴールデンウィークの営業について',
       body: 'ゴールデンウィーク期間中（4/29〜5/6）は通常通り営業いたします。皆様のご来店をお待ちしております。',
     },
     {
       id: '2',
-      date: '2025-03-15',
+      date: '2026-03-15',
       category: '新メニュー',
       title: '春の新メニューが登場しました',
       body: '春の食材をふんだんに使った新メニューをご用意しました。ぜひお試しください。',
     },
     {
       id: '3',
-      date: '2025-03-01',
+      date: '2026-03-01',
       category: 'お知らせ',
       title: 'Instagram開設しました',
       body: '公式Instagramを開設しました。日々の情報を発信していきますのでフォローよろしくお願いいたします。',
     },
   ],
 
-  // 画像（空文字でグラデーションにフォールバック）
+  // 画像（空文字・空配列でプレースホルダーにフォールバック）
   images: {
     hero: '',
+    // ギャラリー画像（最大6枚推奨。空配列の場合はプレースホルダーを表示）
+    // 例: ['/images/gallery-1.jpg', '/images/gallery-2.jpg', ...]
+    gallery: [] as string[],
   },
 
   // SEO
   seo: {
     title: '店舗名 | 石川県小松市のカフェ',
     description: 'メタディスクリプションをここに入力してください。',
-    ogImage: '/images/og.jpg',
+    // OG画像: public/images/og.png を実際の店舗写真（1200×630px JPG/PNG）に差し替えてください
+    ogImage: '/images/og.png',
     // デプロイ先URL（末尾スラッシュなし）
     // 環境変数 NUXT_PUBLIC_SITE_URL を設定すると自動的にそちらが優先されます
     siteUrl: 'https://example.com',
   },
+
+  // Google Analytics 4 測定ID（空文字で無効）
+  // 例: 'G-XXXXXXXXXX'
+  gaId: '',
+
+  // プライバシーポリシー制定日（YYYY年MM月DD日 形式）
+  privacyPolicyDate: '2026年4月28日',
 
   // 構造化データ（Google検索のリッチリザルト用）
   // https://schema.org/LocalBusiness のサブタイプを指定
@@ -124,6 +134,11 @@ export const siteConfig = {
       'Sa Su 10:00-22:00',
     ],
   },
+}
+
+/** 住所オブジェクトから表示用の完全な住所文字列を生成する */
+export function buildFullAddress(address: SiteConfig['address']): string {
+  return address.prefecture + address.city + address.street + (address.building ?? '')
 }
 
 // 型定義

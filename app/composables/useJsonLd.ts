@@ -2,7 +2,7 @@ import { siteConfig } from '~/config/site'
 
 /** トップページ用 LocalBusiness 構造化データ */
 export function useJsonLd() {
-  const siteUrl = useRuntimeConfig().public.siteUrl as string
+  const { public: { siteUrl } } = useRuntimeConfig()
 
   const snsUrls = Object.values(siteConfig.sns).filter(url => url !== '')
 
@@ -30,7 +30,6 @@ export function useJsonLd() {
     ...(snsUrls.length > 0 && { sameAs: snsUrls }),
   }
 
-  // image が undefined の場合はキーごと除去
   if (!schema.image) delete schema.image
 
   useHead({
@@ -50,7 +49,7 @@ export function useArticleJsonLd(article: {
   date: string
   id: string
 }) {
-  const siteUrl = useRuntimeConfig().public.siteUrl as string
+  const { public: { siteUrl } } = useRuntimeConfig()
 
   const schema = {
     '@context': 'https://schema.org',

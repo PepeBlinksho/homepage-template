@@ -44,9 +44,9 @@ function formatDate(dateStr: string): string {
         <p class="text-xs tracking-[0.5em] uppercase text-amber-400 mb-3">
           News
         </p>
-        <h1 class="font-serif text-5xl md:text-6xl font-semibold text-white">
+        <p class="font-serif text-5xl md:text-6xl font-semibold text-white">
           お知らせ
-        </h1>
+        </p>
         <div class="w-12 h-0.5 bg-amber-500 mt-4" />
       </div>
     </div>
@@ -77,9 +77,9 @@ function formatDate(dateStr: string): string {
         </div>
 
         <!-- タイトル -->
-        <h2 class="font-serif text-2xl md:text-3xl font-semibold text-stone-900 mb-10 leading-snug">
+        <h1 class="font-serif text-2xl md:text-3xl font-semibold text-stone-900 mb-10 leading-snug">
           {{ article.title }}
-        </h2>
+        </h1>
 
         <!-- 区切り線 -->
         <div class="w-full h-px bg-gradient-to-r from-amber-400 to-transparent mb-10" />

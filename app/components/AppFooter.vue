@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { siteConfig } from '~/config/site'
+import { siteConfig, buildFullAddress } from '~/config/site'
 
 type SnsLink = {
   key: string
@@ -41,7 +41,7 @@ const currentYear = new Date().getFullYear()
           </h4>
           <address class="not-italic text-sm space-y-1 text-stone-400">
             <p>〒{{ siteConfig.address.zip }}</p>
-            <p>{{ siteConfig.address.full }}</p>
+            <p>{{ buildFullAddress(siteConfig.address) }}</p>
             <p>
               TEL:
               <a
@@ -97,9 +97,15 @@ const currentYear = new Date().getFullYear()
         </a>
       </div>
 
-      <!-- コピーライト -->
-      <div class="border-t border-stone-700 pt-6 text-center text-sm text-stone-500">
+      <!-- コピーライト・プライバシーポリシー -->
+      <div class="border-t border-stone-700 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-stone-500">
         <p>© {{ currentYear }} {{ siteConfig.name }}. All rights reserved.</p>
+        <NuxtLink
+          to="/privacy"
+          class="hover:text-white transition-colors"
+        >
+          プライバシーポリシー
+        </NuxtLink>
       </div>
     </div>
   </footer>

@@ -5,30 +5,37 @@ const mounted = ref(false)
 const imageError = ref(false)
 const heroRef = ref<HTMLElement | null>(null)
 const heroImage = siteConfig.images.hero
+
+// 共有スクロール + ヒーローの可視判定で will-change を制御
+const { scrollY } = useSharedScroll()
+const isVisible = ref(true)
 const bgY = ref(0)
+let io: IntersectionObserver | null = null
+
+watch(scrollY, (y) => {
+  if (isVisible.value) bgY.value = -y * 0.35
+})
 
 // 店名を文字単位で分割
 const nameChars = computed(() => siteConfig.name.split(''))
 // CTA が現れ始めるディレイ（文字アニメーション完了後）
 const ctaDelay = computed(() => 400 + nameChars.value.length * 45 + 200)
 
-let scrollHandler: () => void
-
 onMounted(() => {
   mounted.value = true
 
-  scrollHandler = () => {
-    if (!heroRef.value) return
-    const rect = heroRef.value.getBoundingClientRect()
-    if (rect.bottom > 0) {
-      bgY.value = -window.scrollY * 0.35
-    }
+  if (heroRef.value) {
+    io = new IntersectionObserver(
+      (entries) => { isVisible.value = entries[0]?.isIntersecting ?? true },
+      { threshold: 0 },
+    )
+    io.observe(heroRef.value)
   }
-  window.addEventListener('scroll', scrollHandler, { passive: true })
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', scrollHandler)
+  io?.disconnect()
+  io = null
 })
 </script>
 
@@ -37,9 +44,10 @@ onUnmounted(() => {
     ref="heroRef"
     class="relative h-screen flex items-center justify-center overflow-hidden"
   >
-    <!-- パーallax背景コンテナ -->
+    <!-- パーallax背景コンテナ（表示中のみ will-change を有効化） -->
     <div
-      class="absolute inset-0 will-change-transform"
+      class="absolute inset-0"
+      :class="isVisible ? 'will-change-transform' : ''"
       :style="{ transform: `translateY(${bgY}px) scale(1.15)` }"
     >
       <!-- グラデーションフォールバック -->
@@ -53,6 +61,8 @@ onUnmounted(() => {
         class="absolute inset-0 w-full h-full object-cover"
         format="webp"
         quality="80"
+        fetchpriority="high"
+        preload
         @error="imageError = true"
       />
     </div>
