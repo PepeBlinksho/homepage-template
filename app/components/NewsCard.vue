@@ -6,6 +6,8 @@ defineProps<{
   index?: number
 }>()
 
+const prefix = useRoutePrefix()
+
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr)
   return date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })
@@ -14,7 +16,7 @@ function formatDate(dateStr: string): string {
 
 <template>
   <NuxtLink
-    :to="`/news/${item.id}`"
+    :to="`${prefix}/news/${item.id}`"
     class="group block"
   >
     <article

@@ -26,6 +26,26 @@ export default defineNuxtConfig({
     '/privacy': { prerender: true },
     '/news/**': { prerender: true },
 
+    // デモルート（フォーク時に削除）
+    '/shop/cafe': { prerender: true },
+    '/shop/cafe/menu': { prerender: true },
+    '/shop/cafe/news': { prerender: true },
+    '/shop/cafe/contact': { prerender: true },
+    '/shop/cafe/privacy': { prerender: true },
+    '/shop/cafe/news/**': { prerender: true },
+    '/shop/restaurant': { prerender: true },
+    '/shop/restaurant/menu': { prerender: true },
+    '/shop/restaurant/news': { prerender: true },
+    '/shop/restaurant/contact': { prerender: true },
+    '/shop/restaurant/privacy': { prerender: true },
+    '/shop/restaurant/news/**': { prerender: true },
+    '/beauty/hair': { prerender: true },
+    '/beauty/hair/menu': { prerender: true },
+    '/beauty/hair/news': { prerender: true },
+    '/beauty/hair/contact': { prerender: true },
+    '/beauty/hair/privacy': { prerender: true },
+    '/beauty/hair/news/**': { prerender: true },
+
     // ビルド済み静的アセット（コンテンツハッシュ付き）：永久キャッシュ
     '/_nuxt/**': {
       headers: { 'cache-control': 'public, max-age=31536000, immutable' },

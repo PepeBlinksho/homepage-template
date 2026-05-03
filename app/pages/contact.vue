@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
-import { siteConfig, buildFullAddress } from '~/config/site'
+import { buildFullAddress } from '~/config/site'
+
+const siteConfig = useShopConfig()
+const prefix = useRoutePrefix()
 
 useSeoMeta({
-  title: `お問い合わせ | ${siteConfig.name}`,
-  description: `${siteConfig.name}へのお問い合わせはこちらからどうぞ。`,
-  ogTitle: `お問い合わせ | ${siteConfig.name}`,
-  ogDescription: `${siteConfig.name}へのお問い合わせはこちらからどうぞ。`,
-  ogImage: siteConfig.seo.ogImage,
+  title: `お問い合わせ | ${siteConfig.value.name}`,
+  description: `${siteConfig.value.name}へのお問い合わせはこちらからどうぞ。`,
+  ogTitle: `お問い合わせ | ${siteConfig.value.name}`,
+  ogDescription: `${siteConfig.value.name}へのお問い合わせはこちらからどうぞ。`,
+  ogImage: siteConfig.value.seo.ogImage,
   ogType: 'website',
 })
 useCanonical()
@@ -92,7 +95,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
           内容を確認のうえ、ご連絡いたします。
         </p>
         <UButton
-          to="/"
+          :to="prefix || '/'"
           color="primary"
           size="lg"
         >

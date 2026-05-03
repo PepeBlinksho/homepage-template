@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { siteConfig, buildFullAddress } from '~/config/site'
+import { buildFullAddress } from '~/config/site'
+
+const siteConfig = useShopConfig()
+const prefix = useRoutePrefix()
 
 type SnsLink = {
   key: string
@@ -10,10 +13,10 @@ type SnsLink = {
 
 const snsLinks = computed<SnsLink[]>(() =>
   [
-    { key: 'instagram', url: siteConfig.sns.instagram, icon: 'i-simple-icons-instagram', label: 'Instagram' },
-    { key: 'twitter', url: siteConfig.sns.twitter, icon: 'i-simple-icons-x', label: 'X (Twitter)' },
-    { key: 'facebook', url: siteConfig.sns.facebook, icon: 'i-simple-icons-facebook', label: 'Facebook' },
-    { key: 'line', url: siteConfig.sns.line, icon: 'i-simple-icons-line', label: 'LINE' },
+    { key: 'instagram', url: siteConfig.value.sns.instagram, icon: 'i-simple-icons-instagram', label: 'Instagram' },
+    { key: 'twitter', url: siteConfig.value.sns.twitter, icon: 'i-simple-icons-x', label: 'X (Twitter)' },
+    { key: 'facebook', url: siteConfig.value.sns.facebook, icon: 'i-simple-icons-facebook', label: 'Facebook' },
+    { key: 'line', url: siteConfig.value.sns.line, icon: 'i-simple-icons-line', label: 'LINE' },
   ].filter(s => s.url !== ''),
 )
 
@@ -101,7 +104,7 @@ const currentYear = new Date().getFullYear()
       <div class="border-t border-stone-700 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-stone-500">
         <p>© {{ currentYear }} {{ siteConfig.name }}. All rights reserved.</p>
         <NuxtLink
-          to="/privacy"
+          :to="`${prefix}/privacy`"
           class="hover:text-white transition-colors"
         >
           プライバシーポリシー

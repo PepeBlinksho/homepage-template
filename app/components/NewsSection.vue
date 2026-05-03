@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { siteConfig } from '~/config/site'
+const siteConfig = useShopConfig()
+const prefix = useRoutePrefix()
 
 const { el, revealed } = useReveal()
-const latestNews = computed(() => siteConfig.news.slice(0, 3))
+const latestNews = computed(() => siteConfig.value.news.slice(0, 3))
 </script>
 
 <template>
@@ -29,7 +30,7 @@ const latestNews = computed(() => siteConfig.news.slice(0, 3))
           style="transition-delay: 200ms"
         >
           <UButton
-            to="/news"
+            :to="`${prefix}/news`"
             variant="ghost"
             color="neutral"
             trailing-icon="i-heroicons-arrow-right"

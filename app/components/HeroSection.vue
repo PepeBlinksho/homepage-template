@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { siteConfig } from '~/config/site'
+const siteConfig = useShopConfig()
+const prefix = useRoutePrefix()
 
 const mounted = ref(false)
 const imageError = ref(false)
 const heroRef = ref<HTMLElement | null>(null)
-const heroImage = siteConfig.images.hero
+const heroImage = computed(() => siteConfig.value.images.hero)
 
 // 共有スクロール + ヒーローの可視判定で will-change を制御
 const { scrollY } = useSharedScroll()
@@ -17,7 +18,7 @@ watch(scrollY, (y) => {
 })
 
 // 店名を文字単位で分割
-const nameChars = computed(() => siteConfig.name.split(''))
+const nameChars = computed(() => siteConfig.value.name.split(''))
 // CTA が現れ始めるディレイ（文字アニメーション完了後）
 const ctaDelay = computed(() => 400 + nameChars.value.length * 45 + 200)
 
@@ -56,7 +57,7 @@ onUnmounted(() => {
       <!-- ヒーロー画像（site.ts の images.hero に画像パスを設定） -->
       <NuxtImg
         v-if="heroImage && !imageError"
-        :src="heroImage"
+        :src="heroImage!"
         alt="ヒーロー画像"
         class="absolute inset-0 w-full h-full object-cover"
         format="webp"
@@ -129,7 +130,7 @@ onUnmounted(() => {
         :style="{ transitionDelay: `${ctaDelay}ms` }"
       >
         <UButton
-          to="/menu"
+          :to="`${prefix}/menu`"
           size="xl"
           color="primary"
           class="font-medium"
@@ -150,7 +151,7 @@ onUnmounted(() => {
           ご予約はこちら
         </UButton>
         <UButton
-          to="/#access"
+          :to="`${prefix}/#access`"
           size="xl"
           variant="outline"
           class="border-white/50 text-white hover:bg-white/10 hover:border-white transition-all"

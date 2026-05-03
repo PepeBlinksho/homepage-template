@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { siteConfig, buildFullAddress } from '~/config/site'
+import { buildFullAddress } from '~/config/site'
+
+const siteConfig = useShopConfig()
 
 useSeoMeta({
-  title: `プライバシーポリシー | ${siteConfig.name}`,
-  description: `${siteConfig.name}のプライバシーポリシーです。`,
-  ogTitle: `プライバシーポリシー | ${siteConfig.name}`,
-  ogDescription: `${siteConfig.name}のプライバシーポリシーです。`,
-  ogImage: siteConfig.seo.ogImage,
+  title: `プライバシーポリシー | ${siteConfig.value.name}`,
+  description: `${siteConfig.value.name}のプライバシーポリシーです。`,
+  ogTitle: `プライバシーポリシー | ${siteConfig.value.name}`,
+  ogDescription: `${siteConfig.value.name}のプライバシーポリシーです。`,
+  ogImage: siteConfig.value.seo.ogImage,
   ogType: 'website',
 })
 useCanonical()

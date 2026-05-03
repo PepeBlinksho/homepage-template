@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { siteConfig } from '~/config/site'
+const siteConfig = useShopConfig()
 
 const { el, revealed } = useReveal()
 
-const images = computed(() => siteConfig.images.gallery)
+const images = computed(() => siteConfig.value.images.gallery)
 const hasImages = computed(() => images.value.length > 0)
 
 const placeholderCount = 6

@@ -1,30 +1,38 @@
 <script setup lang="ts">
-import { siteConfig } from '~/config/site'
+const siteConfig = useShopConfig()
+const prefix = useRoutePrefix()
 
 const { scrollY } = useSharedScroll()
 const isMenuOpen = ref(false)
 const route = useRoute()
 
-const isHomePage = computed(() => route.path === '/')
+const isHomePage = computed(() => {
+  const base = prefix.value || '/'
+  return route.path === base
+})
 const isScrolled = computed(() => scrollY.value > 80)
 const hasBackground = computed(() => !isHomePage.value || isScrolled.value)
 
-const navLinks = [
-  { label: 'トップ', to: '/' },
-  { label: 'メニュー', to: '/menu' },
-  { label: 'アクセス', to: '/#access' },
-  { label: 'お知らせ', to: '/news' },
-  { label: 'お問い合わせ', to: '/contact' },
-]
+const navLinks = computed(() => {
+  const p = prefix.value
+  return [
+    { label: 'トップ', to: p || '/' },
+    { label: 'メニュー', to: `${p}/menu` },
+    { label: 'アクセス', to: `${p}/#access` },
+    { label: 'お知らせ', to: `${p}/news` },
+    { label: 'お問い合わせ', to: `${p}/contact` },
+  ]
+})
 
 watch(() => route.fullPath, () => {
   isMenuOpen.value = false
 })
 
 function isActive(link: { to: string }): boolean {
-  if (link.to === '/') return route.path === '/'
-  const basePath = link.to.split('#')[0] ?? '/'
-  return basePath !== '/' && route.path.startsWith(basePath)
+  const base = prefix.value || '/'
+  if (link.to === base) return route.path === base
+  const basePath = link.to.split('#')[0] ?? base
+  return basePath !== base && route.path.startsWith(basePath)
 }
 </script>
 
@@ -38,7 +46,7 @@ function isActive(link: { to: string }): boolean {
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <!-- ロゴ -->
       <NuxtLink
-        to="/"
+        :to="prefix || '/'"
         class="font-serif text-lg font-semibold tracking-wide transition-colors duration-300"
         :class="hasBackground ? 'text-stone-900' : 'text-white'"
       >

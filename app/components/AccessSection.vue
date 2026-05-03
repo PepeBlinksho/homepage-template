@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { siteConfig, buildFullAddress } from '~/config/site'
+import { buildFullAddress } from '~/config/site'
+
+const siteConfig = useShopConfig()
 
 const { el, revealed } = useReveal()
-const googleMapsUrl = `https://maps.google.com/maps?q=${encodeURIComponent(buildFullAddress(siteConfig.address))}`
+const googleMapsUrl = computed(() =>
+  `https://maps.google.com/maps?q=${encodeURIComponent(buildFullAddress(siteConfig.value.address))}`,
+)
 </script>
 
 <template>

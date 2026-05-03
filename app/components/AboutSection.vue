@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { siteConfig } from '~/config/site'
+const siteConfig = useShopConfig()
+const prefix = useRoutePrefix()
 
 const { el, revealed } = useReveal()
 
@@ -92,7 +93,7 @@ const cardStyles = [
             "{{ siteConfig.catchcopy }}"
           </p>
           <UButton
-            to="/menu"
+            :to="`${prefix}/menu`"
             variant="outline"
             class="border-white/60 text-white hover:bg-white/15 self-start"
           >

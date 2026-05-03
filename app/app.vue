@@ -2,8 +2,12 @@
 import { siteConfig } from '~/config/site'
 
 const route = useRoute()
-// トップページはスナップスクロールのため AppFooter を非表示
-const showFooter = computed(() => route.path !== '/')
+const _prefix = useRoutePrefix()
+// トップ・デモindexページはスナップスクロールのため AppFooter を非表示
+const showFooter = computed(() => {
+  const base = _prefix.value || '/'
+  return route.path !== base
+})
 
 useHead({
   meta: [

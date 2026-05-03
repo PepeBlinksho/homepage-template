@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { siteConfig } from '~/config/site'
+const siteConfig = useShopConfig()
+const prefix = useRoutePrefix()
 
 const props = defineProps<{
   snap?: boolean
@@ -10,8 +11,8 @@ const { el, revealed } = useReveal()
 // スナップモードは最初のカテゴリのみ表示
 const previewMenus = computed(() =>
   props.snap
-    ? siteConfig.menus.slice(0, 1).map(menu => ({ ...menu, items: menu.items.slice(0, 3) }))
-    : siteConfig.menus.map(menu => ({ ...menu, items: menu.items.slice(0, 3) })),
+    ? siteConfig.value.menus.slice(0, 1).map(menu => ({ ...menu, items: menu.items.slice(0, 3) }))
+    : siteConfig.value.menus.map(menu => ({ ...menu, items: menu.items.slice(0, 3) })),
 )
 </script>
 
@@ -95,7 +96,7 @@ const previewMenus = computed(() =>
         :style="{ transitionDelay: '400ms' }"
       >
         <UButton
-          to="/menu"
+          :to="`${prefix}/menu`"
           size="lg"
           variant="outline"
           color="primary"
