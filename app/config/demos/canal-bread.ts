@@ -86,8 +86,12 @@ export const canalBreadConfig: SiteConfig = {
     },
   ],
   images: {
-    hero: '',
-    gallery: [] as string[],
+    hero: '/images/canal-bread-hero.jpeg',
+    gallery: [
+      '/images/canal-bread-1.jpeg',
+      '/images/canal-bread-2.jpeg',
+      '/images/canal-bread-3.jpeg',
+    ],
   },
   seo: {
     title: 'Canal Bread | 石川県小松市の天然酵母ベーカリー',

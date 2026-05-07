@@ -84,8 +84,12 @@ export const tsugiConfig: SiteConfig = {
     },
   ],
   images: {
-    hero: '',
-    gallery: [] as string[],
+    hero: '/images/tsugi-hero.jpeg',
+    gallery: [
+      '/images/tsugi-1.jpeg',
+      '/images/tsugi-2.jpeg',
+      '/images/tsugi-3.jpeg',
+    ],
   },
   seo: {
     title: 'tsugi | 石川県小松市・八幡のカフェ',
