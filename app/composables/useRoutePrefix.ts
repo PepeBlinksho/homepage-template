@@ -2,7 +2,7 @@ export function useRoutePrefix() {
   const route = useRoute()
   return computed(() => {
     const segments = route.path.split('/').filter(Boolean)
-    if (segments.length >= 2 && (segments[0] === 'shop' || segments[0] === 'beauty' || segments[0] === 'demo')) {
+    if (segments.length >= 2 && (segments[0] === 'shop' || segments[0] === 'beauty' || segments[0] === 'demo' || segments[0] === 'corp')) {
       return `/${segments[0]}/${segments[1]}`
     }
     return ''
