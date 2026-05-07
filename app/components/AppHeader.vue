@@ -31,8 +31,8 @@ watch(() => route.fullPath, () => {
 function isActive(link: { to: string }): boolean {
   const base = prefix.value || '/'
   if (link.to === base) return route.path === base
-  const basePath = link.to.split('#')[0] ?? base
-  return basePath !== base && route.path.startsWith(basePath)
+  if (link.to.includes('#')) return false
+  return route.path.startsWith(link.to)
 }
 </script>
 
