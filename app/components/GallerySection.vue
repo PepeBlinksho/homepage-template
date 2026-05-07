@@ -10,11 +10,11 @@ const placeholderCount = 6
 </script>
 
 <template>
-  <section class="h-full bg-stone-900 flex flex-col justify-center py-20 px-4 sm:px-6 overflow-hidden">
+  <section class="h-full bg-stone-900 flex flex-col justify-center pt-20 pb-8 px-4 sm:px-6 overflow-hidden">
     <div class="max-w-6xl mx-auto w-full">
       <!-- ヘッダー -->
       <div
-        class="transition-all duration-700"
+        class="mb-4 transition-all duration-700"
         :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
       >
         <SectionHeader
@@ -34,7 +34,7 @@ const placeholderCount = 6
           <div
             v-for="(src, i) in images.slice(0, 6)"
             :key="src"
-            class="relative aspect-square overflow-hidden rounded-xl transition-all duration-700"
+            class="relative aspect-[2/1] overflow-hidden rounded-xl transition-all duration-700"
             :class="[
               revealed ? 'opacity-100 scale-100' : 'opacity-0 scale-95',
               i === 0 ? 'md:col-span-2 md:row-span-2 md:aspect-auto' : '',
@@ -55,7 +55,7 @@ const placeholderCount = 6
           <div
             v-for="i in placeholderCount"
             :key="i"
-            class="relative aspect-square overflow-hidden rounded-xl transition-all duration-700"
+            class="relative aspect-[2/1] overflow-hidden rounded-xl transition-all duration-700"
             :class="[
               revealed ? 'opacity-100 scale-100' : 'opacity-0 scale-95',
               i === 1 ? 'md:col-span-2 md:row-span-2 md:aspect-auto' : '',
@@ -63,7 +63,7 @@ const placeholderCount = 6
             :style="{ transitionDelay: `${(i - 1) * 80}ms` }"
           >
             <div
-              class="w-full h-full flex flex-col items-center justify-center gap-2 min-h-[140px]"
+              class="w-full h-full flex flex-col items-center justify-center gap-2"
               :class="[
                 i % 3 === 1 ? 'bg-stone-800' : '',
                 i % 3 === 2 ? 'bg-stone-700' : '',
