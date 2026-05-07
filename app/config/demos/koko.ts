@@ -86,8 +86,12 @@ export const kokoConfig: SiteConfig = {
     },
   ],
   images: {
-    hero: '',
-    gallery: [] as string[],
+    hero: '/images/koko-hero.jpeg',
+    gallery: [
+      '/images/koko-1.jpeg',
+      '/images/koko-2.jpeg',
+      '/images/koko-3.jpeg',
+    ],
   },
   seo: {
     title: 'koko | 石川県小松市のカフェ＆セレクトショップ',
