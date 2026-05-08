@@ -1,3 +1,6 @@
+const safeJson = (obj: unknown): string =>
+  JSON.stringify(obj).replace(/</g, '\\u003C').replace(/>/g, '\\u003E')
+
 function buildPostalAddress(address: { zip: string; prefecture: string; city: string; street: string; building?: string }) {
   return {
     '@type': 'PostalAddress',
@@ -31,7 +34,7 @@ export function useJsonLd() {
       ...(cfg.value.seo.ogImage && { image: `${siteUrl}${cfg.value.seo.ogImage}` }),
       ...(snsUrls.length > 0 && { sameAs: snsUrls }),
     }
-    return JSON.stringify(s)
+    return safeJson(s)
   })
 
   useHead({
@@ -61,7 +64,7 @@ export function useCorpJsonLd() {
       ...(cfg.value.seo.ogImage && { image: `${siteUrl}${cfg.value.seo.ogImage}` }),
       ...(snsUrls.length > 0 && { sameAs: snsUrls }),
     }
-    return JSON.stringify(s)
+    return safeJson(s)
   })
 
   useHead({
@@ -98,6 +101,6 @@ export function useArticleJsonLd(article: {
   }))
 
   useHead({
-    script: [{ type: 'application/ld+json', innerHTML: computed(() => JSON.stringify(schema.value)), key: 'ld-json-article' }],
+    script: [{ type: 'application/ld+json', innerHTML: computed(() => safeJson(schema.value)), key: 'ld-json-article' }],
   })
 }

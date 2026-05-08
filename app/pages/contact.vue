@@ -5,7 +5,7 @@ import { buildFullAddress } from '~/config/site'
 
 const siteConfig = useShopConfig()
 const prefix = useRoutePrefix()
-const { token } = useContactToken()
+const { $csrfFetch } = useNuxtApp()
 
 useSeoMeta({
   title: `お問い合わせ | ${siteConfig.value.name}`,
@@ -45,9 +45,9 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   isSubmitting.value = true
   submitError.value = ''
   try {
-    await $fetch('/api/contact', {
+    await $csrfFetch('/api/contact', {
       method: 'POST',
-      body: { ...event.data, token: token.value },
+      body: event.data,
     })
     submitted.value = true
   }
@@ -257,7 +257,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             </div>
 
             <!-- ハニーポット（ボット検知用・人間には非表示） -->
-            <div aria-hidden="true" class="hidden" tabindex="-1">
+            <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" tabindex="-1">
               <input v-model="state.website" type="text" name="website" autocomplete="off">
             </div>
 
@@ -266,6 +266,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
               color="primary"
               size="lg"
               :loading="isSubmitting"
+              :disabled="isSubmitting"
               class="w-full justify-center"
             >
               送信する

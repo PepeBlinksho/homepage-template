@@ -2,7 +2,6 @@
 import { siteConfig } from '~/config/site'
 
 const route = useRoute()
-const _prefix = useRoutePrefix()
 
 const isCorpRoute = computed(() => route.path.startsWith('/corp/'))
 
@@ -13,7 +12,8 @@ const isDemoRoute = computed(() =>
 // トップ・デモindexページはスナップスクロールのため AppFooter を非表示
 const showFooter = computed(() => {
   if (isCorpRoute.value) return false
-  const base = _prefix.value || '/'
+  const prefix = useRoutePrefix()
+  const base = prefix.value || '/'
   return route.path !== base
 })
 

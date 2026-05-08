@@ -5,7 +5,7 @@ import { buildCorpAddress } from '~/config/corp'
 
 const cfg = useCorpConfig()
 const prefix = useRoutePrefix()
-const { token } = useContactToken()
+const { $csrfFetch } = useNuxtApp()
 
 useSeoMeta({
   title: `お問い合わせ | ${cfg.value.name}`,
@@ -44,7 +44,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   isSubmitting.value = true
   submitError.value = ''
   try {
-    await $fetch('/api/contact', { method: 'POST', body: { ...event.data, token: token.value } })
+    await $csrfFetch('/api/contact', { method: 'POST', body: event.data })
     submitted.value = true
   }
   catch {
@@ -168,7 +168,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
               <UIcon name="i-heroicons-exclamation-triangle" class="w-5 h-5 shrink-0 mt-0.5 text-red-500" />
               <p>{{ submitError }}</p>
             </div>
-            <div aria-hidden="true" class="hidden" tabindex="-1">
+            <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" tabindex="-1">
               <input v-model="state.website" type="text" name="website" autocomplete="off">
             </div>
             <button

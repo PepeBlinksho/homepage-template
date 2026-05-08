@@ -18,6 +18,10 @@ export function useCookieConsent() {
 
   function deny() {
     consent.value = 'denied'
+    if (import.meta.client && 'gtag' in window) {
+      (window as Window & { gtag: (...args: unknown[]) => void })
+        .gtag('consent', 'update', { analytics_storage: 'denied' })
+    }
   }
 
   return { hasDecided, isGranted, grant, deny }

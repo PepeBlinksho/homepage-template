@@ -6,14 +6,17 @@ const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || siteConfig.seo.siteUrl
 const hasMicroCms = !!process.env.NUXT_MICROCMS_API_KEY
 
 function buildDemoRouteRules() {
-  const rules: Record<string, { prerender: true }> = {}
+  const rules: Record<string, object> = {}
   for (const demo of demoRegistry) {
     for (const sub of DEMO_SUB_ROUTES) {
+      // /contact は nuxt-csurf の CSRF cookie 設定に SSR が必要なためプリレンダリング除外
+      if (sub === '/contact') continue
       rules[`/${demo.slug}${sub}`] = { prerender: true }
     }
   }
   for (const corp of corpRegistry) {
     for (const sub of CORP_SUB_ROUTES) {
+      if (sub === '/contact') continue
       rules[`/${corp.slug}${sub}`] = { prerender: true }
     }
   }
@@ -23,6 +26,7 @@ function buildDemoRouteRules() {
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
+    'nuxt-csurf',
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxt/image',
@@ -35,18 +39,38 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  // CSRF 保護（nuxt-csurf）
+  // encryptSecret: Vercel のサーバーレス環境でトークンを安定して復号するために必要
+  // 環境変数 NUXT_CSRF_SECRET（32文字以上推奨）を設定すること
+  csurf: {
+    encryptSecret: process.env.NUXT_CSRF_SECRET,
+    cookie: {
+      sameSite: 'lax',
+    },
+    methodsToProtect: ['POST', 'PUT', 'PATCH'],
+  },
+
   routeRules: {
+    // セキュリティヘッダー（全ルート共通）
+    '/**': {
+      headers: {
+        'x-content-type-options': 'nosniff',
+        'x-frame-options': 'DENY',
+        'referrer-policy': 'strict-origin-when-cross-origin',
+        'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+      },
+    },
+
     // デモ・テンプレートルートはインデックス対象外
     '/shop/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/demo/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/beauty/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/corp/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
 
-    // ページ：プリレンダリング
+    // ページ：プリレンダリング（/contact は SSR 必須のため除外）
     '/': { prerender: true },
     '/menu': { prerender: true },
     '/news': { prerender: true },
-    '/contact': { prerender: true },
     '/privacy': { prerender: true },
     '/news/**': { prerender: true },
 
@@ -59,21 +83,19 @@ export default defineNuxtConfig({
     },
 
     // public/images/ のオリジナル画像：1年キャッシュ
-    // ファイル名を変えずに差し替えるケースを考慮し immutable は付けない
     '/images/**': {
       headers: {
         'cache-control': 'public, max-age=31536000, stale-while-revalidate=86400',
       },
     },
 
-    // @nuxt/image が生成する最適化済み画像（/_ipx/）：CDN でも1年保持
+    // @nuxt/image が生成する最適化済み画像（/_ipx/）
     '/_ipx/**': {
       headers: {
         'cache-control': 'public, max-age=31536000, s-maxage=31536000, stale-while-revalidate=86400',
       },
     },
 
-    // favicon・robots.txt など静的ファイル：1週間（ブランド変更に追従しやすくする）
     '/favicon.*': {
       headers: { 'cache-control': 'public, max-age=604800' },
     },
@@ -84,13 +106,10 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-01-15',
 
-  // サイトURL（sitemap / canonical に使用）
   site: {
     url: siteUrl,
   },
 
-  // サイトマップ設定
-  // microCMS が設定済みの場合は /api/sitemap-news から動的に記事URLを追加
   sitemap: {
     ...(hasMicroCms ? { sources: ['/api/sitemap-news'] } : {}),
     urls: [
@@ -98,7 +117,6 @@ export default defineNuxtConfig({
       { loc: '/menu', priority: 0.8, changefreq: 'monthly' },
       { loc: '/news', priority: 0.8, changefreq: 'weekly' },
       { loc: '/contact', priority: 0.7, changefreq: 'yearly' },
-      // microCMS が設定済みの場合は動的取得するため静的フォールバックは含めない
       ...(hasMicroCms ? [] : siteConfig.news.map(n => ({
         loc: `/news/${n.id}`,
         priority: 0.6 as 0.6,
@@ -107,27 +125,18 @@ export default defineNuxtConfig({
     ],
   },
 
-  // ランタイム設定（composable からアクセス可能）
   runtimeConfig: {
-    // サーバーサイドのみ（環境変数で上書き可能: NUXT_RESEND_API_KEY など）
     resendApiKey: '',
     contactEmail: '',
     contactFromEmail: '',
-    // CSRFトークン署名用シークレット（環境変数: NUXT_CONTACT_SECRET）
-    contactSecret: '',
-    // microCMS APIキー（サーバーサイドのみ。環境変数: NUXT_MICROCMS_API_KEY）
     microcmsApiKey: '',
     public: {
       siteUrl,
-      // Google Analytics 測定ID（環境変数 NUXT_PUBLIC_GA_ID で上書き可能）
       gaId: process.env.NUXT_PUBLIC_GA_ID || '',
-      // microCMS サービスドメイン（環境変数: NUXT_PUBLIC_MICROCMS_SERVICE_DOMAIN）
-      // 例: your-service-name（.microcms.io より前の部分）
       microcmsServiceDomain: '',
     },
   },
 
-  // Google Fonts（@nuxt/fonts 経由で最適化配信）
   fonts: {
     families: [
       { name: 'Noto Serif JP', weights: [400, 500, 600, 700] },
@@ -135,7 +144,6 @@ export default defineNuxtConfig({
     ],
   },
 
-  // ページトランジション
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
