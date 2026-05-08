@@ -41,6 +41,9 @@ export const corpConfig = {
     line: '',
   },
 
+  // Google マップで対象地点を開き「共有」→「地図を埋め込む」→「HTMLをコピー」で
+  // 取得した <iframe src="..."> の src 属性値を貼り付けてください。
+  // 例: 'https://www.google.com/maps/embed?pb=!1m18!...'
   googleMapEmbed: 'https://maps.google.com/maps?q=石川県小松市&output=embed',
 
   news: [] as Array<{ id: string; date: string; category: string; title: string; body: string }>,

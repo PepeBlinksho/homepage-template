@@ -7,6 +7,10 @@ export default defineEventHandler((event) => {
 
   return `User-agent: *
 Allow: /
+Disallow: /demo/
+Disallow: /shop/
+Disallow: /beauty/
+Disallow: /corp/
 
 Sitemap: ${siteUrl}/sitemap.xml
 `

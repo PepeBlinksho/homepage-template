@@ -50,6 +50,14 @@ function move(src, dest) {
 
 const SHOP_NUXT_CONFIG = `import { siteConfig } from './app/config/site'
 
+if (process.env.NODE_ENV === 'production' && !process.env.NUXT_PUBLIC_SITE_URL) {
+  throw new Error(
+    '[homepage-template] NUXT_PUBLIC_SITE_URL が未設定です。'
+    + ' canonical URL・OGタグが example.com になるため本番ビルドには必須です。'
+    + ' Vercel の Environment Variables に設定してください。'
+  )
+}
+
 const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || siteConfig.seo.siteUrl
 const hasMicroCms = !!process.env.NUXT_MICROCMS_API_KEY
 
@@ -173,6 +181,14 @@ export default defineNuxtConfig({
 `
 
 const CORP_NUXT_CONFIG = `import { corpConfig } from './app/config/corp'
+
+if (process.env.NODE_ENV === 'production' && !process.env.NUXT_PUBLIC_SITE_URL) {
+  throw new Error(
+    '[homepage-template] NUXT_PUBLIC_SITE_URL が未設定です。'
+    + ' canonical URL・OGタグが example.com になるため本番ビルドには必須です。'
+    + ' Vercel の Environment Variables に設定してください。'
+  )
+}
 
 const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || corpConfig.seo.siteUrl
 

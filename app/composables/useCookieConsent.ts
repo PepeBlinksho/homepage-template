@@ -3,6 +3,7 @@ export function useCookieConsent() {
     default: () => null,
     maxAge: 60 * 60 * 24 * 365,
     sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
   })
 
   const hasDecided = computed(() => consent.value !== null)
