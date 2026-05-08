@@ -1,4 +1,4 @@
-import type { CorpConfig } from '~/config/corp'
+import type { CorpConfig } from '../corp'
 
 export const allPaintConfig: CorpConfig = {
   name: 'All paint',

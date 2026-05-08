@@ -1,6 +1,6 @@
 import { Resend } from 'resend'
 import { z } from 'zod'
-import { siteConfig, buildFullAddress } from '../../app/config/site'
+import { validateContactToken } from '../utils/contactToken'
 
 const schema = z.object({
   name: z.string().min(1).max(100),
@@ -8,19 +8,21 @@ const schema = z.object({
   tel: z.string().max(20).optional(),
   message: z.string().min(1).max(5000),
   website: z.string().optional(), // ハニーポット：人間は空のまま送信する
-  // 送信元テンプレートのショップ情報（自動返信メールのフッターに使用）
-  shopName: z.string().max(100).optional(),
-  shopTel: z.string().max(20).optional(),
-  shopAddress: z.string().max(200).optional(),
+  token: z.string().optional(), // CSRFトークン
 })
 
-// シンプルなインメモリレートリミッター（単一インスタンス前提）
+// インメモリレートリミッター（Vercel サーバーレスでは単一インスタンス前提のため補助的）
+// 本番で高トラフィックが想定される場合は Upstash Redis + @upstash/ratelimit に移行すること
 const rateLimitMap = new Map<string, { count: number; reset: number }>()
 const RATE_LIMIT = 5
-const RATE_WINDOW_MS = 10 * 60 * 1000 // 10分
+const RATE_WINDOW_MS = 10 * 60 * 1000
 
 function checkRateLimit(ip: string): boolean {
   const now = Date.now()
+  // 期限切れエントリを削除してメモリリークを防ぐ
+  for (const [key, entry] of rateLimitMap) {
+    if (now > entry.reset) rateLimitMap.delete(key)
+  }
   const entry = rateLimitMap.get(ip)
   if (!entry || now > entry.reset) {
     rateLimitMap.set(ip, { count: 1, reset: now + RATE_WINDOW_MS })
@@ -30,6 +32,7 @@ function checkRateLimit(ip: string): boolean {
   entry.count++
   return true
 }
+
 
 function buildHtml(data: { name: string; email: string; tel?: string; message: string }) {
   const { name, email, tel, message } = data
@@ -99,53 +102,8 @@ function buildHtml(data: { name: string; email: string; tel?: string; message: s
 </html>`
 }
 
-function buildAutoReplyHtml(name: string, shop?: { name?: string; tel?: string; address?: string }) {
-  const shopName = shop?.name || siteConfig.name
-  const shopTel = shop?.tel || siteConfig.tel
-  const shopAddress = shop?.address || buildFullAddress(siteConfig.address)
-  const escaped = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
-  return `<!DOCTYPE html>
-<html lang="ja">
-<head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#f5f5f4;font-family:'Helvetica Neue',Arial,'Hiragino Sans',sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="padding:32px 16px;">
-    <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
-        <tr>
-          <td style="background:#292524;padding:24px 32px;border-radius:12px 12px 0 0;">
-            <p style="margin:0;color:#f5f0eb;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;">Auto Reply</p>
-            <h1 style="margin:6px 0 0;color:#ffffff;font-size:20px;font-weight:600;">お問い合わせありがとうございます</h1>
-          </td>
-        </tr>
-        <tr>
-          <td style="background:#ffffff;padding:32px;border:1px solid #e7e5e4;border-top:none;border-radius:0 0 12px 12px;">
-            <p style="margin:0 0 16px;font-size:15px;color:#1c1917;line-height:1.8;">
-              ${escaped(name)} 様
-            </p>
-            <p style="margin:0 0 16px;font-size:14px;color:#44403c;line-height:1.8;">
-              この度はお問い合わせいただき、誠にありがとうございます。<br>
-              内容を確認のうえ、通常2〜3営業日以内にご返信いたします。
-            </p>
-            <p style="margin:0;font-size:14px;color:#44403c;line-height:1.8;">
-              なお、このメールは自動送信されています。<br>
-              このメールへの返信はお受けできませんのでご了承ください。
-            </p>
-            <div style="margin-top:32px;padding-top:24px;border-top:1px solid #f5f5f4;">
-              <p style="margin:0;font-size:14px;color:#78716c;font-weight:600;">${escaped(shopName)}</p>
-              <p style="margin:4px 0 0;font-size:13px;color:#a8a29e;">${escaped(shopAddress)}</p>
-              <p style="margin:4px 0 0;font-size:13px;color:#a8a29e;">TEL: ${escaped(shopTel)}</p>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </td></tr>
-  </table>
-</body>
-</html>`
-}
 
 export default defineEventHandler(async (event) => {
-  // レートリミット（10分間に5回まで）
   const ip = getRequestIP(event, { xForwardedFor: true }) ?? 'unknown'
   if (!checkRateLimit(ip)) {
     throw createError({ statusCode: 429, statusMessage: 'しばらく時間をおいてから再度お試しください' })
@@ -163,7 +121,12 @@ export default defineEventHandler(async (event) => {
     return { success: true }
   }
 
-  const { resendApiKey, contactEmail, contactFromEmail } = useRuntimeConfig()
+  // CSRFトークン検証（NUXT_CONTACT_SECRET 未設定の場合はスキップ）
+  const { resendApiKey, contactEmail, contactFromEmail, contactSecret } = useRuntimeConfig(event)
+  if (!validateContactToken(result.data.token ?? '', contactSecret as string)) {
+    throw createError({ statusCode: 403, statusMessage: '不正なリクエストです' })
+  }
+
   const apiKey = resendApiKey as string
   const toEmail = contactEmail as string
   const fromEmail = (contactFromEmail as string) || 'noreply@resend.dev'
@@ -173,30 +136,20 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 500, statusMessage: 'サーバーの設定が不完全です' })
   }
 
-  const { name, email, tel, message, shopName, shopTel, shopAddress } = result.data
-  const replyShopName = shopName || siteConfig.name
+  const { name, email, tel, message } = result.data
 
   const resend = new Resend(apiKey)
 
-  // 店舗への通知メールと送信者への自動返信を同時送信
-  const [notifyResult, replyResult] = await Promise.all([
-    resend.emails.send({
-      from: fromEmail,
-      to: toEmail,
-      replyTo: email,
-      subject: `【お問い合わせ】${name}様より`,
-      html: buildHtml({ name, email, tel, message }),
-    }),
-    resend.emails.send({
-      from: fromEmail,
-      to: email,
-      subject: `お問い合わせを受け付けました｜${replyShopName}`,
-      html: buildAutoReplyHtml(name, { name: shopName, tel: shopTel, address: shopAddress }),
-    }),
-  ])
+  const { error } = await resend.emails.send({
+    from: fromEmail,
+    to: toEmail,
+    replyTo: email,
+    subject: `【お問い合わせ】${name}様より`,
+    html: buildHtml({ name, email, tel, message }),
+  })
 
-  if (notifyResult.error || replyResult.error) {
-    console.error('[contact] Resend エラー:', notifyResult.error ?? replyResult.error)
+  if (error) {
+    console.error('[contact] Resend エラー:', error)
     throw createError({ statusCode: 500, statusMessage: 'メール送信に失敗しました' })
   }
 

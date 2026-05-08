@@ -1,9 +1,9 @@
 import { corpConfig, type CorpConfig } from '~/config/corp'
-import { allPaintConfig } from '~/config/corps/all-paint'
+import { corpRegistry } from '~/config/corpRegistry'
 
-const corpConfigs: Record<string, CorpConfig> = {
-  'corp/all-paint': allPaintConfig,
-}
+const corpConfigs: Record<string, CorpConfig> = Object.fromEntries(
+  corpRegistry.map(c => [c.slug, c.config])
+)
 
 export function useCorpConfig() {
   const route = useRoute()

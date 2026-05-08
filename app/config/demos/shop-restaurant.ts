@@ -1,4 +1,4 @@
-import type { SiteConfig } from '~/config/site'
+import type { SiteConfig } from '../site'
 
 export const shopRestaurantConfig: SiteConfig = {
   name: '結 yui',

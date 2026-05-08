@@ -1,6 +1,24 @@
 import { siteConfig } from './app/config/site'
+import { demoRegistry, DEMO_SUB_ROUTES } from './app/config/demoRegistry'
+import { corpRegistry, CORP_SUB_ROUTES } from './app/config/corpRegistry'
 
 const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || siteConfig.seo.siteUrl
+const hasMicroCms = !!process.env.NUXT_MICROCMS_API_KEY
+
+function buildDemoRouteRules() {
+  const rules: Record<string, { prerender: true }> = {}
+  for (const demo of demoRegistry) {
+    for (const sub of DEMO_SUB_ROUTES) {
+      rules[`/${demo.slug}${sub}`] = { prerender: true }
+    }
+  }
+  for (const corp of corpRegistry) {
+    for (const sub of CORP_SUB_ROUTES) {
+      rules[`/${corp.slug}${sub}`] = { prerender: true }
+    }
+  }
+  return rules
+}
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -32,62 +50,8 @@ export default defineNuxtConfig({
     '/privacy': { prerender: true },
     '/news/**': { prerender: true },
 
-    // デモルート（フォーク時に削除）
-    '/shop/cafe': { prerender: true },
-    '/shop/cafe/menu': { prerender: true },
-    '/shop/cafe/news': { prerender: true },
-    '/shop/cafe/contact': { prerender: true },
-    '/shop/cafe/privacy': { prerender: true },
-    '/shop/cafe/news/**': { prerender: true },
-    '/shop/restaurant': { prerender: true },
-    '/shop/restaurant/menu': { prerender: true },
-    '/shop/restaurant/news': { prerender: true },
-    '/shop/restaurant/contact': { prerender: true },
-    '/shop/restaurant/privacy': { prerender: true },
-    '/shop/restaurant/news/**': { prerender: true },
-    '/beauty/hair': { prerender: true },
-    '/beauty/hair/menu': { prerender: true },
-    '/beauty/hair/news': { prerender: true },
-    '/beauty/hair/contact': { prerender: true },
-    '/beauty/hair/privacy': { prerender: true },
-    '/beauty/hair/news/**': { prerender: true },
-
-    // 営業デモルート
-    '/demo/koko': { prerender: true },
-    '/demo/koko/menu': { prerender: true },
-    '/demo/koko/news': { prerender: true },
-    '/demo/koko/contact': { prerender: true },
-    '/demo/koko/privacy': { prerender: true },
-    '/demo/koko/news/**': { prerender: true },
-    '/demo/tsugi': { prerender: true },
-    '/demo/tsugi/menu': { prerender: true },
-    '/demo/tsugi/news': { prerender: true },
-    '/demo/tsugi/contact': { prerender: true },
-    '/demo/tsugi/privacy': { prerender: true },
-    '/demo/tsugi/news/**': { prerender: true },
-    '/demo/canal-bread': { prerender: true },
-    '/demo/canal-bread/menu': { prerender: true },
-    '/demo/canal-bread/news': { prerender: true },
-    '/demo/canal-bread/contact': { prerender: true },
-    '/demo/canal-bread/privacy': { prerender: true },
-    '/demo/canal-bread/news/**': { prerender: true },
-    '/demo/madoi': { prerender: true },
-    '/demo/madoi/menu': { prerender: true },
-    '/demo/madoi/news': { prerender: true },
-    '/demo/madoi/contact': { prerender: true },
-    '/demo/madoi/privacy': { prerender: true },
-    '/demo/madoi/news/**': { prerender: true },
-    '/demo/beb': { prerender: true },
-    '/demo/beb/menu': { prerender: true },
-    '/demo/beb/news': { prerender: true },
-    '/demo/beb/contact': { prerender: true },
-    '/demo/beb/privacy': { prerender: true },
-    '/demo/beb/news/**': { prerender: true },
-
-    // corp デモルート
-    '/corp/all-paint': { prerender: true },
-    '/corp/all-paint/contact': { prerender: true },
-    '/corp/all-paint/privacy': { prerender: true },
+    // デモ・corpルートは demoRegistry / corpRegistry から自動生成
+    ...buildDemoRouteRules(),
 
     // ビルド済み静的アセット（コンテンツハッシュ付き）：永久キャッシュ
     '/_nuxt/**': {
@@ -126,17 +90,20 @@ export default defineNuxtConfig({
   },
 
   // サイトマップ設定
+  // microCMS が設定済みの場合は /api/sitemap-news から動的に記事URLを追加
   sitemap: {
+    ...(hasMicroCms ? { sources: ['/api/sitemap-news'] } : {}),
     urls: [
       { loc: '/', priority: 1.0, changefreq: 'weekly' },
       { loc: '/menu', priority: 0.8, changefreq: 'monthly' },
       { loc: '/news', priority: 0.8, changefreq: 'weekly' },
       { loc: '/contact', priority: 0.7, changefreq: 'yearly' },
-      ...siteConfig.news.map(n => ({
+      // microCMS が設定済みの場合は動的取得するため静的フォールバックは含めない
+      ...(hasMicroCms ? [] : siteConfig.news.map(n => ({
         loc: `/news/${n.id}`,
         priority: 0.6 as 0.6,
         lastmod: n.date,
-      })),
+      }))),
     ],
   },
 
@@ -146,6 +113,8 @@ export default defineNuxtConfig({
     resendApiKey: '',
     contactEmail: '',
     contactFromEmail: '',
+    // CSRFトークン署名用シークレット（環境変数: NUXT_CONTACT_SECRET）
+    contactSecret: '',
     // microCMS APIキー（サーバーサイドのみ。環境変数: NUXT_MICROCMS_API_KEY）
     microcmsApiKey: '',
     public: {

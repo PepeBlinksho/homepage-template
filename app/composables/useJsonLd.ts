@@ -1,3 +1,14 @@
+function buildPostalAddress(address: { zip: string; prefecture: string; city: string; street: string; building?: string }) {
+  return {
+    '@type': 'PostalAddress',
+    postalCode: address.zip,
+    addressRegion: address.prefecture,
+    addressLocality: address.city,
+    streetAddress: address.street + (address.building ? ` ${address.building}` : ''),
+    addressCountry: 'JP',
+  }
+}
+
 /** LocalBusiness 構造化データ（shop / demo / beauty / メインサイト共通） */
 export function useJsonLd() {
   const cfg = useShopConfig()
@@ -13,15 +24,7 @@ export function useJsonLd() {
       url: siteUrl,
       telephone: cfg.value.tel,
       email: cfg.value.email,
-      address: {
-        '@type': 'PostalAddress',
-        postalCode: cfg.value.address.zip,
-        addressRegion: cfg.value.address.prefecture,
-        addressLocality: cfg.value.address.city,
-        streetAddress: cfg.value.address.street
-          + (cfg.value.address.building ? ` ${cfg.value.address.building}` : ''),
-        addressCountry: 'JP',
-      },
+      address: buildPostalAddress(cfg.value.address),
       openingHours: cfg.value.business.openingHours,
       ...(cfg.value.business.cuisine && { servesCuisine: cfg.value.business.cuisine }),
       ...(cfg.value.business.priceRange && { priceRange: cfg.value.business.priceRange }),
@@ -51,15 +54,7 @@ export function useCorpJsonLd() {
       url: siteUrl,
       telephone: cfg.value.tel,
       email: cfg.value.email,
-      address: {
-        '@type': 'PostalAddress',
-        postalCode: cfg.value.address.zip,
-        addressRegion: cfg.value.address.prefecture,
-        addressLocality: cfg.value.address.city,
-        streetAddress: cfg.value.address.street
-          + (cfg.value.address.building ? ` ${cfg.value.address.building}` : ''),
-        addressCountry: 'JP',
-      },
+      address: buildPostalAddress(cfg.value.address),
       openingHours: cfg.value.business.openingHours,
       ...(cfg.value.serviceArea && { areaServed: cfg.value.serviceArea }),
       ...(cfg.value.license && { hasCredential: cfg.value.license }),
@@ -82,9 +77,10 @@ export function useArticleJsonLd(article: {
   id: string
 }) {
   const cfg = useShopConfig()
+  const prefix = useRoutePrefix()
   const { public: { siteUrl } } = useRuntimeConfig()
 
-  const schema = {
+  const schema = computed(() => ({
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: article.title,
@@ -92,16 +88,16 @@ export function useArticleJsonLd(article: {
     datePublished: article.date,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${siteUrl}/news/${article.id}`,
+      '@id': `${siteUrl}${prefix.value}/news/${article.id}`,
     },
     publisher: {
       '@type': 'Organization',
       name: cfg.value.name,
       url: siteUrl,
     },
-  }
+  }))
 
   useHead({
-    script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(schema), key: 'ld-json-article' }],
+    script: [{ type: 'application/ld+json', innerHTML: computed(() => JSON.stringify(schema.value)), key: 'ld-json-article' }],
   })
 }

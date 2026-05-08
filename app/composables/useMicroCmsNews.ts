@@ -27,8 +27,9 @@ function toNewsItem(raw: MicroCmsRawItem): CorpNewsItem {
 export function useMicroCmsNews(fallback: CorpNewsItem[]) {
   const { microcmsApiKey, public: pub } = useRuntimeConfig()
   const domain = pub.microcmsServiceDomain as string
+  const route = useRoute()
 
-  const { data } = useAsyncData('microcms-news', async () => {
+  const { data } = useAsyncData(`microcms-news-${route.path}`, async () => {
     if (!microcmsApiKey || !domain) return null
     return $fetch<MicroCmsListResponse>(
       `https://${domain}.microcms.io/api/v1/news`,
@@ -50,8 +51,9 @@ export function useMicroCmsNews(fallback: CorpNewsItem[]) {
 export function useMicroCmsArticle(id: string, fallback: CorpNewsItem[]) {
   const { microcmsApiKey, public: pub } = useRuntimeConfig()
   const domain = pub.microcmsServiceDomain as string
+  const route = useRoute()
 
-  const { data } = useAsyncData(`microcms-article-${id}`, async () => {
+  const { data } = useAsyncData(`microcms-article-${route.path}-${id}`, async () => {
     if (!microcmsApiKey || !domain) return null
     return $fetch<MicroCmsRawItem>(
       `https://${domain}.microcms.io/api/v1/news/${id}`,

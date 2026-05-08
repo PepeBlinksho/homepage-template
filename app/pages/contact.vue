@@ -5,6 +5,7 @@ import { buildFullAddress } from '~/config/site'
 
 const siteConfig = useShopConfig()
 const prefix = useRoutePrefix()
+const { token } = useContactToken()
 
 useSeoMeta({
   title: `お問い合わせ | ${siteConfig.value.name}`,
@@ -46,7 +47,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   try {
     await $fetch('/api/contact', {
       method: 'POST',
-      body: event.data,
+      body: { ...event.data, token: token.value },
     })
     submitted.value = true
   }
