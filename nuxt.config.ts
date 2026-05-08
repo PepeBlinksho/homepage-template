@@ -18,6 +18,12 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   routeRules: {
+    // デモ・テンプレートルートはインデックス対象外
+    '/shop/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/demo/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/beauty/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/corp/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+
     // ページ：プリレンダリング
     '/': { prerender: true },
     '/menu': { prerender: true },

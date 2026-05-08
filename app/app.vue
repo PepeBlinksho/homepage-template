@@ -6,6 +6,10 @@ const _prefix = useRoutePrefix()
 
 const isCorpRoute = computed(() => route.path.startsWith('/corp/'))
 
+const isDemoRoute = computed(() =>
+  ['/shop/', '/demo/', '/beauty/', '/corp/'].some(p => route.path.startsWith(p))
+)
+
 // トップ・デモindexページはスナップスクロールのため AppFooter を非表示
 const showFooter = computed(() => {
   if (isCorpRoute.value) return false
@@ -34,6 +38,11 @@ useSeoMeta({
   ogLocale: 'ja_JP',
   twitterCard: 'summary_large_image',
 })
+
+// デモ・テンプレートルートはクローラーにインデックスさせない
+useHead(computed(() => ({
+  meta: isDemoRoute.value ? [{ name: 'robots', content: 'noindex, nofollow' }] : [],
+})))
 
 // canonical / og:url を全ページ一括設定
 useCanonical()
