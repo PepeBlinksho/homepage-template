@@ -87,11 +87,11 @@ onMounted(() => {
     <header class="site" id="hdr">
       <div class="left">
         <nav class="links" aria-label="Primary">
-          <a href="#story">Story</a>
-          <a href="#breads">Breads</a>
-          <a href="#cafe">Café</a>
-          <a href="#seasonal">Seasonal</a>
-          <a href="#access">Access</a>
+          <a href="#story">ストーリー</a>
+          <a href="#breads">パン</a>
+          <a href="#cafe">カフェ</a>
+          <a href="#seasonal">季節</a>
+          <a href="#access">アクセス</a>
         </nav>
       </div>
       <a href="#" class="brand" aria-label="Bakery Ukigumo home">
@@ -104,7 +104,7 @@ onMounted(() => {
         </nav>
         <a href="#access" class="reserve-btn">
           <span class="dot" />
-          Reserve
+          ご予約
         </a>
       </div>
     </header>
@@ -127,21 +127,21 @@ onMounted(() => {
         </div>
         <h1 class="display reveal" style="--reveal-delay:120ms">
           <span class="jp-overlay">浮 雲 の パ ン</span>
-          Fresh bread<br>drifting <em>softly</em><br>into everyday life.
+          日々の暮らしに、<br>やさしく漂う<em>パン</em>が<br>ここにある。
         </h1>
         <div class="hero-bottom reveal" style="--reveal-delay:360ms" :style="heroBottomStyle">
           <a href="#story" class="hero-cta">
-            <span>Discover the story</span>
+            <span>物語を読む</span>
             <span class="arrow" />
           </a>
           <div class="hero-meta">
-            <div><b>07:30 — 18:00</b> &nbsp;·&nbsp; Closed Tuesdays</div>
-            <div>3-14-7 Yokomachi, Komatsu &nbsp;·&nbsp; +81 761 00 0000</div>
+            <div><b>07:30 — 18:00</b> &nbsp;·&nbsp; 火曜定休</div>
+            <div>石川県小松市横町3-14-7 &nbsp;·&nbsp; 0761-00-0000</div>
           </div>
         </div>
       </div>
       <div class="scroll-hint">
-        <span>Scroll</span>
+        <span>スクロール</span>
         <span class="bar" />
       </div>
     </section>
@@ -151,13 +151,13 @@ onMounted(() => {
       <header class="sec-head">
         <div class="meta reveal">
           <div class="num-row">
-            <span class="num">01 / Story</span>
+            <span class="num">01 / ストーリー</span>
             <span class="line" />
           </div>
           <div class="eyebrow">Philosophy &nbsp;·&nbsp; 哲学</div>
         </div>
         <h2 class="display reveal" style="--reveal-delay:100ms">
-          A quiet practice of <em>slow mornings</em>, kneaded by hand, shaped by season.
+          手でこね、季節に従う。<br>静かな朝の、<em>小さな営み</em>。
         </h2>
       </header>
       <div class="story-grid">
@@ -170,10 +170,10 @@ onMounted(() => {
         </div>
         <div class="copy reveal" style="--reveal-delay:120ms">
           <p class="body-large">
-            Ukigumo began as a single oven in a quiet wooden house at the edge of Komatsu — a town held between the Sea of Japan and the Hakusan mountains. Each loaf is a small weather report: the day's humidity, the flour's mood, the patience of long fermentation.
+            浮雲は、小松の外れにある静かな木造の家の一室から始まりました。日本海と白山に抱かれたこの街で、毎日のパンは小さな天気予報です。その日の湿度、粉の気分、長い発酵の忍耐。
           </p>
           <p class="body-large">
-            We work with stone-milled grains from Ishikawa farms, sea salt from Noto, and a single sourdough culture we have kept alive since the bakery's first morning. Nothing rushes. The bread tells us when it is ready.
+            石川の農家から届く石臼挽きの穀物、能登の海塩、そして開店初日から守り続けてきたひとつのサワードウ種。急ぐものは何もありません。パンが準備できたと、教えてくれます。
           </p>
         </div>
         <div class="ph ph-2 reveal" style="--reveal-delay:200ms">
@@ -191,8 +191,8 @@ onMounted(() => {
           </div>
         </div>
         <div class="story-pull reveal">
-          <blockquote>"We do not make bread quickly. We make it carefully — and let the morning catch up."</blockquote>
-          <cite>— Mio Tsujimura, head baker</cite>
+          <blockquote>「素早く作るのではなく、丁寧に作る。そして朝が追いついてくるのを待つのです。」</blockquote>
+          <cite>— 辻村 澪、ヘッドベーカー</cite>
         </div>
       </div>
     </section>
@@ -221,13 +221,13 @@ onMounted(() => {
         <header class="sec-head">
           <div class="meta reveal">
             <div class="num-row">
-              <span class="num">02 / Bakery</span>
+              <span class="num">02 / ベーカリー</span>
               <span class="line" />
             </div>
             <div class="eyebrow">Signature breads &nbsp;·&nbsp; パン</div>
           </div>
           <h2 class="display reveal" style="--reveal-delay:100ms">
-            Eight quiet loaves, baked <em>once</em> each morning.
+            毎朝<em>一度だけ</em>焼く、八種の静かなパン。
           </h2>
         </header>
         <div class="breads-grid">
@@ -238,8 +238,8 @@ onMounted(() => {
             <div class="meta">
               <h3 class="name">Pain de <em>Campagne</em></h3>
               <span class="price">¥980</span>
-              <p class="desc">Three-day cold ferment. Ishikawa wheat, rye, sea salt. Crackling crust, milk-sweet crumb.</p>
-              <div class="tag-row"><span class="tag">36hr fermented</span><span class="tag">vegan</span></div>
+              <p class="desc">三日間の低温発酵。石川産小麦・ライ麦・海塩。パリッと割れる皮、乳白色のクラム。</p>
+              <div class="tag-row"><span class="tag">36時間発酵</span><span class="tag">ヴィーガン</span></div>
             </div>
           </article>
           <article class="bread offset-up reveal" style="--reveal-delay:120ms">
@@ -249,8 +249,8 @@ onMounted(() => {
             <div class="meta">
               <h3 class="name">Croissant <em>au Beurre</em></h3>
               <span class="price">¥420</span>
-              <p class="desc">Cultured Hokkaido butter folded in 27 layers. Shatter-light, almost weightless.</p>
-              <div class="tag-row"><span class="tag">limited · daily</span></div>
+              <p class="desc">北海道産発酵バターを27層に折り込む。砕けるように軽く、ほとんど無重力。</p>
+              <div class="tag-row"><span class="tag">毎日限定</span></div>
             </div>
           </article>
           <article class="bread reveal" style="--reveal-delay:240ms">
@@ -260,8 +260,8 @@ onMounted(() => {
             <div class="meta">
               <h3 class="name">Hakusan <em>Rye</em></h3>
               <span class="price">¥1,180</span>
-              <p class="desc">Dense, dark, faintly bitter. Stone-milled rye from Hakusan, caraway, molasses.</p>
-              <div class="tag-row"><span class="tag">whole grain</span><span class="tag">keeps 5 days</span></div>
+              <p class="desc">どっしりと暗く、ほろ苦い。白山産石臼挽きライ麦、キャラウェイ、糖蜜。</p>
+              <div class="tag-row"><span class="tag">全粒粉</span><span class="tag">5日間保存可</span></div>
             </div>
           </article>
           <article class="bread offset-up reveal">
@@ -271,8 +271,8 @@ onMounted(() => {
             <div class="meta">
               <h3 class="name">Yuzu <em>Brioche</em></h3>
               <span class="price">¥640</span>
-              <p class="desc">Egg-rich crumb scented with Kahoku yuzu peel. Best torn warm.</p>
-              <div class="tag-row"><span class="tag">seasonal</span><span class="tag">winter only</span></div>
+              <p class="desc">加賀市河北産ゆず皮の香りをまとった、卵たっぷりのクラム。温かいうちに手でちぎって。</p>
+              <div class="tag-row"><span class="tag">季節限定</span><span class="tag">冬季のみ</span></div>
             </div>
           </article>
           <article class="bread reveal" style="--reveal-delay:120ms">
@@ -282,8 +282,8 @@ onMounted(() => {
             <div class="meta">
               <h3 class="name">Hojicha <em>Anpan</em></h3>
               <span class="price">¥380</span>
-              <p class="desc">A nostalgic anpan with smoky hojicha custard and Tokachi azuki paste.</p>
-              <div class="tag-row"><span class="tag">house favourite</span></div>
+              <p class="desc">ほうじ茶カスタードと十勝産小豆餡を包んだ、懐かしいあんパン。</p>
+              <div class="tag-row"><span class="tag">定番人気</span></div>
             </div>
           </article>
           <article class="bread offset-up reveal" style="--reveal-delay:240ms">
@@ -293,8 +293,8 @@ onMounted(() => {
             <div class="meta">
               <h3 class="name">Open <em>Sandwich</em></h3>
               <span class="price">¥1,420</span>
-              <p class="desc">Smoked Noto trout, fermented butter, dill, on toasted campagne. Served noon till sold out.</p>
-              <div class="tag-row"><span class="tag">café only</span><span class="tag">12:00 →</span></div>
+              <p class="desc">能登産燻製トラウト、発酵バター、ディル。トーストしたカンパーニュにのせて。正午から売切れ次第終了。</p>
+              <div class="tag-row"><span class="tag">カフェのみ</span><span class="tag">12:00 →</span></div>
             </div>
           </article>
         </div>
@@ -307,13 +307,13 @@ onMounted(() => {
         <header class="sec-head">
           <div class="meta reveal">
             <div class="num-row">
-              <span class="num">03 / Café</span>
+              <span class="num">03 / カフェ</span>
               <span class="line" />
             </div>
             <div class="eyebrow">The space &nbsp;·&nbsp; 喫茶室</div>
           </div>
           <h2 class="display reveal" style="--reveal-delay:100ms">
-            A wooden room held by <em>morning light</em>.
+            朝の光に包まれた、<em>木の部屋</em>。
           </h2>
         </header>
         <div class="cafe-hero ph reveal">
@@ -325,10 +325,10 @@ onMounted(() => {
         </div>
         <div class="cafe-cap">
           <div class="left reveal">
-            <h3 class="display">Ten seats. <em>One long table.</em><br>Slow conversation.</h3>
+            <h3 class="display">十席。<em>一枚の長いテーブル。</em><br>ゆっくりとした会話。</h3>
           </div>
           <div class="right body-large reveal" style="--reveal-delay:120ms">
-            <p>The café opens onto a small inner garden. We serve hand-drip coffee from Roastery Hoshi (Kanazawa), pour-over tea from Wazuka, and a daily plate that follows the bread. Books, slow music, no Wi-Fi after eleven.</p>
+            <p>カフェは小さな中庭に面しています。金沢・ロースタリー星のハンドドリップコーヒー、和束産のポアオーバー茶、そしてパンに寄り添う日替わりプレートをご用意しています。本、静かな音楽、11時以降はWi-Fiなし。</p>
           </div>
         </div>
         <div class="cafe-strip">
@@ -351,7 +351,7 @@ onMounted(() => {
         <header class="sec-head" style="padding-top:0">
           <div class="meta reveal">
             <div class="num-row">
-              <span class="num">04 / Seasonal</span>
+              <span class="num">04 / 季節</span>
               <span class="line" style="background:rgba(253,250,243,0.15)" />
             </div>
             <div class="eyebrow">This month &nbsp;·&nbsp; 五月</div>
@@ -359,22 +359,22 @@ onMounted(() => {
         </header>
         <div class="seasonal-grid">
           <div class="seasonal-text">
-            <h2 class="display reveal">Mountain strawberry <em>&amp; smoked rye.</em></h2>
+            <h2 class="display reveal">山苺と<em>燻製ライ麦。</em></h2>
             <p class="body-large reveal" style="--reveal-delay:120ms">
-              Each May we drive into the foothills to meet the Yamamoto family, who raise the small, intensely-perfumed yamaichigo strawberries that lend our spring loaf its colour. We pair them with a smoked rye from a friend's kiln in Toyama. Available mornings only, 50 loaves a day.
+              毎年五月、白山の麓に車を走らせ、山本家を訪ねます。春のパンに色を与える、小ぶりで芳醇な山苺を育てる農家です。富山の知人の窯で作られた燻製ライ麦と合わせました。午前限定、一日50本。
             </p>
             <dl class="seasonal-detail reveal" style="--reveal-delay:240ms">
               <div>
-                <dt>Available</dt>
-                <dd>May 1 — June 8<br><small style="font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:rgba(253,250,243,0.5);text-transform:uppercase">50 / DAY · MORNINGS</small></dd>
+                <dt>販売期間</dt>
+                <dd>5月1日 — 6月8日<br><small style="font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:rgba(253,250,243,0.5);text-transform:uppercase">1日50本・午前のみ</small></dd>
               </div>
               <div>
-                <dt>Sourcing</dt>
-                <dd>Yamamoto Farm, Hakusan<br>Mizuno Smokehouse, Toyama</dd>
+                <dt>素材</dt>
+                <dd>山本農園・白山<br>水野薫製所・富山</dd>
               </div>
             </dl>
             <a href="#" class="seasonal-cta reveal" style="--reveal-delay:360ms">
-              <span>Reserve a loaf</span>
+              <span>1本予約する</span>
               <span class="arrow" />
             </a>
           </div>
@@ -395,13 +395,13 @@ onMounted(() => {
         <header class="sec-head">
           <div class="meta reveal">
             <div class="num-row">
-              <span class="num">05 / Visit</span>
+              <span class="num">05 / アクセス</span>
               <span class="line" />
             </div>
             <div class="eyebrow">Access &amp; hours &nbsp;·&nbsp; ご来店</div>
           </div>
           <h2 class="display reveal" style="--reveal-delay:100ms">
-            Find us between the river and <em>the old post road.</em>
+            川と<em>旧街道</em>の間に、私たちはいます。
           </h2>
         </header>
         <div class="access-grid">
@@ -442,23 +442,23 @@ onMounted(() => {
           </div>
           <dl class="info-block">
             <div class="info-row reveal">
-              <dt>Address</dt>
-              <dd>3-14-7 Yokomachi<br>Komatsu, Ishikawa<br><small>15 min walk from Komatsu Station</small></dd>
+              <dt>住所</dt>
+              <dd>石川県小松市横町3-14-7<br><small>小松駅から徒歩15分</small></dd>
             </div>
             <div class="info-row reveal">
-              <dt>Hours</dt>
-              <dd>Mon · Wed — Sun &nbsp; 07:30 — 18:00<br><span class="closed">Closed Tuesdays</span></dd>
+              <dt>営業時間</dt>
+              <dd>月・水〜日 &nbsp; 07:30 — 18:00<br><span class="closed">火曜定休</span></dd>
             </div>
             <div class="info-row reveal">
-              <dt>Café</dt>
-              <dd>Last order 17:00<br><small>10 seats — walk-ins welcome, weekend reservations recommended.</small></dd>
+              <dt>カフェ席</dt>
+              <dd>ラストオーダー 17:00<br><small>10席・ウォークイン歓迎、週末はご予約推奨。</small></dd>
             </div>
             <div class="info-row reveal">
-              <dt>Contact</dt>
-              <dd>+81 761 00 0000<br><small>hello@ukigumo.jp</small></dd>
+              <dt>お問い合わせ</dt>
+              <dd>0761-00-0000<br><small>hello@ukigumo.jp</small></dd>
             </div>
             <a href="#" class="reserve-cta reveal">
-              <span>Reserve a table</span>
+              <span>テーブルを予約する</span>
               <span class="arrow" />
             </a>
           </dl>
@@ -470,9 +470,9 @@ onMounted(() => {
     <section class="insta">
       <div class="wrap">
         <div class="insta-head">
-          <h3 class="reveal">Quiet moments <em>· @bakery.ukigumo</em></h3>
+          <h3 class="reveal">静かな瞬間 <em>· @bakery.ukigumo</em></h3>
           <a href="#" class="hero-cta reveal" style="color:var(--char);border-color:var(--line)">
-            <span>Follow</span><span class="arrow" />
+            <span>フォロー</span><span class="arrow" />
           </a>
         </div>
         <div class="insta-grid">
@@ -495,34 +495,34 @@ onMounted(() => {
             <span class="jp">浮 雲</span>
           </div>
           <div class="foot-col">
-            <h4>Visit</h4>
+            <h4>アクセス</h4>
             <ul>
-              <li><a href="#access">Access</a></li>
-              <li><a href="#access">Hours</a></li>
-              <li><a href="#access">Reserve</a></li>
+              <li><a href="#access">場所</a></li>
+              <li><a href="#access">営業時間</a></li>
+              <li><a href="#access">予約</a></li>
             </ul>
           </div>
           <div class="foot-col">
-            <h4>The Bakery</h4>
+            <h4>ベーカリー</h4>
             <ul>
-              <li><a href="#story">Story</a></li>
-              <li><a href="#breads">Breads</a></li>
-              <li><a href="#seasonal">Seasonal</a></li>
+              <li><a href="#story">ストーリー</a></li>
+              <li><a href="#breads">パン</a></li>
+              <li><a href="#seasonal">季節</a></li>
             </ul>
           </div>
           <div class="foot-col">
-            <h4>Elsewhere</h4>
+            <h4>その他</h4>
             <ul>
               <li><a href="#">Instagram</a></li>
-              <li><a href="#">Journal</a></li>
-              <li><a href="#">Newsletter</a></li>
+              <li><a href="#">ジャーナル</a></li>
+              <li><a href="#">ニュースレター</a></li>
             </ul>
           </div>
         </div>
         <div class="foot-bottom">
           <span>© 2026 Bakery Ukigumo</span>
-          <span>3-14-7 Yokomachi · Komatsu · Ishikawa</span>
-          <span>Site by morning light</span>
+          <span>石川県小松市横町3-14-7</span>
+          <span>朝の光の中で</span>
         </div>
       </div>
     </footer>
@@ -534,29 +534,29 @@ onMounted(() => {
         <button aria-label="Close" @click="tweaksPanelOpen = false">×</button>
       </h5>
       <div class="grp">
-        <div class="lbl">Theme</div>
+        <div class="lbl">テーマ</div>
         <div class="seg">
-          <button :class="{ active: tweaks.theme === 'cream' }" @click="setTweak({ theme: 'cream' })">Cream</button>
-          <button :class="{ active: tweaks.theme === 'paper' }" @click="setTweak({ theme: 'paper' })">Paper</button>
-          <button :class="{ active: tweaks.theme === 'toasted' }" @click="setTweak({ theme: 'toasted' })">Toasted</button>
+          <button :class="{ active: tweaks.theme === 'cream' }" @click="setTweak({ theme: 'cream' })">クリーム</button>
+          <button :class="{ active: tweaks.theme === 'paper' }" @click="setTweak({ theme: 'paper' })">ペーパー</button>
+          <button :class="{ active: tweaks.theme === 'toasted' }" @click="setTweak({ theme: 'toasted' })">トースト</button>
         </div>
       </div>
       <div class="grp">
-        <div class="lbl">Display font</div>
+        <div class="lbl">見出しフォント</div>
         <div class="seg">
           <button :class="{ active: tweaks.display_font === 'cormorant' }" @click="setTweak({ display_font: 'cormorant' })">Cormorant</button>
           <button :class="{ active: tweaks.display_font === 'playfair' }" @click="setTweak({ display_font: 'playfair' })">Playfair</button>
         </div>
       </div>
       <div class="grp">
-        <div class="lbl">Tagline alignment</div>
+        <div class="lbl">タグライン配置</div>
         <div class="seg">
-          <button :class="{ active: tweaks.tagline_alignment === 'left' }" @click="setTweak({ tagline_alignment: 'left' })">Left</button>
-          <button :class="{ active: tweaks.tagline_alignment === 'center' }" @click="setTweak({ tagline_alignment: 'center' })">Center</button>
+          <button :class="{ active: tweaks.tagline_alignment === 'left' }" @click="setTweak({ tagline_alignment: 'left' })">左寄せ</button>
+          <button :class="{ active: tweaks.tagline_alignment === 'center' }" @click="setTweak({ tagline_alignment: 'center' })">中央</button>
         </div>
       </div>
       <div class="grp toggle">
-        <span>Paper grain</span>
+        <span>用紙グレイン</span>
         <span class="switch" :class="{ on: tweaks.show_grain }" @click="setTweak({ show_grain: !tweaks.show_grain })" />
       </div>
     </div>
