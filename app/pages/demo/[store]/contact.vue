@@ -44,7 +44,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   isSubmitting.value = true
   submitError.value = ''
   try {
-    await $csrfFetch('/api/contact', { method: 'POST', body: event.data })
+    await $csrfFetch('/api/contact', { method: 'POST', body: { ...event.data, _isDemo: true } })
     submitted.value = true
   }
   catch {

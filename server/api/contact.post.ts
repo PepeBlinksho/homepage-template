@@ -7,6 +7,7 @@ const schema = z.object({
   tel: z.string().max(20).optional(),
   message: z.string().min(1).max(5000),
   website: z.string().optional(),
+  _isDemo: z.boolean().optional(),
 })
 
 // インメモリレートリミッター（Vercel サーバーレスではインスタンス非共有のため補助的）
@@ -117,6 +118,11 @@ export default defineEventHandler(async (event) => {
 
   // ハニーポット：ボットが website フィールドを埋めた場合は無言で成功を返す
   if (result.data.website) {
+    return { success: true }
+  }
+
+  // デモ送信：バリデーションは通すが実メールは送らない
+  if (result.data._isDemo) {
     return { success: true }
   }
 
