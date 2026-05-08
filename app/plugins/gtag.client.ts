@@ -1,6 +1,7 @@
 /**
  * Google Analytics (GA4) プラグイン
- * site.ts の gaId に測定IDを設定すると自動で有効化されます
+ * 優先順位: 環境変数 NUXT_PUBLIC_GA_ID > config/site.ts の gaId
+ * corp テンプレートの場合は Vercel の環境変数で設定する
  * 例: gaId: 'G-XXXXXXXXXX'
  */
 import { siteConfig } from '~/config/site'
@@ -8,7 +9,8 @@ import { siteConfig } from '~/config/site'
 const GA_ID_PATTERN = /^G-[A-Z0-9]{10}$/
 
 export default defineNuxtPlugin((_nuxtApp) => {
-  const gaId = siteConfig.gaId
+  const { public: runtimePublic } = useRuntimeConfig()
+  const gaId = (runtimePublic.gaId as string) || siteConfig.gaId
   if (!gaId || !GA_ID_PATTERN.test(gaId)) return
 
   useHead({

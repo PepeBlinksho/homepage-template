@@ -5,9 +5,9 @@ const prefix = useRoutePrefix()
 const route = useRoute()
 const id = route.params.id as string
 
-const article = computed(() => siteConfig.value.news.find(n => n.id === id))
+const { article } = useMicroCmsArticle(id, siteConfig.value.news)
 
-if (!article.value) {
+if (import.meta.server && !article.value) {
   throw createError({ statusCode: 404, statusMessage: '記事が見つかりません' })
 }
 

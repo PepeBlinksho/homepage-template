@@ -3,8 +3,12 @@ import { siteConfig } from '~/config/site'
 
 const route = useRoute()
 const _prefix = useRoutePrefix()
+
+const isCorpRoute = computed(() => route.path.startsWith('/corp/'))
+
 // トップ・デモindexページはスナップスクロールのため AppFooter を非表示
 const showFooter = computed(() => {
+  if (isCorpRoute.value) return false
   const base = _prefix.value || '/'
   return route.path !== base
 })
@@ -27,7 +31,12 @@ useSeoMeta({
   description: siteConfig.seo.description,
   ogImage: siteConfig.seo.ogImage,
   ogType: 'website',
+  ogLocale: 'ja_JP',
+  twitterCard: 'summary_large_image',
 })
+
+// canonical / og:url を全ページ一括設定
+useCanonical()
 </script>
 
 <template>
@@ -40,7 +49,7 @@ useSeoMeta({
       メインコンテンツへスキップ
     </a>
 
-    <AppHeader />
+    <AppHeader v-if="!isCorpRoute" />
     <main id="main-content">
       <NuxtPage />
     </main>

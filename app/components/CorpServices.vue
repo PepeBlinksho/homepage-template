@@ -8,17 +8,29 @@ const { el, revealed } = useReveal()
   <section
     id="services"
     ref="el"
-    class="py-20 md:py-24 bg-slate-50"
+    class="py-24 md:py-32 bg-white relative overflow-hidden"
   >
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <!-- 背景テキスト装飾 -->
+    <div
+      class="absolute top-8 right-0 font-serif font-bold text-[12rem] md:text-[18rem] leading-none text-slate-50 select-none pointer-events-none translate-x-1/4"
+      aria-hidden="true"
+    >
+      07
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
       <!-- ヘッダー -->
       <div
-        class="mb-14 transition-all duration-700"
+        class="mb-20 transition-all duration-700"
         :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
       >
-        <p class="text-xs tracking-[0.5em] uppercase text-sky-600 font-medium mb-3">Services</p>
-        <h2 class="font-serif text-4xl md:text-5xl font-semibold text-slate-900 mb-4">事業内容</h2>
-        <div class="w-10 h-0.5 bg-sky-500" />
+        <div class="flex items-center gap-4 mb-5">
+          <div class="w-8 h-px bg-sky-500" />
+          <span class="text-xs tracking-[0.4em] uppercase text-sky-600 font-medium">Services</span>
+        </div>
+        <h2 class="font-serif text-5xl md:text-6xl font-bold text-slate-900 leading-tight">
+          事業内容
+        </h2>
       </div>
 
       <!-- サービスグリッド -->
@@ -26,31 +38,59 @@ const { el, revealed } = useReveal()
         <div
           v-for="(service, i) in cfg.services"
           :key="service.title"
-          class="bg-white rounded-2xl p-8 card-lift border border-slate-100 transition-all duration-700"
+          class="group relative bg-slate-50 hover:bg-white rounded-3xl p-8 border border-transparent hover:border-sky-100 hover:shadow-xl hover:shadow-sky-50 transition-all duration-400 cursor-default overflow-hidden"
           :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
-          :style="{ transitionDelay: `${i * 80}ms` }"
+          :style="{ transitionDelay: `${i * 80}ms`, transitionDuration: '600ms' }"
         >
-          <div class="w-12 h-12 rounded-xl bg-sky-50 flex items-center justify-center mb-5">
-            <UIcon :name="service.icon" class="w-6 h-6 text-sky-600" />
+          <!-- 大番号（背景） -->
+          <span
+            class="absolute -top-4 -right-2 font-serif font-bold text-8xl text-slate-100 group-hover:text-sky-50 select-none transition-colors duration-300 leading-none"
+            aria-hidden="true"
+          >{{ String(i + 1).padStart(2, '0') }}</span>
+
+          <!-- アイコン -->
+          <div class="relative z-10 w-12 h-12 rounded-2xl bg-sky-100 group-hover:bg-sky-600 flex items-center justify-center mb-6 transition-all duration-300">
+            <UIcon
+              :name="service.icon"
+              class="w-6 h-6 text-sky-600 group-hover:text-white transition-colors duration-300"
+            />
           </div>
-          <h3 class="font-semibold text-lg text-slate-900 mb-3">{{ service.title }}</h3>
-          <p class="text-sm text-slate-500 leading-relaxed">{{ service.description }}</p>
+
+          <!-- テキスト -->
+          <h3 class="relative z-10 font-bold text-xl text-slate-900 mb-3 leading-snug">{{ service.title }}</h3>
+          <p class="relative z-10 text-sm text-slate-500 leading-relaxed">{{ service.description }}</p>
+
+          <!-- ホバー時の底線アクセント -->
+          <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-sky-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
         </div>
       </div>
 
-      <!-- CTA -->
+      <!-- CTA バナー -->
       <div
-        class="mt-12 text-center transition-all duration-700"
-        :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
+        class="mt-16 rounded-3xl bg-slate-900 p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8 transition-all duration-700"
+        :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
         :style="{ transitionDelay: `${cfg.services.length * 80}ms` }"
       >
-        <NuxtLink
-          :to="`${prefix}/contact`"
-          class="inline-flex items-center gap-2 px-8 py-3.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl font-semibold transition-all duration-200 shadow-md shadow-sky-200"
-        >
-          <UIcon name="i-heroicons-envelope" class="w-5 h-5" />
-          無料お見積り・ご相談はこちら
-        </NuxtLink>
+        <div>
+          <p class="text-slate-400 text-sm mb-2">まずはお気軽にご相談ください</p>
+          <p class="font-serif text-2xl md:text-3xl font-bold text-white">無料点検・お見積りを受け付けています</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 shrink-0">
+          <NuxtLink
+            :to="`${prefix}/contact`"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-sky-600 hover:bg-sky-500 text-white rounded-xl font-semibold transition-all duration-200 whitespace-nowrap"
+          >
+            <UIcon name="i-heroicons-envelope" class="w-5 h-5" />
+            お問い合わせ
+          </NuxtLink>
+          <a
+            :href="`tel:${cfg.tel}`"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 border border-slate-700 hover:border-sky-500 text-white rounded-xl font-semibold transition-all duration-200 whitespace-nowrap"
+          >
+            <UIcon name="i-heroicons-phone" class="w-5 h-5 text-sky-400" />
+            {{ cfg.tel }}
+          </a>
+        </div>
       </div>
     </div>
   </section>

@@ -8,7 +8,11 @@ useSeoMeta({
   ogDescription: cfg.value.seo.description,
   ogImage: cfg.value.seo.ogImage,
   ogType: 'website',
+  twitterTitle: cfg.value.seo.title,
+  twitterDescription: cfg.value.seo.description,
+  twitterImage: cfg.value.seo.ogImage,
 })
+useCorpJsonLd()
 </script>
 
 <template>

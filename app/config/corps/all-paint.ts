@@ -167,6 +167,11 @@ export const allPaintConfig: CorpConfig = {
     siteUrl: 'https://example.com',
   },
 
+  business: {
+    type: 'GeneralContractor',
+    openingHours: ['Mo Tu We Th Fr Sa 08:00-17:00'],
+  },
+
   gaId: '',
   privacyPolicyDate: '2026年5月1日',
 }

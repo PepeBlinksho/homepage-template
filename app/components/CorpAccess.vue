@@ -14,86 +14,92 @@ const googleMapsUrl = computed(() =>
   <section
     id="access"
     ref="el"
-    class="py-20 md:py-24 bg-slate-50"
+    class="py-24 md:py-32 bg-slate-50 relative overflow-hidden"
   >
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8">
       <!-- ヘッダー -->
       <div
-        class="mb-14 transition-all duration-700"
+        class="mb-16 transition-all duration-700"
         :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
       >
-        <p class="text-xs tracking-[0.5em] uppercase text-sky-600 font-medium mb-3">Contact & Access</p>
-        <h2 class="font-serif text-4xl md:text-5xl font-semibold text-slate-900 mb-4">お問い合わせ・アクセス</h2>
-        <div class="w-10 h-0.5 bg-sky-500" />
+        <div class="flex items-center gap-4 mb-5">
+          <div class="w-8 h-px bg-sky-500" />
+          <span class="text-xs tracking-[0.4em] uppercase text-sky-600 font-medium">Contact & Access</span>
+        </div>
+        <h2 class="font-serif text-5xl md:text-6xl font-bold text-slate-900 leading-tight">
+          お問い合わせ
+        </h2>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-10 items-start">
-        <!-- 左: 連絡先情報 -->
-        <div class="space-y-8">
-          <!-- 電話番号（目立たせる） -->
+      <div class="grid lg:grid-cols-2 gap-10 items-start">
+        <!-- 左: 連絡先 -->
+        <div class="space-y-6">
+          <!-- 電話CTA（最重要） -->
           <div
-            class="bg-sky-600 rounded-2xl p-7 text-white transition-all duration-700"
+            class="relative overflow-hidden rounded-3xl bg-slate-900 p-8 md:p-10 transition-all duration-700"
             :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
             style="transition-delay: 100ms"
           >
-            <p class="text-xs tracking-widest uppercase text-sky-200 font-medium mb-2">お電話でのご相談</p>
+            <!-- 背景デコ -->
+            <div class="absolute top-0 right-0 w-48 h-48 bg-sky-600/10 rounded-full -translate-y-1/3 translate-x-1/3 pointer-events-none" />
+
+            <p class="text-xs tracking-widest uppercase text-sky-400 font-medium mb-3">お電話でのご相談</p>
             <a
               :href="`tel:${cfg.tel}`"
-              class="font-serif text-3xl md:text-4xl font-semibold tracking-wide hover:text-sky-100 transition-colors flex items-center gap-3"
+              class="group flex items-center gap-4 mb-4 hover:opacity-90 transition-opacity"
             >
-              <UIcon name="i-heroicons-phone" class="w-8 h-8 shrink-0" />
-              {{ cfg.tel }}
-            </a>
-            <p class="text-sm text-sky-200 mt-2">
-              受付時間：
-              <span v-for="(h, i) in cfg.hours.filter(h => !h.closed)" :key="h.day">
-                {{ i > 0 ? '　' : '' }}{{ h.day }} {{ h.time }}
+              <div class="w-14 h-14 rounded-2xl bg-sky-600 flex items-center justify-center shrink-0 group-hover:bg-sky-500 transition-colors">
+                <UIcon name="i-heroicons-phone" class="w-7 h-7 text-white" />
+              </div>
+              <span class="font-serif text-3xl md:text-4xl font-bold text-white tracking-wide">
+                {{ cfg.tel }}
               </span>
+            </a>
+            <p class="text-sm text-slate-500">
+              受付時間：
+              <span
+                v-for="h in cfg.hours.filter(h => !h.closed)"
+                :key="h.day"
+                class="mr-3"
+              >{{ h.day }} {{ h.time }}</span>
             </p>
           </div>
 
-          <!-- メール -->
+          <!-- メール・フォーム -->
           <div
-            class="bg-white rounded-2xl p-6 border border-slate-100 transition-all duration-700"
+            class="rounded-3xl bg-white border border-slate-100 p-8 transition-all duration-700"
             :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
             style="transition-delay: 200ms"
           >
-            <h3 class="flex items-center gap-2 text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4">
-              <UIcon name="i-heroicons-envelope" class="w-4 h-4" />
-              メール・フォームでのご相談
-            </h3>
+            <p class="text-xs tracking-widest uppercase text-slate-400 font-semibold mb-5">メール・フォーム</p>
             <a
               :href="`mailto:${cfg.email}`"
-              class="text-sky-600 hover:text-sky-800 transition-colors text-sm font-medium"
+              class="text-sky-600 hover:text-sky-800 font-medium text-sm transition-colors block mb-5"
             >
               {{ cfg.email }}
             </a>
-            <div class="mt-4">
-              <NuxtLink
-                :to="`${prefix}/contact`"
-                class="inline-flex items-center gap-2 px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-lg text-sm font-semibold transition-all duration-200"
-              >
-                <UIcon name="i-heroicons-pencil-square" class="w-4 h-4" />
-                お問い合わせフォームへ
-              </NuxtLink>
-            </div>
+            <NuxtLink
+              :to="`${prefix}/contact`"
+              class="group inline-flex items-center gap-2.5 px-7 py-3.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl font-semibold text-sm transition-all duration-200 shadow-md shadow-sky-200"
+            >
+              <UIcon name="i-heroicons-pencil-square" class="w-4 h-4" />
+              お問い合わせフォームへ
+              <UIcon name="i-heroicons-arrow-right" class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </NuxtLink>
           </div>
 
           <!-- 営業時間 -->
           <div
-            class="transition-all duration-700"
+            class="rounded-3xl bg-white border border-slate-100 p-8 transition-all duration-700"
             :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
             style="transition-delay: 300ms"
           >
-            <h3 class="flex items-center gap-2 text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4">
-              <UIcon name="i-heroicons-clock" class="w-4 h-4" />
-              営業時間
-            </h3>
+            <p class="text-xs tracking-widest uppercase text-slate-400 font-semibold mb-5">営業時間</p>
             <table class="w-full">
               <tbody class="divide-y divide-slate-100">
                 <tr v-for="hour in cfg.hours" :key="hour.day">
-                  <td class="py-2.5 pr-4 text-sm text-slate-500 w-28">{{ hour.day }}</td>
-                  <td class="py-2.5 text-sm font-medium" :class="hour.closed ? 'text-red-500' : 'text-slate-800'">
+                  <td class="py-3 pr-4 text-sm text-slate-500 w-28 font-medium">{{ hour.day }}</td>
+                  <td class="py-3 text-sm font-semibold" :class="hour.closed ? 'text-red-500' : 'text-slate-900'">
                     {{ hour.time }}
                   </td>
                 </tr>
@@ -108,7 +114,7 @@ const googleMapsUrl = computed(() =>
           :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
           style="transition-delay: 150ms"
         >
-          <div class="relative h-72 md:h-96 rounded-2xl overflow-hidden shadow-sm border border-slate-200">
+          <div class="relative h-80 md:h-[440px] rounded-3xl overflow-hidden shadow-sm border border-slate-200">
             <iframe
               :src="cfg.googleMapEmbed"
               class="w-full h-full border-0"
@@ -118,20 +124,22 @@ const googleMapsUrl = computed(() =>
               :title="`${cfg.name}の地図`"
             />
           </div>
-          <div class="bg-white rounded-xl px-5 py-4 border border-slate-100">
-            <p class="text-xs text-slate-400 uppercase tracking-wider mb-1">所在地</p>
-            <p class="text-sm text-slate-700 font-medium">
-              〒{{ cfg.address.zip }}<br>
-              {{ buildCorpAddress(cfg.address) }}
-            </p>
+          <div class="bg-white rounded-2xl px-6 py-5 border border-slate-100 flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs text-slate-400 uppercase tracking-wider mb-1.5 font-medium">所在地</p>
+              <p class="text-sm text-slate-800 font-semibold leading-relaxed">
+                〒{{ cfg.address.zip }}<br>
+                {{ buildCorpAddress(cfg.address) }}
+              </p>
+            </div>
             <a
               :href="googleMapsUrl"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-1.5 mt-3 text-sm text-sky-600 hover:text-sky-800 transition-colors font-medium"
+              class="shrink-0 inline-flex items-center gap-1.5 text-xs text-sky-600 hover:text-sky-800 font-semibold transition-colors"
             >
               <UIcon name="i-heroicons-map-pin" class="w-4 h-4" />
-              Googleマップで開く
+              マップで開く
             </a>
           </div>
         </div>

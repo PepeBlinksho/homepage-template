@@ -4,6 +4,11 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 import { buildFullAddress } from '~/config/site'
 
 const siteConfig = useShopConfig()
+const shopMeta = computed(() => ({
+  shopName: siteConfig.value.name,
+  shopTel: siteConfig.value.tel,
+  shopAddress: buildFullAddress(siteConfig.value.address),
+}))
 const prefix = useRoutePrefix()
 
 useSeoMeta({
@@ -43,7 +48,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   isSubmitting.value = true
   submitError.value = ''
   try {
-    await $fetch('/api/contact', { method: 'POST', body: event.data })
+    await $fetch('/api/contact', { method: 'POST', body: { ...event.data, ...shopMeta.value } })
     submitted.value = true
   }
   catch {

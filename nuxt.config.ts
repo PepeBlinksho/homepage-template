@@ -78,6 +78,11 @@ export default defineNuxtConfig({
     '/demo/beb/privacy': { prerender: true },
     '/demo/beb/news/**': { prerender: true },
 
+    // corp デモルート
+    '/corp/all-paint': { prerender: true },
+    '/corp/all-paint/contact': { prerender: true },
+    '/corp/all-paint/privacy': { prerender: true },
+
     // ビルド済み静的アセット（コンテンツハッシュ付き）：永久キャッシュ
     '/_nuxt/**': {
       headers: { 'cache-control': 'public, max-age=31536000, immutable' },
@@ -135,8 +140,15 @@ export default defineNuxtConfig({
     resendApiKey: '',
     contactEmail: '',
     contactFromEmail: '',
+    // microCMS APIキー（サーバーサイドのみ。環境変数: NUXT_MICROCMS_API_KEY）
+    microcmsApiKey: '',
     public: {
       siteUrl,
+      // Google Analytics 測定ID（環境変数 NUXT_PUBLIC_GA_ID で上書き可能）
+      gaId: process.env.NUXT_PUBLIC_GA_ID || '',
+      // microCMS サービスドメイン（環境変数: NUXT_PUBLIC_MICROCMS_SERVICE_DOMAIN）
+      // 例: your-service-name（.microcms.io より前の部分）
+      microcmsServiceDomain: '',
     },
   },
 

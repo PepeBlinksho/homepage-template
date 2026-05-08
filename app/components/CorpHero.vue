@@ -3,21 +3,38 @@ const cfg = useCorpConfig()
 const prefix = useRoutePrefix()
 
 const mounted = ref(false)
-const imageError = ref(false)
+const statsVisible = ref(false)
 const heroRef = ref<HTMLElement | null>(null)
-const heroImage = computed(() => cfg.value.images.hero)
+const imageError = ref(false)
 
 const { scrollY } = useSharedScroll()
-const isVisible = ref(true)
 const bgY = ref(0)
+const isVisible = ref(true)
 let io: IntersectionObserver | null = null
 
-watch(scrollY, (y) => {
-  if (isVisible.value) bgY.value = -y * 0.3
-})
+watch(scrollY, (y) => { if (isVisible.value) bgY.value = -y * 0.25 })
 
-const nameChars = computed(() => cfg.value.name.split(''))
-const ctaDelay = computed(() => 400 + nameChars.value.length * 40 + 200)
+// カウントアップアニメーション
+function useCounter(target: number, duration = 1800) {
+  const count = ref(0)
+  function start() {
+    const startTime = Date.now()
+    function step() {
+      const elapsed = Date.now() - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 4)
+      count.value = Math.floor(target * eased)
+      if (progress < 1) requestAnimationFrame(step)
+      else count.value = target
+    }
+    requestAnimationFrame(step)
+  }
+  return { count, start }
+}
+
+const { count: countWorks, start: startWorks } = useCounter(500)
+const { count: countYears, start: startYears } = useCounter(20)
+const { count: countWarranty, start: startWarranty } = useCounter(10)
 
 onMounted(() => {
   mounted.value = true
@@ -28,6 +45,12 @@ onMounted(() => {
     )
     io.observe(heroRef.value)
   }
+  setTimeout(() => {
+    statsVisible.value = true
+    startWorks()
+    startYears()
+    startWarranty()
+  }, 800)
 })
 onUnmounted(() => { io?.disconnect(); io = null })
 </script>
@@ -35,135 +58,178 @@ onUnmounted(() => { io?.disconnect(); io = null })
 <template>
   <section
     ref="heroRef"
-    class="relative min-h-screen flex items-center justify-center overflow-hidden"
+    class="relative min-h-screen flex items-center bg-slate-950 overflow-hidden"
   >
-    <!-- 背景 -->
+    <!-- グリッドパターン背景 -->
     <div
-      class="absolute inset-0"
-      :class="isVisible ? 'will-change-transform' : ''"
+      class="absolute inset-0 opacity-[0.04]"
+      style="background-image: linear-gradient(rgba(148,163,184,1) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,1) 1px, transparent 1px); background-size: 72px 72px;"
+    />
+
+    <!-- ヒーロー画像オーバーレイ -->
+    <div
+      v-if="cfg.images.hero && !imageError"
+      class="absolute inset-0 opacity-20"
       :style="{ transform: `translateY(${bgY}px) scale(1.1)` }"
     >
-      <!-- デフォルト: ダークグラデーション背景 -->
-      <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-sky-950" />
-      <!-- ヒーロー画像（設定時のみ表示） -->
       <NuxtImg
-        v-if="heroImage && !imageError"
-        :src="heroImage"
-        alt="ヒーロー画像"
-        class="absolute inset-0 w-full h-full object-cover"
+        :src="cfg.images.hero"
+        alt=""
+        class="w-full h-full object-cover"
         format="webp"
-        quality="80"
+        quality="70"
         fetchpriority="high"
         preload
         @error="imageError = true"
       />
     </div>
 
-    <!-- グレインテクスチャ -->
-    <div class="grain-overlay" />
+    <!-- 左アクセントライン -->
+    <div
+      class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-sky-500 to-transparent transition-opacity duration-1000"
+      :class="mounted ? 'opacity-100' : 'opacity-0'"
+    />
 
-    <!-- オーバーレイ -->
-    <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/65 z-[2]" />
-
-    <!-- ジオメトリックアクセント -->
-    <div class="absolute top-0 right-0 w-96 h-96 bg-sky-500/5 rounded-full -translate-y-1/2 translate-x-1/2 z-[1]" />
-    <div class="absolute bottom-0 left-0 w-64 h-64 bg-sky-400/5 rounded-full translate-y-1/2 -translate-x-1/2 z-[1]" />
+    <!-- 右上デコレーション -->
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-sky-600/5 -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+    <div class="absolute bottom-0 right-20 w-72 h-72 rounded-full bg-sky-500/5 translate-y-1/3 pointer-events-none" />
 
     <!-- メインコンテンツ -->
-    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-24 flex flex-col lg:flex-row items-center gap-16">
-      <!-- 左: テキスト -->
-      <div class="flex-1 text-white">
-        <!-- 英語ラベル -->
-        <p
-          class="text-xs tracking-[0.6em] uppercase text-sky-400/80 mb-5 transition-all duration-700"
-          :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
-          style="transition-delay: 100ms"
-        >
-          {{ cfg.nameEn }}
-        </p>
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-24 lg:py-32">
+      <div class="grid lg:grid-cols-5 gap-12 lg:gap-20 items-center">
 
-        <!-- 横ライン -->
-        <div
-          class="mb-6 h-px bg-sky-500/50 transition-all duration-700"
-          :class="mounted ? 'w-12' : 'w-0'"
-          style="transition-delay: 200ms"
-        />
-
-        <!-- 会社名 -->
-        <h1 class="font-serif font-semibold text-5xl md:text-6xl lg:text-7xl leading-tight mb-6 tracking-tight">
-          <span
-            v-for="(char, i) in nameChars"
-            :key="i"
-            class="inline-block transition-all duration-500"
-            :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
-            :style="{ transitionDelay: `${300 + i * 40}ms` }"
-          >{{ char === ' ' ? ' ' : char }}</span>
-        </h1>
-
-        <!-- キャッチコピー -->
-        <p
-          class="text-lg md:text-xl text-white/70 mb-10 font-light leading-relaxed transition-all duration-700"
-          :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
-          :style="{ transitionDelay: `${ctaDelay - 100}ms` }"
-        >
-          {{ cfg.catchcopy }}
-        </p>
-
-        <!-- CTAボタン -->
-        <div
-          class="flex flex-col sm:flex-row gap-4 transition-all duration-700"
-          :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
-          :style="{ transitionDelay: `${ctaDelay}ms` }"
-        >
-          <NuxtLink
-            :to="`${prefix}/contact`"
-            class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl font-semibold text-base transition-all duration-200 shadow-lg shadow-sky-900/30"
+        <!-- 左: テキスト (3/5) -->
+        <div class="lg:col-span-3">
+          <!-- ラベル -->
+          <div
+            class="flex items-center gap-3 mb-8 transition-all duration-700"
+            :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
+            style="transition-delay: 100ms"
           >
-            <UIcon name="i-heroicons-envelope" class="w-5 h-5" />
-            無料お見積り・ご相談
-          </NuxtLink>
-          <a
-            :href="`tel:${cfg.tel}`"
-            class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white/10 border border-white/30 hover:bg-white/20 text-white rounded-xl font-semibold text-base transition-all duration-200 backdrop-blur-sm"
+            <div class="w-8 h-px bg-sky-500" />
+            <span class="text-xs tracking-[0.4em] uppercase text-sky-400 font-medium">{{ cfg.nameEn }}</span>
+          </div>
+
+          <!-- 会社名 -->
+          <h1 class="font-serif font-bold leading-none tracking-tight mb-6">
+            <span
+              v-for="(char, i) in cfg.name.split('')"
+              :key="i"
+              class="inline-block text-white transition-all duration-600"
+              :class="[
+                mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12',
+                char === ' ' ? 'mr-4' : '',
+              ]"
+              :style="{ fontSize: 'clamp(3rem, 8vw, 6rem)', transitionDelay: `${200 + i * 50}ms` }"
+            >{{ char === ' ' ? ' ' : char }}</span>
+          </h1>
+
+          <!-- キャッチコピー -->
+          <p
+            class="text-lg md:text-xl text-slate-400 leading-relaxed mb-10 max-w-xl transition-all duration-700"
+            :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
+            style="transition-delay: 600ms"
           >
-            <UIcon name="i-heroicons-phone" class="w-5 h-5" />
-            {{ cfg.tel }}
-          </a>
+            {{ cfg.catchcopy }}
+          </p>
+
+          <!-- CTAボタン -->
+          <div
+            class="flex flex-col sm:flex-row gap-4 transition-all duration-700"
+            :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
+            style="transition-delay: 750ms"
+          >
+            <NuxtLink
+              :to="`${prefix}/contact`"
+              class="group inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-sky-600 hover:bg-sky-500 text-white rounded-xl font-semibold text-base transition-all duration-200 shadow-lg shadow-sky-900/40"
+            >
+              <UIcon name="i-heroicons-envelope" class="w-5 h-5 transition-transform duration-200 group-hover:-translate-y-0.5" />
+              無料お見積り・ご相談
+            </NuxtLink>
+            <a
+              :href="`tel:${cfg.tel}`"
+              class="inline-flex items-center justify-center gap-2.5 px-8 py-4 border border-slate-700 hover:border-sky-500 bg-white/5 hover:bg-sky-500/10 text-white rounded-xl font-semibold text-base transition-all duration-200"
+            >
+              <UIcon name="i-heroicons-phone" class="w-5 h-5 text-sky-400" />
+              {{ cfg.tel }}
+            </a>
+          </div>
+        </div>
+
+        <!-- 右: スタッツグリッド (2/5) -->
+        <div
+          class="lg:col-span-2 grid grid-cols-2 gap-4 transition-all duration-700"
+          :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
+          style="transition-delay: 400ms"
+        >
+          <!-- 施工実績 -->
+          <div class="bg-white/5 border border-white/10 hover:border-sky-500/40 rounded-2xl p-6 transition-all duration-300 col-span-2">
+            <p class="text-4xl font-bold text-white font-serif tabular-nums">
+              {{ statsVisible ? countWorks : 0 }}<span class="text-sky-400 text-2xl">件+</span>
+            </p>
+            <p class="text-sm text-slate-500 mt-1.5 font-medium">累計施工実績</p>
+          </div>
+
+          <!-- 創業 -->
+          <div class="bg-white/5 border border-white/10 hover:border-sky-500/40 rounded-2xl p-6 transition-all duration-300">
+            <p class="text-4xl font-bold text-white font-serif tabular-nums">
+              {{ statsVisible ? countYears : 0 }}<span class="text-sky-400 text-xl">年</span>
+            </p>
+            <p class="text-sm text-slate-500 mt-1.5 font-medium">創業</p>
+          </div>
+
+          <!-- 保証 -->
+          <div class="bg-white/5 border border-white/10 hover:border-sky-500/40 rounded-2xl p-6 transition-all duration-300">
+            <p class="text-4xl font-bold text-white font-serif tabular-nums">
+              {{ statsVisible ? countWarranty : 0 }}<span class="text-sky-400 text-xl">年</span>
+            </p>
+            <p class="text-sm text-slate-500 mt-1.5 font-medium">施工保証</p>
+          </div>
+
+          <!-- 対応エリア -->
+          <div
+            v-if="cfg.serviceArea"
+            class="bg-sky-600/15 border border-sky-500/30 rounded-2xl p-6 col-span-2"
+          >
+            <div class="flex items-center gap-2 mb-1.5">
+              <UIcon name="i-heroicons-map-pin" class="w-4 h-4 text-sky-400" />
+              <p class="text-sm text-slate-400 font-medium">対応エリア</p>
+            </div>
+            <p class="text-white font-semibold">{{ cfg.serviceArea }}</p>
+          </div>
         </div>
       </div>
 
-      <!-- 右: 信頼バッジ -->
+      <!-- 強み (下部バー) -->
       <div
-        class="flex-shrink-0 w-full lg:w-72 transition-all duration-700"
-        :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
-        :style="{ transitionDelay: `${ctaDelay + 200}ms` }"
+        class="mt-16 pt-10 border-t border-white/8 grid sm:grid-cols-3 gap-6 transition-all duration-700"
+        :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
+        style="transition-delay: 900ms"
       >
-        <div class="bg-white/8 backdrop-blur-sm border border-white/15 rounded-2xl p-6 space-y-5">
-          <p class="text-xs tracking-widest uppercase text-sky-400 font-medium">実績・信頼</p>
-          <div
-            v-for="feature in cfg.features"
-            :key="feature.title"
-            class="flex items-start gap-4"
-          >
-            <div class="w-9 h-9 rounded-xl bg-sky-500/20 flex items-center justify-center shrink-0">
-              <UIcon :name="feature.icon" class="w-4 h-4 text-sky-400" />
-            </div>
-            <div>
-              <p class="text-sm font-semibold text-white mb-0.5">{{ feature.title }}</p>
-              <p class="text-xs text-white/50 leading-relaxed">{{ feature.description }}</p>
-            </div>
+        <div
+          v-for="feature in cfg.features"
+          :key="feature.title"
+          class="flex items-start gap-4"
+        >
+          <div class="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/20 flex items-center justify-center shrink-0">
+            <UIcon :name="feature.icon" class="w-5 h-5 text-sky-400" />
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-white mb-0.5">{{ feature.title }}</p>
+            <p class="text-xs text-slate-500 leading-relaxed">{{ feature.description }}</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- スクロール促進 -->
+    <!-- 下部スクロールインジケーター -->
     <div
-      class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30 z-10 transition-all duration-700"
+      class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-all duration-700"
       :class="mounted ? 'opacity-100' : 'opacity-0'"
-      :style="{ transitionDelay: `${ctaDelay + 400}ms` }"
+      style="transition-delay: 1200ms"
     >
-      <div class="w-px h-14 bg-gradient-to-b from-white/30 to-transparent animate-pulse" />
+      <span class="text-[10px] tracking-[0.3em] uppercase text-slate-600">Scroll</span>
+      <div class="w-px h-12 bg-gradient-to-b from-sky-500/50 to-transparent animate-pulse" />
     </div>
   </section>
 </template>

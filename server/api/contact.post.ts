@@ -8,6 +8,10 @@ const schema = z.object({
   tel: z.string().max(20).optional(),
   message: z.string().min(1).max(5000),
   website: z.string().optional(), // ハニーポット：人間は空のまま送信する
+  // 送信元テンプレートのショップ情報（自動返信メールのフッターに使用）
+  shopName: z.string().max(100).optional(),
+  shopTel: z.string().max(20).optional(),
+  shopAddress: z.string().max(200).optional(),
 })
 
 // シンプルなインメモリレートリミッター（単一インスタンス前提）
@@ -95,7 +99,10 @@ function buildHtml(data: { name: string; email: string; tel?: string; message: s
 </html>`
 }
 
-function buildAutoReplyHtml(name: string) {
+function buildAutoReplyHtml(name: string, shop?: { name?: string; tel?: string; address?: string }) {
+  const shopName = shop?.name || siteConfig.name
+  const shopTel = shop?.tel || siteConfig.tel
+  const shopAddress = shop?.address || buildFullAddress(siteConfig.address)
   const escaped = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
   return `<!DOCTYPE html>
 <html lang="ja">
@@ -124,9 +131,9 @@ function buildAutoReplyHtml(name: string) {
               このメールへの返信はお受けできませんのでご了承ください。
             </p>
             <div style="margin-top:32px;padding-top:24px;border-top:1px solid #f5f5f4;">
-              <p style="margin:0;font-size:14px;color:#78716c;font-weight:600;">${escaped(siteConfig.name)}</p>
-              <p style="margin:4px 0 0;font-size:13px;color:#a8a29e;">${escaped(buildFullAddress(siteConfig.address))}</p>
-              <p style="margin:4px 0 0;font-size:13px;color:#a8a29e;">TEL: ${escaped(siteConfig.tel)}</p>
+              <p style="margin:0;font-size:14px;color:#78716c;font-weight:600;">${escaped(shopName)}</p>
+              <p style="margin:4px 0 0;font-size:13px;color:#a8a29e;">${escaped(shopAddress)}</p>
+              <p style="margin:4px 0 0;font-size:13px;color:#a8a29e;">TEL: ${escaped(shopTel)}</p>
             </div>
           </td>
         </tr>
@@ -166,7 +173,8 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 500, statusMessage: 'サーバーの設定が不完全です' })
   }
 
-  const { name, email, tel, message } = result.data
+  const { name, email, tel, message, shopName, shopTel, shopAddress } = result.data
+  const replyShopName = shopName || siteConfig.name
 
   const resend = new Resend(apiKey)
 
@@ -182,8 +190,8 @@ export default defineEventHandler(async (event) => {
     resend.emails.send({
       from: fromEmail,
       to: email,
-      subject: `お問い合わせを受け付けました｜${siteConfig.name}`,
-      html: buildAutoReplyHtml(name),
+      subject: `お問い合わせを受け付けました｜${replyShopName}`,
+      html: buildAutoReplyHtml(name, { name: shopName, tel: shopTel, address: shopAddress }),
     }),
   ])
 

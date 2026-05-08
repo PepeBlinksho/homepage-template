@@ -14,6 +14,7 @@ useSeoMeta({
   twitterDescription: cfg.value.seo.description,
   twitterImage: cfg.value.seo.ogImage,
 })
+useJsonLd()
 </script>
 
 <template>

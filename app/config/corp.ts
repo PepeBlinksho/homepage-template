@@ -57,6 +57,16 @@ export const corpConfig = {
     siteUrl: 'https://example.com',
   },
 
+  // 構造化データ（Google検索のリッチリザルト用）
+  // https://schema.org/LocalBusiness のサブタイプを指定
+  // 例: GeneralContractor / LandscapeService / AutoDealer / HairSalon / LocalBusiness
+  business: {
+    type: 'LocalBusiness',
+    // Schema.org 形式の営業時間（定休日は記載しない）
+    // 曜日コード: Mo Tu We Th Fr Sa Su（範囲指定: Mo-Fr）
+    openingHours: [] as string[],
+  },
+
   gaId: '',
   privacyPolicyDate: '2026年5月1日',
 }

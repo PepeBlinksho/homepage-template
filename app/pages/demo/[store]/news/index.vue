@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const siteConfig = useShopConfig()
 const prefix = useRoutePrefix()
+const { news } = useMicroCmsNews(siteConfig.value.news)
 
 useSeoMeta({
   title: `お知らせ | ${siteConfig.value.name}`,
@@ -31,14 +32,14 @@ function formatDate(dateStr: string): string {
     </div>
 
     <div ref="el" class="max-w-3xl mx-auto px-4 sm:px-6 py-20">
-      <div v-if="siteConfig.news.length === 0" class="text-center py-20 text-stone-400">
+      <div v-if="news.length === 0" class="text-center py-20 text-stone-400">
         <UIcon name="i-heroicons-newspaper" class="w-12 h-12 mx-auto mb-4 opacity-40" />
         <p class="text-sm">現在お知らせはありません</p>
       </div>
 
       <ul v-else class="space-y-0">
         <li
-          v-for="(item, i) in siteConfig.news"
+          v-for="(item, i) in news"
           :key="item.id"
           class="transition-all duration-700"
           :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
