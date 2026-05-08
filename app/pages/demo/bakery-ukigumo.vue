@@ -141,7 +141,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="scroll-hint">
-        <span>スクロール</span>
+        <span>Scroll</span>
         <span class="bar" />
       </div>
     </section>
@@ -151,7 +151,7 @@ onMounted(() => {
       <header class="sec-head">
         <div class="meta reveal">
           <div class="num-row">
-            <span class="num">01 / ストーリー</span>
+            <span class="num">01 / Story</span>
             <span class="line" />
           </div>
           <div class="eyebrow">Philosophy &nbsp;·&nbsp; 哲学</div>
@@ -221,7 +221,7 @@ onMounted(() => {
         <header class="sec-head">
           <div class="meta reveal">
             <div class="num-row">
-              <span class="num">02 / ベーカリー</span>
+              <span class="num">02 / Bakery</span>
               <span class="line" />
             </div>
             <div class="eyebrow">Signature breads &nbsp;·&nbsp; パン</div>
@@ -307,7 +307,7 @@ onMounted(() => {
         <header class="sec-head">
           <div class="meta reveal">
             <div class="num-row">
-              <span class="num">03 / カフェ</span>
+              <span class="num">03 / Café</span>
               <span class="line" />
             </div>
             <div class="eyebrow">The space &nbsp;·&nbsp; 喫茶室</div>
@@ -351,7 +351,7 @@ onMounted(() => {
         <header class="sec-head" style="padding-top:0">
           <div class="meta reveal">
             <div class="num-row">
-              <span class="num">04 / 季節</span>
+              <span class="num">04 / Seasonal</span>
               <span class="line" style="background:rgba(253,250,243,0.15)" />
             </div>
             <div class="eyebrow">This month &nbsp;·&nbsp; 五月</div>
@@ -395,7 +395,7 @@ onMounted(() => {
         <header class="sec-head">
           <div class="meta reveal">
             <div class="num-row">
-              <span class="num">05 / アクセス</span>
+              <span class="num">05 / Visit</span>
               <span class="line" />
             </div>
             <div class="eyebrow">Access &amp; hours &nbsp;·&nbsp; ご来店</div>
@@ -472,7 +472,7 @@ onMounted(() => {
         <div class="insta-head">
           <h3 class="reveal">静かな瞬間 <em>· @bakery.ukigumo</em></h3>
           <a href="#" class="hero-cta reveal" style="color:var(--char);border-color:var(--line)">
-            <span>フォロー</span><span class="arrow" />
+            <span>Follow</span><span class="arrow" />
           </a>
         </div>
         <div class="insta-grid">
@@ -534,29 +534,29 @@ onMounted(() => {
         <button aria-label="Close" @click="tweaksPanelOpen = false">×</button>
       </h5>
       <div class="grp">
-        <div class="lbl">テーマ</div>
+        <div class="lbl">Theme</div>
         <div class="seg">
-          <button :class="{ active: tweaks.theme === 'cream' }" @click="setTweak({ theme: 'cream' })">クリーム</button>
-          <button :class="{ active: tweaks.theme === 'paper' }" @click="setTweak({ theme: 'paper' })">ペーパー</button>
-          <button :class="{ active: tweaks.theme === 'toasted' }" @click="setTweak({ theme: 'toasted' })">トースト</button>
+          <button :class="{ active: tweaks.theme === 'cream' }" @click="setTweak({ theme: 'cream' })">Cream</button>
+          <button :class="{ active: tweaks.theme === 'paper' }" @click="setTweak({ theme: 'paper' })">Paper</button>
+          <button :class="{ active: tweaks.theme === 'toasted' }" @click="setTweak({ theme: 'toasted' })">Toasted</button>
         </div>
       </div>
       <div class="grp">
-        <div class="lbl">見出しフォント</div>
+        <div class="lbl">Display font</div>
         <div class="seg">
           <button :class="{ active: tweaks.display_font === 'cormorant' }" @click="setTweak({ display_font: 'cormorant' })">Cormorant</button>
           <button :class="{ active: tweaks.display_font === 'playfair' }" @click="setTweak({ display_font: 'playfair' })">Playfair</button>
         </div>
       </div>
       <div class="grp">
-        <div class="lbl">タグライン配置</div>
+        <div class="lbl">Tagline alignment</div>
         <div class="seg">
-          <button :class="{ active: tweaks.tagline_alignment === 'left' }" @click="setTweak({ tagline_alignment: 'left' })">左寄せ</button>
-          <button :class="{ active: tweaks.tagline_alignment === 'center' }" @click="setTweak({ tagline_alignment: 'center' })">中央</button>
+          <button :class="{ active: tweaks.tagline_alignment === 'left' }" @click="setTweak({ tagline_alignment: 'left' })">Left</button>
+          <button :class="{ active: tweaks.tagline_alignment === 'center' }" @click="setTweak({ tagline_alignment: 'center' })">Center</button>
         </div>
       </div>
       <div class="grp toggle">
-        <span>用紙グレイン</span>
+        <span>Paper grain</span>
         <span class="switch" :class="{ on: tweaks.show_grain }" @click="setTweak({ show_grain: !tweaks.show_grain })" />
       </div>
     </div>
