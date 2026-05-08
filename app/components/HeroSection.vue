@@ -123,20 +123,12 @@ onUnmounted(() => {
         {{ siteConfig.catchcopy }}
       </p>
 
-      <!-- CTAボタン -->
+      <!-- CTAボタン: 予約あり→ご予約がprimary、メニューはoutline。予約なし→メニューがprimary -->
       <div
         class="flex flex-col sm:flex-row gap-4 justify-center transition-all duration-700"
         :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
         :style="{ transitionDelay: `${ctaDelay}ms` }"
       >
-        <UButton
-          :to="`${prefix}/menu`"
-          size="xl"
-          color="primary"
-          class="font-medium"
-        >
-          メニューを見る
-        </UButton>
         <UButton
           v-if="siteConfig.reservation"
           :to="siteConfig.reservation"
@@ -144,17 +136,27 @@ onUnmounted(() => {
           rel="noopener noreferrer"
           size="xl"
           color="primary"
-          variant="outline"
-          class="border-white/50 text-white hover:bg-white/10 hover:border-white transition-all"
+          class="font-medium"
           external
         >
           ご予約はこちら
         </UButton>
         <UButton
+          :to="`${prefix}/menu`"
+          size="xl"
+          :color="siteConfig.reservation ? undefined : 'primary'"
+          :variant="siteConfig.reservation ? 'outline' : 'solid'"
+          :class="siteConfig.reservation
+            ? 'border-white/50 text-white hover:bg-white/10 hover:border-white transition-all'
+            : 'font-medium'"
+        >
+          メニューを見る
+        </UButton>
+        <UButton
           :to="`${prefix}/#access`"
           size="xl"
           variant="outline"
-          class="border-white/50 text-white hover:bg-white/10 hover:border-white transition-all"
+          class="border-white/30 text-white/70 hover:bg-white/10 hover:border-white/60 transition-all"
         >
           アクセス
         </UButton>

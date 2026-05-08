@@ -39,6 +39,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/image',
     '@nuxtjs/sitemap',
+    '@vueuse/nuxt',
   ],
 
   devtools: {

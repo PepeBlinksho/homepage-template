@@ -64,5 +64,6 @@ useCanonical()
     </main>
     <AppFooter v-if="showFooter" />
     <CookieBanner />
+    <MobileCtaBar />
   </UApp>
 </template>
