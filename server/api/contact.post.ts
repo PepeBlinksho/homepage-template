@@ -1,17 +1,15 @@
 import { Resend } from 'resend'
 import { z } from 'zod'
-import { validateContactToken } from '../utils/contactToken'
 
 const schema = z.object({
   name: z.string().min(1).max(100),
   email: z.string().email().max(254),
   tel: z.string().max(20).optional(),
   message: z.string().min(1).max(5000),
-  website: z.string().optional(), // ハニーポット：人間は空のまま送信する
-  token: z.string().optional(), // CSRFトークン
+  website: z.string().optional(),
 })
 
-// インメモリレートリミッター（Vercel サーバーレスでは単一インスタンス前提のため補助的）
+// インメモリレートリミッター（Vercel サーバーレスではインスタンス非共有のため補助的）
 // 本番で高トラフィックが想定される場合は Upstash Redis + @upstash/ratelimit に移行すること
 const rateLimitMap = new Map<string, { count: number; reset: number }>()
 const RATE_LIMIT = 5
@@ -19,7 +17,6 @@ const RATE_WINDOW_MS = 10 * 60 * 1000
 
 function checkRateLimit(ip: string): boolean {
   const now = Date.now()
-  // 期限切れエントリを削除してメモリリークを防ぐ
   for (const [key, entry] of rateLimitMap) {
     if (now > entry.reset) rateLimitMap.delete(key)
   }
@@ -104,6 +101,8 @@ function buildHtml(data: { name: string; email: string; tel?: string; message: s
 
 
 export default defineEventHandler(async (event) => {
+  // CSRF検証は nuxt-csurf のサーバーミドルウェアが自動で実施
+
   const ip = getRequestIP(event, { xForwardedFor: true }) ?? 'unknown'
   if (!checkRateLimit(ip)) {
     throw createError({ statusCode: 429, statusMessage: 'しばらく時間をおいてから再度お試しください' })
@@ -121,18 +120,14 @@ export default defineEventHandler(async (event) => {
     return { success: true }
   }
 
-  // CSRFトークン検証（NUXT_CONTACT_SECRET 未設定の場合はスキップ）
-  const { resendApiKey, contactEmail, contactFromEmail, contactSecret } = useRuntimeConfig(event)
-  if (!validateContactToken(result.data.token ?? '', contactSecret as string)) {
-    throw createError({ statusCode: 403, statusMessage: '不正なリクエストです' })
-  }
+  const { resendApiKey, contactEmail, contactFromEmail } = useRuntimeConfig(event)
 
   const apiKey = resendApiKey as string
   const toEmail = contactEmail as string
   const fromEmail = (contactFromEmail as string) || 'noreply@resend.dev'
 
   if (!apiKey || !toEmail) {
-    console.error('[contact] 環境変数 RESEND_API_KEY または CONTACT_EMAIL が未設定です')
+    console.error('[contact] 環境変数 NUXT_RESEND_API_KEY または NUXT_CONTACT_EMAIL が未設定です')
     throw createError({ statusCode: 500, statusMessage: 'サーバーの設定が不完全です' })
   }
 
