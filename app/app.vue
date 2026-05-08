@@ -63,5 +63,6 @@ useCanonical()
       <NuxtPage />
     </main>
     <AppFooter v-if="showFooter" />
+    <CookieBanner />
   </UApp>
 </template>

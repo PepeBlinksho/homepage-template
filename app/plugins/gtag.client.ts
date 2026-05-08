@@ -1,8 +1,8 @@
 /**
- * Google Analytics (GA4) プラグイン
- * 優先順位: 環境変数 NUXT_PUBLIC_GA_ID > config/site.ts の gaId
- * corp テンプレートの場合は Vercel の環境変数で設定する
- * 例: gaId: 'G-XXXXXXXXXX'
+ * Google Analytics (GA4) プラグイン — Consent Mode v2 対応
+ * - デフォルトは analytics_storage: denied（Cookie同意前はデータ収集しない）
+ * - ユーザーが同意済みの場合のみ granted で初期化
+ * - 優先順位: 環境変数 NUXT_PUBLIC_GA_ID > config/site.ts の gaId
  */
 import { siteConfig } from '~/config/site'
 
@@ -12,6 +12,9 @@ export default defineNuxtPlugin((_nuxtApp) => {
   const { public: runtimePublic } = useRuntimeConfig()
   const gaId = (runtimePublic.gaId as string) || siteConfig.gaId
   if (!gaId || !GA_ID_PATTERN.test(gaId)) return
+
+  const { isGranted } = useCookieConsent()
+  const consentState = isGranted.value ? 'granted' : 'denied'
 
   useHead({
     script: [
@@ -23,6 +26,7 @@ export default defineNuxtPlugin((_nuxtApp) => {
         innerHTML: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
+          gtag('consent', 'default', { analytics_storage: '${consentState}' });
           gtag('js', new Date());
           gtag('config', '${gaId}');
         `,
@@ -30,7 +34,6 @@ export default defineNuxtPlugin((_nuxtApp) => {
     ],
   })
 
-  // ページ遷移ごとにページビューを送信
   const router = useRouter()
   router.afterEach((to) => {
     if (typeof window !== 'undefined' && 'gtag' in window) {
