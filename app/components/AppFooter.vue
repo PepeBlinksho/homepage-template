@@ -30,7 +30,7 @@ const currentYear = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="bg-stone-900 text-stone-300 pb-20 md:pb-0">
+  <footer class="bg-stone-900 text-stone-300">
     <!-- ブランドゾーン -->
     <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-10">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
@@ -66,8 +66,8 @@ const currentYear = new Date().getFullYear()
     <!-- 情報グリッド -->
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-        <!-- 所在地・連絡先 -->
-        <div>
+        <!-- 所在地・連絡先 (AccessSection と重複するためモバイルでは非表示) -->
+        <div class="hidden sm:block">
           <h4 class="text-[10px] font-semibold text-stone-600 uppercase tracking-[0.2em] mb-4">
             所在地・連絡先
           </h4>
@@ -91,8 +91,8 @@ const currentYear = new Date().getFullYear()
           </address>
         </div>
 
-        <!-- 営業時間 -->
-        <div>
+        <!-- 営業時間 (AccessSection と重複するためモバイルでは非表示) -->
+        <div class="hidden sm:block">
           <h4 class="text-[10px] font-semibold text-stone-600 uppercase tracking-[0.2em] mb-4">
             営業時間
           </h4>
