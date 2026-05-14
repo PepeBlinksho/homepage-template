@@ -732,7 +732,7 @@ header.site nav a:hover::after { right: 0; }
 .hero h1 {
   margin: 0; color: var(--paper);
   font-size: clamp(44px, 7.6vw, 124px);
-  max-width: 13ch;
+  max-width: 16em;
   text-shadow: 0 2px 30px rgba(43,38,34,0.18);
 }
 .hero h1 .jp-overlay {
