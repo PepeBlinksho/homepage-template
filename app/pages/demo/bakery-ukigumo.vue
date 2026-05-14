@@ -188,7 +188,7 @@ onMounted(() => {
         </div>
         <div class="story-pull reveal">
           <blockquote>「急いで作るのではなく、丁寧に。そして朝が訪れるのを待ちます。」</blockquote>
-          <cite>— 辻村 澪、店主</cite>
+          <cite>— 店主</cite>
         </div>
       </div>
     </section>
@@ -357,7 +357,7 @@ onMounted(() => {
           <div class="seasonal-text">
             <h2 class="display reveal">山苺と<em>燻製ライ麦。</em></h2>
             <p class="body-large reveal" style="--reveal-delay:120ms">
-              毎年五月、白山の麓まで車を走らせ、山本さんの畑へ。春のパンに彩りを添える、小ぶりで甘い山苺を育てる農家さんです。富山の燻製所で仕上げたライ麦と合わせました。
+              毎年五月、白山の麓の農家さんを訪ねます。春のパンに彩りを添える、小ぶりで甘い山苺を育てている畑です。富山の燻製所で仕上げたライ麦と合わせました。
             </p>
             <dl class="seasonal-detail reveal" style="--reveal-delay:240ms">
               <div>
@@ -366,7 +366,7 @@ onMounted(() => {
               </div>
               <div>
                 <dt>素材</dt>
-                <dd>山本農園・白山<br>水野燻製所・富山</dd>
+                <dd>白山の農家<br>富山の燻製所</dd>
               </div>
             </dl>
           </div>
