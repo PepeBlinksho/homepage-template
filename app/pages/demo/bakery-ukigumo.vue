@@ -123,7 +123,7 @@ onMounted(() => {
         </div>
         <h1 class="display reveal" style="--reveal-delay:120ms">
           <span class="jp-overlay">浮 雲 の パ ン</span>
-          日々のくらしに、<br>そっと寄り添う<em>パン</em>。
+          日々のくらしに、<br>そっと寄り添う、<br>ひとつの<em>パン</em>。
         </h1>
         <div class="hero-bottom reveal" style="--reveal-delay:360ms" :style="heroBottomStyle">
           <a href="#story" class="hero-cta">
