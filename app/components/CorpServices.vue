@@ -57,8 +57,12 @@ const { el, revealed } = useReveal()
           </div>
 
           <!-- テキスト -->
-          <h3 class="relative z-10 font-bold text-xl text-slate-900 mb-3 leading-snug">{{ service.title }}</h3>
-          <p class="relative z-10 text-sm text-slate-500 leading-relaxed">{{ service.description }}</p>
+          <h3 class="relative z-10 font-bold text-xl text-slate-900 mb-3 leading-snug">
+            {{ service.title }}
+          </h3>
+          <p class="relative z-10 text-sm text-slate-500 leading-relaxed">
+            {{ service.description }}
+          </p>
 
           <!-- ホバー時の底線アクセント -->
           <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-sky-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
@@ -72,22 +76,32 @@ const { el, revealed } = useReveal()
         :style="{ transitionDelay: `${cfg.services.length * 80}ms` }"
       >
         <div>
-          <p class="text-slate-400 text-sm mb-2">まずはお気軽にご相談ください</p>
-          <p class="font-serif text-2xl md:text-3xl font-bold text-white">無料点検・お見積りを受け付けています</p>
+          <p class="text-slate-400 text-sm mb-2">
+            まずはお気軽にご相談ください
+          </p>
+          <p class="font-serif text-2xl md:text-3xl font-bold text-white">
+            無料点検・お見積りを受け付けています
+          </p>
         </div>
         <div class="flex flex-col sm:flex-row gap-4 shrink-0">
           <NuxtLink
             :to="`${prefix}/contact`"
             class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-sky-600 hover:bg-sky-500 text-white rounded-xl font-semibold transition-all duration-200 whitespace-nowrap"
           >
-            <UIcon name="i-heroicons-envelope" class="w-5 h-5" />
+            <UIcon
+              name="i-heroicons-envelope"
+              class="w-5 h-5"
+            />
             お問い合わせ
           </NuxtLink>
           <a
             :href="`tel:${cfg.tel}`"
             class="inline-flex items-center justify-center gap-2 px-8 py-4 border border-slate-700 hover:border-sky-500 text-white rounded-xl font-semibold transition-all duration-200 whitespace-nowrap"
           >
-            <UIcon name="i-heroicons-phone" class="w-5 h-5 text-sky-400" />
+            <UIcon
+              name="i-heroicons-phone"
+              class="w-5 h-5 text-sky-400"
+            />
             {{ cfg.tel }}
           </a>
         </div>

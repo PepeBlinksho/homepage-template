@@ -47,11 +47,19 @@ function formatDate(dateStr: string): string {
         v-if="news.length === 0"
         class="text-center py-20 text-stone-400"
       >
-        <UIcon name="i-heroicons-newspaper" class="w-12 h-12 mx-auto mb-4 opacity-40" />
-        <p class="text-sm">現在お知らせはありません</p>
+        <UIcon
+          name="i-heroicons-newspaper"
+          class="w-12 h-12 mx-auto mb-4 opacity-40"
+        />
+        <p class="text-sm">
+          現在お知らせはありません
+        </p>
       </div>
 
-      <ul v-else class="space-y-0">
+      <ul
+        v-else
+        class="space-y-0"
+      >
         <li
           v-for="(item, i) in news"
           :key="item.id"

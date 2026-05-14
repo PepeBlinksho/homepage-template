@@ -18,7 +18,10 @@ function handleError() {
     <!-- ヘッダー（簡易版） -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center">
-        <NuxtLink to="/" class="font-serif text-lg font-semibold text-stone-900 tracking-wide">
+        <NuxtLink
+          to="/"
+          class="font-serif text-lg font-semibold text-stone-900 tracking-wide"
+        >
           {{ siteConfig.name }}
         </NuxtLink>
       </div>

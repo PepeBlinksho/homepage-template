@@ -40,11 +40,9 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     const body = props.isDemo ? { ...event.data, _isDemo: true } : event.data
     await $csrfFetch('/api/contact', { method: 'POST', body })
     emit('success')
-  }
-  catch {
+  } catch {
     submitError.value = '送信に失敗しました。しばらく経ってから再度お試しいただくか、お電話にてお問い合わせください。'
-  }
-  finally {
+  } finally {
     isSubmitting.value = false
   }
 }

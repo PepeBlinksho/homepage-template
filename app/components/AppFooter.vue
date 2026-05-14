@@ -4,7 +4,7 @@ import { buildFullAddress } from '~/config/site'
 const siteConfig = useShopConfig()
 const prefix = useRoutePrefix()
 
-type SnsLink = { key: string; url: string; icon: string; label: string }
+type SnsLink = { key: string, url: string, icon: string, label: string }
 
 const snsLinks = computed<SnsLink[]>(() =>
   [
@@ -35,7 +35,10 @@ const currentYear = new Date().getFullYear()
     <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-10">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <div>
-          <p class="font-serif leading-none tracking-tight text-white" style="font-size: clamp(48px, 8vw, 92px)">
+          <p
+            class="font-serif leading-none tracking-tight text-white"
+            style="font-size: clamp(48px, 8vw, 92px)"
+          >
             {{ siteConfig.name }}
           </p>
           <p class="mt-3 text-stone-400 italic text-base">
@@ -55,7 +58,10 @@ const currentYear = new Date().getFullYear()
             :aria-label="sns.label"
             class="text-stone-500 hover:text-white transition-colors"
           >
-            <UIcon :name="sns.icon" class="w-6 h-6" />
+            <UIcon
+              :name="sns.icon"
+              class="w-6 h-6"
+            />
           </a>
         </div>
       </div>
@@ -72,7 +78,9 @@ const currentYear = new Date().getFullYear()
             所在地・連絡先
           </h4>
           <address class="not-italic text-sm space-y-2 text-stone-400">
-            <p class="text-stone-600 text-xs">〒{{ siteConfig.address.zip }}</p>
+            <p class="text-stone-600 text-xs">
+              〒{{ siteConfig.address.zip }}
+            </p>
             <p class="text-stone-300">
               {{ buildFullAddress(siteConfig.address) }}
             </p>

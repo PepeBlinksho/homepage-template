@@ -9,7 +9,10 @@ defineProps<{
 </script>
 
 <template>
-  <div class="mb-10 md:mb-12" :class="center ? 'text-center' : ''">
+  <div
+    class="mb-10 md:mb-12"
+    :class="center ? 'text-center' : ''"
+  >
     <p
       class="text-xs tracking-[0.5em] uppercase font-medium mb-3"
       :class="light ? 'text-amber-300' : 'text-amber-500'"

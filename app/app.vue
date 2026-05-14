@@ -6,7 +6,7 @@ const route = useRoute()
 const isCorpRoute = computed(() => route.path.startsWith('/corp/'))
 
 const isDemoRoute = computed(() =>
-  ['/shop/', '/demo/', '/beauty/', '/corp/'].some(p => route.path.startsWith(p))
+  ['/shop/', '/demo/', '/beauty/', '/corp/'].some(p => route.path.startsWith(p)),
 )
 
 // layout: false を指定したページはヘッダー・フッター共に独自実装するため、共通chromeを抑制

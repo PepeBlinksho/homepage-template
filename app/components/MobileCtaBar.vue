@@ -26,7 +26,10 @@ const show = computed(() => !isDemoOrCorp.value && hasTel.value)
           :href="`tel:${siteConfig.tel}`"
           class="flex items-center justify-center gap-2 py-4 bg-amber-500 active:bg-amber-600 text-white font-semibold text-sm tracking-wide transition-colors"
         >
-          <UIcon name="i-heroicons-phone" class="w-5 h-5" />
+          <UIcon
+            name="i-heroicons-phone"
+            class="w-5 h-5"
+          />
           今すぐ電話
         </a>
         <a
@@ -37,7 +40,10 @@ const show = computed(() => !isDemoOrCorp.value && hasTel.value)
           class="flex items-center justify-center gap-2 py-4 active:opacity-90 text-white font-semibold text-sm tracking-wide transition-colors"
           style="background-color: #06C755"
         >
-          <UIcon name="i-simple-icons-line" class="w-5 h-5" />
+          <UIcon
+            name="i-simple-icons-line"
+            class="w-5 h-5"
+          />
           LINEで問い合わせ
         </a>
       </div>

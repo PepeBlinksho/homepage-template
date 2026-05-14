@@ -12,7 +12,7 @@ const schema = z.object({
 
 // インメモリレートリミッター（Vercel サーバーレスではインスタンス非共有のため補助的）
 // 本番で高トラフィックが想定される場合は Upstash Redis + @upstash/ratelimit に移行すること
-const rateLimitMap = new Map<string, { count: number; reset: number }>()
+const rateLimitMap = new Map<string, { count: number, reset: number }>()
 const RATE_LIMIT = 5
 const RATE_WINDOW_MS = 10 * 60 * 1000
 
@@ -31,8 +31,7 @@ function checkRateLimit(ip: string): boolean {
   return true
 }
 
-
-function buildHtml(data: { name: string; email: string; tel?: string; message: string }) {
+function buildHtml(data: { name: string, email: string, tel?: string, message: string }) {
   const { name, email, tel, message } = data
   const escaped = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
   const messageHtml = escaped(message).replace(/\n/g, '<br>')
@@ -99,7 +98,6 @@ function buildHtml(data: { name: string; email: string; tel?: string; message: s
 </body>
 </html>`
 }
-
 
 export default defineEventHandler(async (event) => {
   // CSRF検証は nuxt-csurf のサーバーミドルウェアが自動で実施

@@ -66,11 +66,18 @@ const companyData = computed(() => [
               :style="{ transitionDelay: `${(i + 2) * 100}ms`, transitionDuration: '600ms' }"
             >
               <div class="w-11 h-11 rounded-xl bg-sky-100 group-hover:bg-sky-600 flex items-center justify-center shrink-0 transition-colors duration-200">
-                <UIcon :name="feature.icon" class="w-5 h-5 text-sky-600 group-hover:text-white transition-colors duration-200" />
+                <UIcon
+                  :name="feature.icon"
+                  class="w-5 h-5 text-sky-600 group-hover:text-white transition-colors duration-200"
+                />
               </div>
               <div>
-                <p class="font-bold text-slate-900 mb-1">{{ feature.title }}</p>
-                <p class="text-sm text-slate-500 leading-relaxed">{{ feature.description }}</p>
+                <p class="font-bold text-slate-900 mb-1">
+                  {{ feature.title }}
+                </p>
+                <p class="text-sm text-slate-500 leading-relaxed">
+                  {{ feature.description }}
+                </p>
               </div>
             </div>
           </div>
@@ -84,7 +91,9 @@ const companyData = computed(() => [
         >
           <div class="rounded-3xl border border-slate-100 overflow-hidden shadow-sm">
             <div class="bg-slate-900 px-8 py-5">
-              <p class="text-xs tracking-widest uppercase text-sky-400 font-medium">Company Data</p>
+              <p class="text-xs tracking-widest uppercase text-sky-400 font-medium">
+                Company Data
+              </p>
             </div>
             <dl class="divide-y divide-slate-100">
               <div

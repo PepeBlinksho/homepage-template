@@ -36,12 +36,12 @@ export function useMicroCmsNews(fallback: CorpNewsItem[]) {
       {
         headers: { 'X-MICROCMS-API-KEY': microcmsApiKey as string },
         query: { limit: 100, orders: '-publishedAt' },
-      }
+      },
     )
   })
 
   const news = computed<CorpNewsItem[]>(() =>
-    data.value ? data.value.contents.map(toNewsItem) : fallback
+    data.value ? data.value.contents.map(toNewsItem) : fallback,
   )
 
   return { news }
@@ -57,12 +57,12 @@ export function useMicroCmsArticle(id: string, fallback: CorpNewsItem[]) {
     if (!microcmsApiKey || !domain) return null
     return $fetch<MicroCmsRawItem>(
       `https://${domain}.microcms.io/api/v1/news/${id}`,
-      { headers: { 'X-MICROCMS-API-KEY': microcmsApiKey as string } }
+      { headers: { 'X-MICROCMS-API-KEY': microcmsApiKey as string } },
     ).catch(() => null)
   })
 
   const article = computed<CorpNewsItem | undefined>(() =>
-    data.value ? toNewsItem(data.value) : fallback.find(n => n.id === id)
+    data.value ? toNewsItem(data.value) : fallback.find(n => n.id === id),
   )
 
   return { article }

@@ -97,7 +97,6 @@ onUnmounted(() => { io?.disconnect(); io = null })
     <!-- メインコンテンツ -->
     <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-24 lg:py-32">
       <div class="grid lg:grid-cols-5 gap-12 lg:gap-20 items-center">
-
         <!-- 左: テキスト (3/5) -->
         <div class="lg:col-span-3">
           <!-- ラベル -->
@@ -121,7 +120,7 @@ onUnmounted(() => { io?.disconnect(); io = null })
                 char === ' ' ? 'mr-4' : '',
               ]"
               :style="{ fontSize: 'clamp(3rem, 8vw, 6rem)', transitionDelay: `${200 + i * 50}ms` }"
-            >{{ char === ' ' ? ' ' : char }}</span>
+            >{{ char === ' ' ? '\u00A0' : char }}</span>
           </h1>
 
           <!-- キャッチコピー -->
@@ -143,14 +142,20 @@ onUnmounted(() => { io?.disconnect(); io = null })
               :to="`${prefix}/contact`"
               class="group inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-sky-600 hover:bg-sky-500 text-white rounded-xl font-semibold text-base transition-all duration-200 shadow-lg shadow-sky-900/40"
             >
-              <UIcon name="i-heroicons-envelope" class="w-5 h-5 transition-transform duration-200 group-hover:-translate-y-0.5" />
+              <UIcon
+                name="i-heroicons-envelope"
+                class="w-5 h-5 transition-transform duration-200 group-hover:-translate-y-0.5"
+              />
               無料お見積り・ご相談
             </NuxtLink>
             <a
               :href="`tel:${cfg.tel}`"
               class="inline-flex items-center justify-center gap-2.5 px-8 py-4 border border-slate-700 hover:border-sky-500 bg-white/5 hover:bg-sky-500/10 text-white rounded-xl font-semibold text-base transition-all duration-200"
             >
-              <UIcon name="i-heroicons-phone" class="w-5 h-5 text-sky-400" />
+              <UIcon
+                name="i-heroicons-phone"
+                class="w-5 h-5 text-sky-400"
+              />
               {{ cfg.tel }}
             </a>
           </div>
@@ -167,7 +172,9 @@ onUnmounted(() => { io?.disconnect(); io = null })
             <p class="text-4xl font-bold text-white font-serif tabular-nums">
               {{ statsVisible ? countWorks : 0 }}<span class="text-sky-400 text-2xl">件+</span>
             </p>
-            <p class="text-sm text-slate-500 mt-1.5 font-medium">累計施工実績</p>
+            <p class="text-sm text-slate-500 mt-1.5 font-medium">
+              累計施工実績
+            </p>
           </div>
 
           <!-- 創業 -->
@@ -175,7 +182,9 @@ onUnmounted(() => { io?.disconnect(); io = null })
             <p class="text-4xl font-bold text-white font-serif tabular-nums">
               {{ statsVisible ? countYears : 0 }}<span class="text-sky-400 text-xl">年</span>
             </p>
-            <p class="text-sm text-slate-500 mt-1.5 font-medium">創業</p>
+            <p class="text-sm text-slate-500 mt-1.5 font-medium">
+              創業
+            </p>
           </div>
 
           <!-- 保証 -->
@@ -183,7 +192,9 @@ onUnmounted(() => { io?.disconnect(); io = null })
             <p class="text-4xl font-bold text-white font-serif tabular-nums">
               {{ statsVisible ? countWarranty : 0 }}<span class="text-sky-400 text-xl">年</span>
             </p>
-            <p class="text-sm text-slate-500 mt-1.5 font-medium">施工保証</p>
+            <p class="text-sm text-slate-500 mt-1.5 font-medium">
+              施工保証
+            </p>
           </div>
 
           <!-- 対応エリア -->
@@ -192,10 +203,17 @@ onUnmounted(() => { io?.disconnect(); io = null })
             class="bg-sky-600/15 border border-sky-500/30 rounded-2xl p-6 col-span-2"
           >
             <div class="flex items-center gap-2 mb-1.5">
-              <UIcon name="i-heroicons-map-pin" class="w-4 h-4 text-sky-400" />
-              <p class="text-sm text-slate-400 font-medium">対応エリア</p>
+              <UIcon
+                name="i-heroicons-map-pin"
+                class="w-4 h-4 text-sky-400"
+              />
+              <p class="text-sm text-slate-400 font-medium">
+                対応エリア
+              </p>
             </div>
-            <p class="text-white font-semibold">{{ cfg.serviceArea }}</p>
+            <p class="text-white font-semibold">
+              {{ cfg.serviceArea }}
+            </p>
           </div>
         </div>
       </div>
@@ -212,11 +230,18 @@ onUnmounted(() => { io?.disconnect(); io = null })
           class="flex items-start gap-4"
         >
           <div class="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/20 flex items-center justify-center shrink-0">
-            <UIcon :name="feature.icon" class="w-5 h-5 text-sky-400" />
+            <UIcon
+              :name="feature.icon"
+              class="w-5 h-5 text-sky-400"
+            />
           </div>
           <div>
-            <p class="text-sm font-semibold text-white mb-0.5">{{ feature.title }}</p>
-            <p class="text-xs text-slate-500 leading-relaxed">{{ feature.description }}</p>
+            <p class="text-sm font-semibold text-white mb-0.5">
+              {{ feature.title }}
+            </p>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              {{ feature.description }}
+            </p>
           </div>
         </div>
       </div>

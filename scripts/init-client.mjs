@@ -21,7 +21,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const rl = createInterface({ input: process.stdin, output: process.stdout })
 const ask = q => new Promise(resolve => rl.question(q, resolve))
 
-const ok   = msg => console.log(`  \x1b[32m✓\x1b[0m ${msg}`)
+const ok = msg => console.log(`  \x1b[32m✓\x1b[0m ${msg}`)
 const skip = msg => console.log(`  \x1b[90m─\x1b[0m ${msg} (スキップ)`)
 const info = msg => console.log(`  \x1b[34mℹ\x1b[0m ${msg}`)
 const head = msg => console.log(`\n\x1b[1m${msg}\x1b[0m\n`)
@@ -402,8 +402,7 @@ async function main() {
     console.log('  • app/pages/corp/ → 削除')
     console.log('  • app/app.vue → corp 用に書き換え')
     console.log('  • app/composables/useCorpConfig.ts → シンプル化')
-  }
-  else {
+  } else {
     console.log('  • app/pages/corp/ → 削除')
     console.log('  • app/composables/useShopConfig.ts → シンプル化')
   }
@@ -450,7 +449,7 @@ async function main() {
       const dynamicDir = entries.find(e => e.startsWith('[')) ?? entries[0]
       if (dynamicDir) {
         const base = `app/pages/corp/${dynamicDir}`
-        move(`${base}/index.vue`,   'app/pages/index.vue')
+        move(`${base}/index.vue`, 'app/pages/index.vue')
         move(`${base}/contact.vue`, 'app/pages/contact.vue')
         move(`${base}/privacy.vue`, 'app/pages/privacy.vue')
       }

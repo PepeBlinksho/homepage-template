@@ -66,7 +66,10 @@ const [emblaRef] = emblaCarouselVue({ dragFree: true, loop: false, align: 'start
           class="w-full h-full flex flex-col items-center justify-center gap-2"
           :class="placeholderBg(item.index)"
         >
-          <UIcon name="i-heroicons-photo" class="w-8 h-8 text-stone-500" />
+          <UIcon
+            name="i-heroicons-photo"
+            class="w-8 h-8 text-stone-500"
+          />
           <span class="text-xs text-stone-500 tracking-widest">PHOTO {{ item.index + 1 }}</span>
         </div>
       </div>
@@ -97,7 +100,10 @@ const [emblaRef] = emblaCarouselVue({ dragFree: true, loop: false, align: 'start
             class="w-full h-full flex flex-col items-center justify-center gap-2"
             :class="placeholderBg(item.index)"
           >
-            <UIcon name="i-heroicons-photo" class="w-8 h-8 text-stone-500" />
+            <UIcon
+              name="i-heroicons-photo"
+              class="w-8 h-8 text-stone-500"
+            />
             <span class="text-xs text-stone-500 tracking-widest">PHOTO {{ item.index + 1 }}</span>
           </div>
         </div>

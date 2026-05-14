@@ -8,9 +8,9 @@
  *   - フォールバック: LOCK_TIMEOUT ms 後に強制解除
  */
 
-const ANIM_DURATION = 1.2  // lenis.scrollTo の duration (秒)
-const LOCK_TIMEOUT  = 1600 // フォールバック強制解除 (ms)
-const COOLDOWN      = 250  // onComplete 後のクールダウン (ms)
+const ANIM_DURATION = 1.2 // lenis.scrollTo の duration (秒)
+const LOCK_TIMEOUT = 1600 // フォールバック強制解除 (ms)
+const COOLDOWN = 250 // onComplete 後のクールダウン (ms)
 
 export function useFullPageScroll() {
   const nuxtApp = useNuxtApp()
@@ -32,8 +32,7 @@ export function useFullPageScroll() {
     if (lockTimer) { clearTimeout(lockTimer); lockTimer = null }
     if (immediate) {
       locked = false
-    }
-    else {
+    } else {
       lockTimer = setTimeout(() => { locked = false; lockTimer = null }, COOLDOWN)
     }
   }
@@ -59,14 +58,12 @@ export function useFullPageScroll() {
     if (reducedMotion) {
       el.scrollIntoView()
       unlock(true)
-    }
-    else if (lenis) {
+    } else if (lenis) {
       lenis.scrollTo(el, {
         duration: ANIM_DURATION,
         onComplete: () => unlock(false),
       })
-    }
-    else {
+    } else {
       el.scrollIntoView({ behavior: 'smooth' })
       setTimeout(() => unlock(false), ANIM_DURATION * 1000)
     }
@@ -125,9 +122,7 @@ export function useFullPageScroll() {
       let dir = 0
       if (e.key === 'ArrowDown' || e.key === 'PageDown') dir = 1
       else if (e.key === 'ArrowUp' || e.key === 'PageUp') dir = -1
-      else if (e.key === 'End') { scrollToIndex(sectionIds.length - 1); e.preventDefault(); return }
-      else if (e.key === 'Home') { scrollToIndex(0); e.preventDefault(); return }
-      else return
+      else if (e.key === 'End') { scrollToIndex(sectionIds.length - 1); e.preventDefault(); return } else if (e.key === 'Home') { scrollToIndex(0); e.preventDefault(); return } else return
 
       const next = activeIndex.value + dir
       if (next >= sectionIds.length && dir > 0) { unlock(true); return }

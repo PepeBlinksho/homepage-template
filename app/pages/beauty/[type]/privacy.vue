@@ -29,33 +29,66 @@ const { el, revealed } = useReveal()
     <div class="relative bg-stone-900 py-24 overflow-hidden">
       <div class="grain-overlay opacity-[0.04]" />
       <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
-        <p class="text-xs tracking-[0.5em] uppercase text-amber-400 mb-3">Privacy Policy</p>
-        <h1 class="font-serif text-5xl md:text-6xl font-semibold text-white">プライバシーポリシー</h1>
+        <p class="text-xs tracking-[0.5em] uppercase text-amber-400 mb-3">
+          Privacy Policy
+        </p>
+        <h1 class="font-serif text-5xl md:text-6xl font-semibold text-white">
+          プライバシーポリシー
+        </h1>
         <div class="w-12 h-0.5 bg-amber-500 mt-4" />
       </div>
     </div>
 
-    <div ref="el" class="max-w-2xl mx-auto px-4 sm:px-6 py-20">
-      <div class="transition-all duration-700" :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'">
+    <div
+      ref="el"
+      class="max-w-2xl mx-auto px-4 sm:px-6 py-20"
+    >
+      <div
+        class="transition-all duration-700"
+        :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+      >
         <p class="text-stone-500 text-sm leading-relaxed mb-12">
           {{ siteConfig.name }}（以下「当店」）は、お客様の個人情報の保護を重要事項と考え、以下のプライバシーポリシーを定めます。
         </p>
         <div class="space-y-10">
-          <section v-for="(section, i) in sections" :key="i">
-            <h2 class="font-serif text-lg font-semibold text-stone-900 mb-3">{{ i + 1 }}. {{ section.title }}</h2>
-            <p class="text-stone-600 text-sm leading-relaxed">{{ section.body }}</p>
+          <section
+            v-for="(section, i) in sections"
+            :key="i"
+          >
+            <h2 class="font-serif text-lg font-semibold text-stone-900 mb-3">
+              {{ i + 1 }}. {{ section.title }}
+            </h2>
+            <p class="text-stone-600 text-sm leading-relaxed">
+              {{ section.body }}
+            </p>
           </section>
         </div>
         <div class="mt-12 p-6 bg-stone-50 rounded-2xl">
-          <h2 class="font-serif text-lg font-semibold text-stone-900 mb-4">お問い合わせ先</h2>
+          <h2 class="font-serif text-lg font-semibold text-stone-900 mb-4">
+            お問い合わせ先
+          </h2>
           <address class="not-italic text-sm text-stone-600 space-y-1">
-            <p class="font-medium text-stone-900">{{ siteConfig.name }}</p>
+            <p class="font-medium text-stone-900">
+              {{ siteConfig.name }}
+            </p>
             <p>〒{{ siteConfig.address.zip }} {{ buildFullAddress(siteConfig.address) }}</p>
-            <p>TEL: <a :href="`tel:${siteConfig.tel}`" class="hover:text-amber-600 transition-colors">{{ siteConfig.tel }}</a></p>
-            <p>Email: <a :href="`mailto:${siteConfig.email}`" class="hover:text-amber-600 transition-colors">{{ siteConfig.email }}</a></p>
+            <p>
+              TEL: <a
+                :href="`tel:${siteConfig.tel}`"
+                class="hover:text-amber-600 transition-colors"
+              >{{ siteConfig.tel }}</a>
+            </p>
+            <p>
+              Email: <a
+                :href="`mailto:${siteConfig.email}`"
+                class="hover:text-amber-600 transition-colors"
+              >{{ siteConfig.email }}</a>
+            </p>
           </address>
         </div>
-        <p class="mt-8 text-xs text-stone-400 text-right">制定日：{{ siteConfig.privacyPolicyDate }}</p>
+        <p class="mt-8 text-xs text-stone-400 text-right">
+          制定日：{{ siteConfig.privacyPolicyDate }}
+        </p>
       </div>
     </div>
   </div>

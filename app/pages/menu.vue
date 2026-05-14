@@ -61,8 +61,8 @@ const { el, revealed } = useReveal()
       <!-- 各カテゴリコンテンツ -->
       <div
         v-for="(menu, index) in siteConfig.menus"
-        :key="menu.category"
         v-show="activeTab === index"
+        :key="menu.category"
       >
         <div class="grid sm:grid-cols-2 gap-4">
           <div

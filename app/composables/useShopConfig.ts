@@ -3,7 +3,7 @@ import { demoRegistry } from '~/config/demoRegistry'
 import type { SiteConfig } from '~/config/site'
 
 const demoConfigs: Record<string, SiteConfig> = Object.fromEntries(
-  demoRegistry.map(d => [d.slug, d.config])
+  demoRegistry.map(d => [d.slug, d.config]),
 )
 
 export function useShopConfig() {

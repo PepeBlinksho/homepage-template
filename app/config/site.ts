@@ -128,8 +128,8 @@ export const siteConfig = {
   // 例: Cafe / Restaurant / Bakery / BarOrPub / FastFoodRestaurant
   business: {
     type: 'Cafe',
-    cuisine: 'Japanese',  // servesCuisine（料理ジャンル、英語で記述）
-    priceRange: '¥¥',     // ¥ / ¥¥ / ¥¥¥
+    cuisine: 'Japanese', // servesCuisine（料理ジャンル、英語で記述）
+    priceRange: '¥¥', // ¥ / ¥¥ / ¥¥¥
     // Schema.org 形式の営業時間（定休日は記載しない）
     // 曜日コード: Mo Tu We Th Fr Sa Su（範囲指定: Mo-Fr）
     openingHours: [

@@ -11,10 +11,10 @@ const filteredWorks = computed(() =>
 )
 
 const categoryColors: Record<string, string> = {
-  '外壁塗装': 'bg-sky-100 text-sky-700 border-sky-200',
-  '屋根塗装': 'bg-slate-100 text-slate-700 border-slate-200',
-  '内装塗装': 'bg-indigo-100 text-indigo-700 border-indigo-200',
-  '防水工事': 'bg-teal-100 text-teal-700 border-teal-200',
+  外壁塗装: 'bg-sky-100 text-sky-700 border-sky-200',
+  屋根塗装: 'bg-slate-100 text-slate-700 border-slate-200',
+  内装塗装: 'bg-indigo-100 text-indigo-700 border-indigo-200',
+  防水工事: 'bg-teal-100 text-teal-700 border-teal-200',
 }
 function getCategoryColor(cat: string) {
   return categoryColors[cat] ?? 'bg-slate-100 text-slate-600 border-slate-200'
@@ -92,7 +92,10 @@ function getCategoryColor(cat: string) {
               class="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900"
             >
               <div class="text-center">
-                <UIcon name="i-heroicons-photo" class="w-10 h-10 text-slate-700 mx-auto mb-2" />
+                <UIcon
+                  name="i-heroicons-photo"
+                  class="w-10 h-10 text-slate-700 mx-auto mb-2"
+                />
                 <span class="text-xs text-slate-700 font-medium tracking-wide">施工写真</span>
               </div>
             </div>
@@ -107,17 +110,24 @@ function getCategoryColor(cat: string) {
 
             <!-- ホバーオーバーレイ -->
             <div class="absolute inset-0 bg-sky-950/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p class="text-sm text-white/80 px-6 text-center leading-relaxed">{{ work.description }}</p>
+              <p class="text-sm text-white/80 px-6 text-center leading-relaxed">
+                {{ work.description }}
+              </p>
             </div>
           </div>
 
           <!-- テキスト -->
           <div class="bg-slate-900 px-6 py-5">
             <div class="flex items-center gap-1.5 text-xs text-slate-600 mb-2">
-              <UIcon name="i-heroicons-map-pin" class="w-3.5 h-3.5" />
+              <UIcon
+                name="i-heroicons-map-pin"
+                class="w-3.5 h-3.5"
+              />
               {{ work.location }}
             </div>
-            <h3 class="font-semibold text-white leading-snug text-sm">{{ work.title }}</h3>
+            <h3 class="font-semibold text-white leading-snug text-sm">
+              {{ work.title }}
+            </h3>
           </div>
         </div>
       </div>
@@ -126,7 +136,9 @@ function getCategoryColor(cat: string) {
         v-if="filteredWorks.length === 0"
         class="text-center py-20 text-slate-600"
       >
-        <p class="text-sm">該当する施工実績がありません</p>
+        <p class="text-sm">
+          該当する施工実績がありません
+        </p>
       </div>
     </div>
   </section>

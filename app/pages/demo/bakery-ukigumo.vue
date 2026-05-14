@@ -36,7 +36,7 @@ const heroBottomStyle = computed(() =>
 
 function setTweak(patch: Partial<typeof tweaks>) {
   Object.assign(tweaks, patch)
-  try { window.parent?.postMessage({ type: '__edit_mode_set_keys', edits: patch }, '*') } catch {}
+  try { window.parent?.postMessage({ type: '__edit_mode_set_keys', edits: patch }, '*') } catch { /* iframe外で実行時のnoop */ }
 }
 
 onMounted(() => {
@@ -56,7 +56,7 @@ onMounted(() => {
     },
     { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
   )
-  document.querySelectorAll('.reveal').forEach((el) => io.observe(el))
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el))
 
   const onMessage = (e: MessageEvent) => {
     const d = e.data || {}
@@ -64,7 +64,7 @@ onMounted(() => {
     if (d.type === '__deactivate_edit_mode') tweaksPanelOpen.value = false
   }
   window.addEventListener('message', onMessage)
-  try { window.parent?.postMessage({ type: '__edit_mode_available' }, '*') } catch {}
+  try { window.parent?.postMessage({ type: '__edit_mode_available' }, '*') } catch { /* iframe外で実行時のnoop */ }
 
   onUnmounted(() => {
     window.removeEventListener('scroll', onScroll)
@@ -81,12 +81,21 @@ onMounted(() => {
     :data-display="tweaks.display_font"
     :data-grain="tweaks.show_grain.toString()"
   >
-    <div class="grain-overlay" aria-hidden="true" />
+    <div
+      class="grain-overlay"
+      aria-hidden="true"
+    />
 
     <!-- ───── HEADER ───── -->
-    <header class="site" id="hdr">
+    <header
+      id="hdr"
+      class="site"
+    >
       <div class="left">
-        <nav class="links" aria-label="Primary">
+        <nav
+          class="links"
+          aria-label="Primary"
+        >
           <a href="#story">ストーリー</a>
           <a href="#breads">パン</a>
           <a href="#cafe">カフェ</a>
@@ -94,21 +103,34 @@ onMounted(() => {
           <a href="#access">アクセス</a>
         </nav>
       </div>
-      <a href="#" class="brand" aria-label="Bakery Ukigumo home">
+      <a
+        href="#"
+        class="brand"
+        aria-label="Bakery Ukigumo home"
+      >
         <div class="word">Bakery <em>Ukigumo</em></div>
         <div class="sub">浮雲 — Komatsu, Ishikawa</div>
       </a>
       <div class="right">
-        <nav class="links" aria-label="Secondary">
+        <nav
+          class="links"
+          aria-label="Secondary"
+        >
           <a href="#">EN / 日本語</a>
         </nav>
       </div>
     </header>
 
     <!-- ───── HERO ───── -->
-    <section class="hero" data-screen-label="01 Hero">
+    <section
+      class="hero"
+      data-screen-label="01 Hero"
+    >
       <div class="photo">
-        <div class="ph hero-ph" style="position:absolute;inset:0;border-radius:0">
+        <div
+          class="ph hero-ph"
+          style="position:absolute;inset:0;border-radius:0"
+        >
           <div class="label">
             <span>Hero photograph</span>
             <span class="tick" />
@@ -116,17 +138,31 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div class="hero-content wrap" style="padding-left:var(--gutter);padding-right:var(--gutter)" :style="heroContentStyle">
+      <div
+        class="hero-content wrap"
+        style="padding-left:var(--gutter);padding-right:var(--gutter)"
+        :style="heroContentStyle"
+      >
         <div class="hero-tag reveal">
           <span class="line" />
           <span class="text">Est. 2018 — 石川県小松市</span>
         </div>
-        <h1 class="display reveal" style="--reveal-delay:120ms">
+        <h1
+          class="display reveal"
+          style="--reveal-delay:120ms"
+        >
           <span class="jp-overlay">浮 雲 の パ ン</span>
           日々のくらしに、<br>そっと寄り添う、<br>ひとつの<em>パン</em>。
         </h1>
-        <div class="hero-bottom reveal" style="--reveal-delay:360ms" :style="heroBottomStyle">
-          <a href="#story" class="hero-cta">
+        <div
+          class="hero-bottom reveal"
+          style="--reveal-delay:360ms"
+          :style="heroBottomStyle"
+        >
+          <a
+            href="#story"
+            class="hero-cta"
+          >
             <span>物語を読む</span>
             <span class="arrow" />
           </a>
@@ -143,16 +179,25 @@ onMounted(() => {
     </section>
 
     <!-- ───── STORY ───── -->
-    <section class="story wrap" id="story" data-screen-label="02 Story">
+    <section
+      id="story"
+      class="story wrap"
+      data-screen-label="02 Story"
+    >
       <header class="sec-head">
         <div class="meta reveal">
           <div class="num-row">
             <span class="num">01 / Story</span>
             <span class="line" />
           </div>
-          <div class="eyebrow">Philosophy &nbsp;·&nbsp; 哲学</div>
+          <div class="eyebrow">
+            Philosophy &nbsp;·&nbsp; 哲学
+          </div>
         </div>
-        <h2 class="display reveal" style="--reveal-delay:100ms">
+        <h2
+          class="display reveal"
+          style="--reveal-delay:100ms"
+        >
           手でこね、季節と歩む。<br>朝の<em>小さな営み</em>。
         </h2>
       </header>
@@ -164,7 +209,10 @@ onMounted(() => {
             <small>Tight crop · flour-dusted hands<br>warm side-light · linen apron</small>
           </div>
         </div>
-        <div class="copy reveal" style="--reveal-delay:120ms">
+        <div
+          class="copy reveal"
+          style="--reveal-delay:120ms"
+        >
           <p class="body-large">
             浮雲は、小松の郊外にある小さな木造の家から始まりました。日本海と白山に挟まれたこの街で、その日の湿度や気温と向き合いながら、時間をかけて発酵させたパンを毎朝焼いています。
           </p>
@@ -172,7 +220,10 @@ onMounted(() => {
             石川の農家から届く石臼挽きの小麦、能登の海塩、開店当初から育ててきたサワードウ種。急がず、パンが焼き上がるのを待ちます。
           </p>
         </div>
-        <div class="ph ph-2 reveal" style="--reveal-delay:200ms">
+        <div
+          class="ph ph-2 reveal"
+          style="--reveal-delay:200ms"
+        >
           <div class="label">
             <span>Steam rising — oven door</span>
             <span class="tick" />
@@ -194,7 +245,10 @@ onMounted(() => {
     </section>
 
     <!-- ───── MARQUEE ───── -->
-    <div class="marquee" aria-hidden="true">
+    <div
+      class="marquee"
+      aria-hidden="true"
+    >
       <div class="marquee-track">
         <span>Pain de campagne</span>
         <span>季節のパン</span>
@@ -212,7 +266,11 @@ onMounted(() => {
     </div>
 
     <!-- ───── SIGNATURE BREADS ───── -->
-    <section class="signature" id="breads" data-screen-label="03 Signature">
+    <section
+      id="breads"
+      class="signature"
+      data-screen-label="03 Signature"
+    >
       <div class="wrap">
         <header class="sec-head">
           <div class="meta reveal">
@@ -220,77 +278,142 @@ onMounted(() => {
               <span class="num">02 / Bakery</span>
               <span class="line" />
             </div>
-            <div class="eyebrow">Signature breads &nbsp;·&nbsp; パン</div>
+            <div class="eyebrow">
+              Signature breads &nbsp;·&nbsp; パン
+            </div>
           </div>
-          <h2 class="display reveal" style="--reveal-delay:100ms">
+          <h2
+            class="display reveal"
+            style="--reveal-delay:100ms"
+          >
             毎朝<em>一度だけ</em>焼く、八種類のパン。
           </h2>
         </header>
         <div class="breads-grid">
           <article class="bread reveal">
             <div class="ph">
-              <div class="label"><span>Pain de Campagne</span><span class="tick" /><small>Crumb cross-section · close macro</small></div>
+              <div class="label">
+                <span>Pain de Campagne</span><span class="tick" /><small>Crumb cross-section · close macro</small>
+              </div>
             </div>
             <div class="meta">
-              <h3 class="name">Pain de <em>Campagne</em></h3>
+              <h3 class="name">
+                Pain de <em>Campagne</em>
+              </h3>
               <span class="price">¥980</span>
-              <p class="desc">石川産小麦とライ麦、能登の海塩。じっくり低温発酵させた、皮はパリッと、中はしっとりのカンパーニュ。</p>
-              <div class="tag-row"><span class="tag">36時間低温発酵</span><span class="tag">ヴィーガン</span></div>
+              <p class="desc">
+                石川産小麦とライ麦、能登の海塩。じっくり低温発酵させた、皮はパリッと、中はしっとりのカンパーニュ。
+              </p>
+              <div class="tag-row">
+                <span class="tag">36時間低温発酵</span><span class="tag">ヴィーガン</span>
+              </div>
             </div>
           </article>
-          <article class="bread offset-up reveal" style="--reveal-delay:120ms">
+          <article
+            class="bread offset-up reveal"
+            style="--reveal-delay:120ms"
+          >
             <div class="ph">
-              <div class="label"><span>Croissant au beurre</span><span class="tick" /><small>Side profile · honey lighting</small></div>
+              <div class="label">
+                <span>Croissant au beurre</span><span class="tick" /><small>Side profile · honey lighting</small>
+              </div>
             </div>
             <div class="meta">
-              <h3 class="name">Croissant <em>au Beurre</em></h3>
+              <h3 class="name">
+                Croissant <em>au Beurre</em>
+              </h3>
               <span class="price">¥420</span>
-              <p class="desc">北海道産の発酵バターを27層に折り込んだ、軽やかな食感のクロワッサン。</p>
-              <div class="tag-row"><span class="tag">数量限定</span></div>
+              <p class="desc">
+                北海道産の発酵バターを27層に折り込んだ、軽やかな食感のクロワッサン。
+              </p>
+              <div class="tag-row">
+                <span class="tag">数量限定</span>
+              </div>
             </div>
           </article>
-          <article class="bread reveal" style="--reveal-delay:240ms">
+          <article
+            class="bread reveal"
+            style="--reveal-delay:240ms"
+          >
             <div class="ph">
-              <div class="label"><span>Hakusan Rye</span><span class="tick" /><small>Top-down · linen cloth · crumbs</small></div>
+              <div class="label">
+                <span>Hakusan Rye</span><span class="tick" /><small>Top-down · linen cloth · crumbs</small>
+              </div>
             </div>
             <div class="meta">
-              <h3 class="name">Hakusan <em>Rye</em></h3>
+              <h3 class="name">
+                Hakusan <em>Rye</em>
+              </h3>
               <span class="price">¥1,180</span>
-              <p class="desc">白山産のライ麦を石臼挽きに。キャラウェイと糖蜜を加えた、深い味わいのライブレッド。</p>
-              <div class="tag-row"><span class="tag">全粒粉</span><span class="tag">5日間日持ち</span></div>
+              <p class="desc">
+                白山産のライ麦を石臼挽きに。キャラウェイと糖蜜を加えた、深い味わいのライブレッド。
+              </p>
+              <div class="tag-row">
+                <span class="tag">全粒粉</span><span class="tag">5日間日持ち</span>
+              </div>
             </div>
           </article>
           <article class="bread offset-up reveal">
             <div class="ph">
-              <div class="label"><span>Yuzu Brioche</span><span class="tick" /><small>Tear-apart · steam visible</small></div>
+              <div class="label">
+                <span>Yuzu Brioche</span><span class="tick" /><small>Tear-apart · steam visible</small>
+              </div>
             </div>
             <div class="meta">
-              <h3 class="name">Yuzu <em>Brioche</em></h3>
+              <h3 class="name">
+                Yuzu <em>Brioche</em>
+              </h3>
               <span class="price">¥640</span>
-              <p class="desc">加賀産ゆずの皮を練り込んだ、卵たっぷりのブリオッシュ。温かいうちにちぎってどうぞ。</p>
-              <div class="tag-row"><span class="tag">季節限定</span><span class="tag">冬季のみ</span></div>
+              <p class="desc">
+                加賀産ゆずの皮を練り込んだ、卵たっぷりのブリオッシュ。温かいうちにちぎってどうぞ。
+              </p>
+              <div class="tag-row">
+                <span class="tag">季節限定</span><span class="tag">冬季のみ</span>
+              </div>
             </div>
           </article>
-          <article class="bread reveal" style="--reveal-delay:120ms">
+          <article
+            class="bread reveal"
+            style="--reveal-delay:120ms"
+          >
             <div class="ph">
-              <div class="label"><span>Anpan, hojicha cream</span><span class="tick" /><small>Single piece on ceramic</small></div>
+              <div class="label">
+                <span>Anpan, hojicha cream</span><span class="tick" /><small>Single piece on ceramic</small>
+              </div>
             </div>
             <div class="meta">
-              <h3 class="name">Hojicha <em>Anpan</em></h3>
+              <h3 class="name">
+                Hojicha <em>Anpan</em>
+              </h3>
               <span class="price">¥380</span>
-              <p class="desc">ほうじ茶のカスタードと十勝産小豆の餡を包んだ、ほっとする味わい。</p>
-              <div class="tag-row"><span class="tag">定番人気</span></div>
+              <p class="desc">
+                ほうじ茶のカスタードと十勝産小豆の餡を包んだ、ほっとする味わい。
+              </p>
+              <div class="tag-row">
+                <span class="tag">定番人気</span>
+              </div>
             </div>
           </article>
-          <article class="bread offset-up reveal" style="--reveal-delay:240ms">
+          <article
+            class="bread offset-up reveal"
+            style="--reveal-delay:240ms"
+          >
             <div class="ph">
-              <div class="label"><span>Open sandwich</span><span class="tick" /><small>Overhead · linen runner</small></div>
+              <div class="label">
+                <span>Open sandwich</span><span class="tick" /><small>Overhead · linen runner</small>
+              </div>
             </div>
             <div class="meta">
-              <h3 class="name">Open <em>Sandwich</em></h3>
+              <h3 class="name">
+                Open <em>Sandwich</em>
+              </h3>
               <span class="price">¥1,420</span>
-              <p class="desc">自家製スモークサーモン、発酵バター、ディル。トーストしたカンパーニュにのせて。</p>
-              <div class="tag-row"><span class="tag">カフェのみ</span><span class="tag">12:00 〜</span></div>
+              <p class="desc">
+                自家製スモークサーモン、発酵バター、ディル。トーストしたカンパーニュにのせて。
+              </p>
+              <div class="tag-row">
+                <span class="tag">カフェのみ</span><span class="tag">12:00 〜</span>
+              </div>
             </div>
           </article>
         </div>
@@ -298,7 +421,11 @@ onMounted(() => {
     </section>
 
     <!-- ───── CAFÉ SPACE ───── -->
-    <section class="cafe" id="cafe" data-screen-label="04 Cafe">
+    <section
+      id="cafe"
+      class="cafe"
+      data-screen-label="04 Cafe"
+    >
       <div class="wrap">
         <header class="sec-head">
           <div class="meta reveal">
@@ -306,9 +433,14 @@ onMounted(() => {
               <span class="num">03 / Café</span>
               <span class="line" />
             </div>
-            <div class="eyebrow">The space &nbsp;·&nbsp; 喫茶室</div>
+            <div class="eyebrow">
+              The space &nbsp;·&nbsp; 喫茶室
+            </div>
           </div>
-          <h2 class="display reveal" style="--reveal-delay:100ms">
+          <h2
+            class="display reveal"
+            style="--reveal-delay:100ms"
+          >
             朝の光が差し込む、<em>木のぬくもり</em>。
           </h2>
         </header>
@@ -321,45 +453,82 @@ onMounted(() => {
         </div>
         <div class="cafe-cap">
           <div class="left reveal">
-            <h3 class="display">十席。<em>一枚の長いテーブル。</em><br>ゆったりとした時間。</h3>
+            <h3 class="display">
+              十席。<em>一枚の長いテーブル。</em><br>ゆったりとした時間。
+            </h3>
           </div>
-          <div class="right body-large reveal" style="--reveal-delay:120ms">
+          <div
+            class="right body-large reveal"
+            style="--reveal-delay:120ms"
+          >
             <p>小さな中庭に面したカフェです。金沢のロースタリーから届くハンドドリップコーヒー、和束の煎茶、パンに合わせた日替わりプレートをご用意しています。本と静かな音楽のなかで、ゆっくりお過ごしください。</p>
           </div>
         </div>
         <div class="cafe-strip">
           <div class="ph reveal">
-            <div class="label"><span>Counter detail</span><span class="tick" /><small>Oak grain · ceramic cup<br>steam rising · bokeh</small></div>
+            <div class="label">
+              <span>Counter detail</span><span class="tick" /><small>Oak grain · ceramic cup<br>steam rising · bokeh</small>
+            </div>
           </div>
-          <div class="ph reveal" style="--reveal-delay:120ms">
-            <div class="label"><span>Window seat</span><span class="tick" /><small>Linen curtain · wooden stool</small></div>
+          <div
+            class="ph reveal"
+            style="--reveal-delay:120ms"
+          >
+            <div class="label">
+              <span>Window seat</span><span class="tick" /><small>Linen curtain · wooden stool</small>
+            </div>
           </div>
-          <div class="ph reveal" style="--reveal-delay:240ms">
-            <div class="label"><span>Garden view</span><span class="tick" /><small>Through glass · moss · stone path</small></div>
+          <div
+            class="ph reveal"
+            style="--reveal-delay:240ms"
+          >
+            <div class="label">
+              <span>Garden view</span><span class="tick" /><small>Through glass · moss · stone path</small>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ───── SEASONAL ───── -->
-    <section class="seasonal" id="seasonal" data-screen-label="05 Seasonal">
+    <section
+      id="seasonal"
+      class="seasonal"
+      data-screen-label="05 Seasonal"
+    >
       <div class="wrap">
-        <header class="sec-head" style="padding-top:0">
+        <header
+          class="sec-head"
+          style="padding-top:0"
+        >
           <div class="meta reveal">
             <div class="num-row">
               <span class="num">04 / Seasonal</span>
-              <span class="line" style="background:rgba(253,250,243,0.15)" />
+              <span
+                class="line"
+                style="background:rgba(253,250,243,0.15)"
+              />
             </div>
-            <div class="eyebrow">This month &nbsp;·&nbsp; 五月</div>
+            <div class="eyebrow">
+              This month &nbsp;·&nbsp; 五月
+            </div>
           </div>
         </header>
         <div class="seasonal-grid">
           <div class="seasonal-text">
-            <h2 class="display reveal">山苺と<em>燻製ライ麦。</em></h2>
-            <p class="body-large reveal" style="--reveal-delay:120ms">
+            <h2 class="display reveal">
+              山苺と<em>燻製ライ麦。</em>
+            </h2>
+            <p
+              class="body-large reveal"
+              style="--reveal-delay:120ms"
+            >
               毎年五月、白山の麓の農家さんを訪ねます。春のパンに彩りを添える、小ぶりで甘い山苺を育てている畑です。富山の燻製所で仕上げたライ麦と合わせました。
             </p>
-            <dl class="seasonal-detail reveal" style="--reveal-delay:240ms">
+            <dl
+              class="seasonal-detail reveal"
+              style="--reveal-delay:240ms"
+            >
               <div>
                 <dt>販売期間</dt>
                 <dd>5月1日 — 6月8日<br><small style="font-family:var(--mono);font-size:10px;letter-spacing:0.2em;color:rgba(253,250,243,0.5);text-transform:uppercase">1日50本・午前のみ</small></dd>
@@ -370,7 +539,10 @@ onMounted(() => {
               </div>
             </dl>
           </div>
-          <div class="ph reveal" style="--reveal-delay:120ms">
+          <div
+            class="ph reveal"
+            style="--reveal-delay:120ms"
+          >
             <div class="label">
               <span>Seasonal feature</span>
               <span class="tick" />
@@ -382,7 +554,11 @@ onMounted(() => {
     </section>
 
     <!-- ───── ACCESS ───── -->
-    <section class="access" id="access" data-screen-label="06 Access">
+    <section
+      id="access"
+      class="access"
+      data-screen-label="06 Access"
+    >
       <div class="wrap">
         <header class="sec-head">
           <div class="meta reveal">
@@ -390,42 +566,187 @@ onMounted(() => {
               <span class="num">05 / Visit</span>
               <span class="line" />
             </div>
-            <div class="eyebrow">Access &amp; hours &nbsp;·&nbsp; ご来店</div>
+            <div class="eyebrow">
+              Access &amp; hours &nbsp;·&nbsp; ご来店
+            </div>
           </div>
-          <h2 class="display reveal" style="--reveal-delay:100ms">
+          <h2
+            class="display reveal"
+            style="--reveal-delay:100ms"
+          >
             梯川と<em>旧街道</em>のあいだに。
           </h2>
         </header>
         <div class="access-grid">
           <div class="map-card reveal">
-            <svg viewBox="0 0 800 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <svg
+              viewBox="0 0 800 640"
+              preserveAspectRatio="xMidYMid slice"
+              aria-hidden="true"
+            >
               <defs>
-                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(43,38,34,0.05)" stroke-width="0.5" />
+                <pattern
+                  id="grid"
+                  width="40"
+                  height="40"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <path
+                    d="M 40 0 L 0 0 0 40"
+                    fill="none"
+                    stroke="rgba(43,38,34,0.05)"
+                    stroke-width="0.5"
+                  />
                 </pattern>
               </defs>
-              <rect width="800" height="640" fill="#ece3d2" />
-              <rect width="800" height="640" fill="url(#grid)" />
-              <path d="M -20 220 C 200 180, 280 320, 480 280 S 700 360, 840 320" stroke="#b8956a" stroke-width="22" fill="none" opacity="0.35" />
-              <path d="M -20 220 C 200 180, 280 320, 480 280 S 700 360, 840 320" stroke="#8a6a4a" stroke-width="2" fill="none" opacity="0.5" />
-              <path d="M 0 460 L 800 420" stroke="#58504a" stroke-width="1.2" fill="none" opacity="0.6" />
-              <path d="M 0 540 L 800 510" stroke="#58504a" stroke-width="0.8" fill="none" opacity="0.4" />
-              <path d="M 380 0 L 480 640" stroke="#58504a" stroke-width="1.2" fill="none" opacity="0.5" />
-              <path d="M 220 0 L 280 640" stroke="#58504a" stroke-width="0.8" fill="none" opacity="0.35" />
-              <path d="M 600 0 L 660 640" stroke="#58504a" stroke-width="0.8" fill="none" opacity="0.35" />
-              <g opacity="0.16" fill="#8a6a4a">
-                <rect x="60" y="80" width="120" height="80" rx="2" />
-                <rect x="220" y="60" width="100" height="120" rx="2" />
-                <rect x="540" y="100" width="60" height="80" rx="2" />
-                <rect x="100" y="380" width="100" height="60" rx="2" />
-                <rect x="540" y="440" width="80" height="80" rx="2" />
-                <rect x="660" y="540" width="100" height="60" rx="2" />
-                <rect x="240" y="540" width="120" height="60" rx="2" />
+              <rect
+                width="800"
+                height="640"
+                fill="#ece3d2"
+              />
+              <rect
+                width="800"
+                height="640"
+                fill="url(#grid)"
+              />
+              <path
+                d="M -20 220 C 200 180, 280 320, 480 280 S 700 360, 840 320"
+                stroke="#b8956a"
+                stroke-width="22"
+                fill="none"
+                opacity="0.35"
+              />
+              <path
+                d="M -20 220 C 200 180, 280 320, 480 280 S 700 360, 840 320"
+                stroke="#8a6a4a"
+                stroke-width="2"
+                fill="none"
+                opacity="0.5"
+              />
+              <path
+                d="M 0 460 L 800 420"
+                stroke="#58504a"
+                stroke-width="1.2"
+                fill="none"
+                opacity="0.6"
+              />
+              <path
+                d="M 0 540 L 800 510"
+                stroke="#58504a"
+                stroke-width="0.8"
+                fill="none"
+                opacity="0.4"
+              />
+              <path
+                d="M 380 0 L 480 640"
+                stroke="#58504a"
+                stroke-width="1.2"
+                fill="none"
+                opacity="0.5"
+              />
+              <path
+                d="M 220 0 L 280 640"
+                stroke="#58504a"
+                stroke-width="0.8"
+                fill="none"
+                opacity="0.35"
+              />
+              <path
+                d="M 600 0 L 660 640"
+                stroke="#58504a"
+                stroke-width="0.8"
+                fill="none"
+                opacity="0.35"
+              />
+              <g
+                opacity="0.16"
+                fill="#8a6a4a"
+              >
+                <rect
+                  x="60"
+                  y="80"
+                  width="120"
+                  height="80"
+                  rx="2"
+                />
+                <rect
+                  x="220"
+                  y="60"
+                  width="100"
+                  height="120"
+                  rx="2"
+                />
+                <rect
+                  x="540"
+                  y="100"
+                  width="60"
+                  height="80"
+                  rx="2"
+                />
+                <rect
+                  x="100"
+                  y="380"
+                  width="100"
+                  height="60"
+                  rx="2"
+                />
+                <rect
+                  x="540"
+                  y="440"
+                  width="80"
+                  height="80"
+                  rx="2"
+                />
+                <rect
+                  x="660"
+                  y="540"
+                  width="100"
+                  height="60"
+                  rx="2"
+                />
+                <rect
+                  x="240"
+                  y="540"
+                  width="120"
+                  height="60"
+                  rx="2"
+                />
               </g>
-              <text x="40" y="30" font-family="JetBrains Mono, monospace" font-size="11" fill="#58504a" letter-spacing="2">KOMATSU · 小松市</text>
-              <text x="700" y="630" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="10" fill="#58504a" letter-spacing="2" opacity="0.6">36.40°N  136.45°E</text>
-              <text x="180" y="240" font-family="Cormorant Garamond, serif" font-style="italic" font-size="14" fill="#8a6a4a">Kakehashi River</text>
-              <text x="350" y="445" font-family="JetBrains Mono, monospace" font-size="9" fill="#58504a" letter-spacing="2" opacity="0.7">YOKOMACHI ROAD</text>
+              <text
+                x="40"
+                y="30"
+                font-family="JetBrains Mono, monospace"
+                font-size="11"
+                fill="#58504a"
+                letter-spacing="2"
+              >KOMATSU · 小松市</text>
+              <text
+                x="700"
+                y="630"
+                text-anchor="end"
+                font-family="JetBrains Mono, monospace"
+                font-size="10"
+                fill="#58504a"
+                letter-spacing="2"
+                opacity="0.6"
+              >36.40°N  136.45°E</text>
+              <text
+                x="180"
+                y="240"
+                font-family="Cormorant Garamond, serif"
+                font-style="italic"
+                font-size="14"
+                fill="#8a6a4a"
+              >Kakehashi River</text>
+              <text
+                x="350"
+                y="445"
+                font-family="JetBrains Mono, monospace"
+                font-size="9"
+                fill="#58504a"
+                letter-spacing="2"
+                opacity="0.7"
+              >YOKOMACHI ROAD</text>
             </svg>
             <div class="map-pin">
               <span class="pin-dot" />
@@ -458,18 +779,63 @@ onMounted(() => {
     <section class="insta">
       <div class="wrap">
         <div class="insta-head">
-          <h3 class="reveal">日々のひとこま <em>· @bakery_ukigmo</em></h3>
-          <a href="#" class="hero-cta reveal" style="color:var(--char);border-color:var(--line)">
+          <h3 class="reveal">
+            日々のひとこま <em>· @bakery_ukigmo</em>
+          </h3>
+          <a
+            href="#"
+            class="hero-cta reveal"
+            style="color:var(--char);border-color:var(--line)"
+          >
             <span>Follow</span><span class="arrow" />
           </a>
         </div>
         <div class="insta-grid">
-          <div class="ph reveal"><div class="label"><span>Steam · oven door</span></div></div>
-          <div class="ph reveal" style="--reveal-delay:80ms"><div class="label"><span>Linen · crumb</span></div></div>
-          <div class="ph reveal" style="--reveal-delay:160ms"><div class="label"><span>Hands · dough</span></div></div>
-          <div class="ph reveal" style="--reveal-delay:240ms"><div class="label"><span>Window · cup</span></div></div>
-          <div class="ph reveal" style="--reveal-delay:320ms"><div class="label"><span>Garden · moss</span></div></div>
-          <div class="ph reveal" style="--reveal-delay:400ms"><div class="label"><span>Strawberry · rye</span></div></div>
+          <div class="ph reveal">
+            <div class="label">
+              <span>Steam · oven door</span>
+            </div>
+          </div>
+          <div
+            class="ph reveal"
+            style="--reveal-delay:80ms"
+          >
+            <div class="label">
+              <span>Linen · crumb</span>
+            </div>
+          </div>
+          <div
+            class="ph reveal"
+            style="--reveal-delay:160ms"
+          >
+            <div class="label">
+              <span>Hands · dough</span>
+            </div>
+          </div>
+          <div
+            class="ph reveal"
+            style="--reveal-delay:240ms"
+          >
+            <div class="label">
+              <span>Window · cup</span>
+            </div>
+          </div>
+          <div
+            class="ph reveal"
+            style="--reveal-delay:320ms"
+          >
+            <div class="label">
+              <span>Garden · moss</span>
+            </div>
+          </div>
+          <div
+            class="ph reveal"
+            style="--reveal-delay:400ms"
+          >
+            <div class="label">
+              <span>Strawberry · rye</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -515,36 +881,91 @@ onMounted(() => {
     </footer>
 
     <!-- ───── TWEAKS PANEL ───── -->
-    <div id="tweaks" role="dialog" aria-label="Tweaks" :class="{ on: tweaksPanelOpen }">
+    <div
+      id="tweaks"
+      role="dialog"
+      aria-label="Tweaks"
+      :class="{ on: tweaksPanelOpen }"
+    >
       <h5>
         <span>Tweaks</span>
-        <button aria-label="Close" @click="tweaksPanelOpen = false">×</button>
+        <button
+          aria-label="Close"
+          @click="tweaksPanelOpen = false"
+        >
+          ×
+        </button>
       </h5>
       <div class="grp">
-        <div class="lbl">Theme</div>
+        <div class="lbl">
+          Theme
+        </div>
         <div class="seg">
-          <button :class="{ active: tweaks.theme === 'cream' }" @click="setTweak({ theme: 'cream' })">Cream</button>
-          <button :class="{ active: tweaks.theme === 'paper' }" @click="setTweak({ theme: 'paper' })">Paper</button>
-          <button :class="{ active: tweaks.theme === 'toasted' }" @click="setTweak({ theme: 'toasted' })">Toasted</button>
+          <button
+            :class="{ active: tweaks.theme === 'cream' }"
+            @click="setTweak({ theme: 'cream' })"
+          >
+            Cream
+          </button>
+          <button
+            :class="{ active: tweaks.theme === 'paper' }"
+            @click="setTweak({ theme: 'paper' })"
+          >
+            Paper
+          </button>
+          <button
+            :class="{ active: tweaks.theme === 'toasted' }"
+            @click="setTweak({ theme: 'toasted' })"
+          >
+            Toasted
+          </button>
         </div>
       </div>
       <div class="grp">
-        <div class="lbl">Display font</div>
+        <div class="lbl">
+          Display font
+        </div>
         <div class="seg">
-          <button :class="{ active: tweaks.display_font === 'cormorant' }" @click="setTweak({ display_font: 'cormorant' })">Cormorant</button>
-          <button :class="{ active: tweaks.display_font === 'playfair' }" @click="setTweak({ display_font: 'playfair' })">Playfair</button>
+          <button
+            :class="{ active: tweaks.display_font === 'cormorant' }"
+            @click="setTweak({ display_font: 'cormorant' })"
+          >
+            Cormorant
+          </button>
+          <button
+            :class="{ active: tweaks.display_font === 'playfair' }"
+            @click="setTweak({ display_font: 'playfair' })"
+          >
+            Playfair
+          </button>
         </div>
       </div>
       <div class="grp">
-        <div class="lbl">Tagline alignment</div>
+        <div class="lbl">
+          Tagline alignment
+        </div>
         <div class="seg">
-          <button :class="{ active: tweaks.tagline_alignment === 'left' }" @click="setTweak({ tagline_alignment: 'left' })">Left</button>
-          <button :class="{ active: tweaks.tagline_alignment === 'center' }" @click="setTweak({ tagline_alignment: 'center' })">Center</button>
+          <button
+            :class="{ active: tweaks.tagline_alignment === 'left' }"
+            @click="setTweak({ tagline_alignment: 'left' })"
+          >
+            Left
+          </button>
+          <button
+            :class="{ active: tweaks.tagline_alignment === 'center' }"
+            @click="setTweak({ tagline_alignment: 'center' })"
+          >
+            Center
+          </button>
         </div>
       </div>
       <div class="grp toggle">
         <span>Paper grain</span>
-        <span class="switch" :class="{ on: tweaks.show_grain }" @click="setTweak({ show_grain: !tweaks.show_grain })" />
+        <span
+          class="switch"
+          :class="{ on: tweaks.show_grain }"
+          @click="setTweak({ show_grain: !tweaks.show_grain })"
+        />
       </div>
     </div>
   </div>

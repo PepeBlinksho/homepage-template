@@ -8,7 +8,7 @@ if (process.env.VERCEL && !process.env.NUXT_PUBLIC_SITE_URL) {
   throw new Error(
     '[homepage-template] NUXT_PUBLIC_SITE_URL が未設定です。'
     + ' canonical URL・OGタグが example.com になるため本番ビルドには必須です。'
-    + ' Vercel の Environment Variables に設定してください。'
+    + ' Vercel の Environment Variables に設定してください。',
   )
 }
 
@@ -48,17 +48,31 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
+    head: {
+      meta: [
+        { name: 'twitter:card', content: 'summary_large_image' },
+      ],
+    },
+  },
+
   css: ['~/assets/css/main.css'],
 
-  // CSRF 保護（nuxt-csurf）
-  // encryptSecret: Vercel のサーバーレス環境でトークンを安定して復号するために必要
-  // 環境変数 NUXT_CSRF_SECRET（32文字以上推奨）を設定すること
-  csurf: {
-    encryptSecret: process.env.NUXT_CSRF_SECRET,
-    cookie: {
-      sameSite: 'lax',
+  site: {
+    url: siteUrl,
+  },
+
+  runtimeConfig: {
+    resendApiKey: '',
+    contactEmail: '',
+    contactFromEmail: '',
+    microcmsApiKey: '',
+    public: {
+      siteUrl,
+      gaId: process.env.NUXT_PUBLIC_GA_ID || '',
+      microcmsServiceDomain: '',
     },
-    methodsToProtect: ['POST', 'PUT', 'PATCH'],
   },
 
   routeRules: {
@@ -117,34 +131,23 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-01-15',
 
-  site: {
-    url: siteUrl,
+  // CSRF 保護（nuxt-csurf）
+  // encryptSecret: Vercel のサーバーレス環境でトークンを安定して復号するために必要
+  // 環境変数 NUXT_CSRF_SECRET（32文字以上推奨）を設定すること
+  csurf: {
+    encryptSecret: process.env.NUXT_CSRF_SECRET,
+    cookie: {
+      sameSite: 'lax',
+    },
+    methodsToProtect: ['POST', 'PUT', 'PATCH'],
   },
 
-  sitemap: {
-    ...(hasMicroCms ? { sources: ['/api/sitemap-news'] } : {}),
-    urls: [
-      { loc: '/', priority: 1.0, changefreq: 'weekly' },
-      { loc: '/menu', priority: 0.8, changefreq: 'monthly' },
-      { loc: '/news', priority: 0.8, changefreq: 'weekly' },
-      { loc: '/contact', priority: 0.7, changefreq: 'yearly' },
-      ...(hasMicroCms ? [] : siteConfig.news.map(n => ({
-        loc: `/news/${n.id}`,
-        priority: 0.6 as 0.6,
-        lastmod: n.date,
-      }))),
-    ],
-  },
-
-  runtimeConfig: {
-    resendApiKey: '',
-    contactEmail: '',
-    contactFromEmail: '',
-    microcmsApiKey: '',
-    public: {
-      siteUrl,
-      gaId: process.env.NUXT_PUBLIC_GA_ID || '',
-      microcmsServiceDomain: '',
+  eslint: {
+    config: {
+      stylistic: {
+        commaDangle: 'always-multiline',
+        braceStyle: '1tbs',
+      },
     },
   },
 
@@ -155,22 +158,21 @@ export default defineNuxtConfig({
     ],
   },
 
-  app: {
-    pageTransition: { name: 'page', mode: 'out-in' },
-    head: {
-      meta: [
-        { name: 'twitter:card', content: 'summary_large_image' },
-      ],
-    },
-  },
-
-  eslint: {
-    config: {
-      stylistic: {
-        commaDangle: 'never',
-        braceStyle: '1tbs',
-      },
-    },
+  sitemap: {
+    ...(hasMicroCms ? { sources: ['/api/sitemap-news'] } : {}),
+    urls: [
+      { loc: '/', priority: 1.0, changefreq: 'weekly' },
+      { loc: '/menu', priority: 0.8, changefreq: 'monthly' },
+      { loc: '/news', priority: 0.8, changefreq: 'weekly' },
+      { loc: '/contact', priority: 0.7, changefreq: 'yearly' },
+      ...(hasMicroCms
+        ? []
+        : siteConfig.news.map(n => ({
+            loc: `/news/${n.id}`,
+            priority: 0.6 as const,
+            lastmod: n.date,
+          }))),
+    ],
   },
 
 })

@@ -111,7 +111,7 @@ onUnmounted(() => {
           class="inline-block transition-all duration-500"
           :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
           :style="{ transitionDelay: `${350 + i * 45}ms` }"
-        >{{ char === ' ' ? ' ' : char }}</span>
+        >{{ char === ' ' ? '\u00A0' : char }}</span>
       </h1>
 
       <!-- キャッチコピー -->

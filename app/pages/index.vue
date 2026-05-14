@@ -21,32 +21,50 @@ useJsonLd()
 <template>
   <div>
     <!-- ① ヒーロー -->
-    <div id="snap-hero" class="md:h-screen md:overflow-hidden">
+    <div
+      id="snap-hero"
+      class="md:h-screen md:overflow-hidden"
+    >
       <HeroSection />
     </div>
 
     <!-- ② About -->
-    <div id="snap-about" class="md:h-screen md:overflow-hidden">
+    <div
+      id="snap-about"
+      class="md:h-screen md:overflow-hidden"
+    >
       <AboutSection />
     </div>
 
     <!-- ③ ギャラリー -->
-    <div id="snap-gallery" class="md:h-screen md:overflow-hidden">
+    <div
+      id="snap-gallery"
+      class="md:h-screen md:overflow-hidden"
+    >
       <GallerySection />
     </div>
 
     <!-- ④ メニュー -->
-    <div id="snap-menu" class="md:h-screen md:overflow-hidden">
+    <div
+      id="snap-menu"
+      class="md:h-screen md:overflow-hidden"
+    >
       <MenuPreview :snap="true" />
     </div>
 
     <!-- ⑤ お知らせ -->
-    <div id="snap-news" class="md:h-screen md:overflow-hidden">
+    <div
+      id="snap-news"
+      class="md:h-screen md:overflow-hidden"
+    >
       <NewsSection />
     </div>
 
     <!-- ⑥ アクセス -->
-    <div id="snap-access" class="md:h-screen md:overflow-hidden">
+    <div
+      id="snap-access"
+      class="md:h-screen md:overflow-hidden"
+    >
       <AccessSection />
     </div>
 

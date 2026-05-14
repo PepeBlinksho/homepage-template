@@ -78,7 +78,9 @@ const googleMapsUrl = computed(() =>
               住所
             </h3>
             <address class="not-italic text-stone-800 space-y-1 text-sm">
-              <p class="text-stone-400">〒{{ siteConfig.address.zip }}</p>
+              <p class="text-stone-400">
+                〒{{ siteConfig.address.zip }}
+              </p>
               <p class="text-base font-medium">
                 {{ buildFullAddress(siteConfig.address) }}
               </p>

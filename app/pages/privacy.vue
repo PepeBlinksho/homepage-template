@@ -96,8 +96,18 @@ const { el, revealed } = useReveal()
               {{ siteConfig.name }}
             </p>
             <p>〒{{ siteConfig.address.zip }} {{ buildFullAddress(siteConfig.address) }}</p>
-            <p>TEL: <a :href="`tel:${siteConfig.tel}`" class="hover:text-amber-600 transition-colors">{{ siteConfig.tel }}</a></p>
-            <p>Email: <a :href="`mailto:${siteConfig.email}`" class="hover:text-amber-600 transition-colors">{{ siteConfig.email }}</a></p>
+            <p>
+              TEL: <a
+                :href="`tel:${siteConfig.tel}`"
+                class="hover:text-amber-600 transition-colors"
+              >{{ siteConfig.tel }}</a>
+            </p>
+            <p>
+              Email: <a
+                :href="`mailto:${siteConfig.email}`"
+                class="hover:text-amber-600 transition-colors"
+              >{{ siteConfig.email }}</a>
+            </p>
           </address>
         </div>
 

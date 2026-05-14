@@ -13,7 +13,7 @@ import type { SiteConfig } from './site'
 
 export const DEMO_SUB_ROUTES = ['', '/menu', '/news', '/contact', '/privacy', '/news/**'] as const
 
-export const demoRegistry: Array<{ slug: string; config: SiteConfig }> = [
+export const demoRegistry: Array<{ slug: string, config: SiteConfig }> = [
   { slug: 'shop/cafe', config: shopCafeConfig },
   { slug: 'shop/restaurant', config: shopRestaurantConfig },
   { slug: 'beauty/hair', config: beautyHairConfig },

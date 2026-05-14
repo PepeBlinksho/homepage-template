@@ -27,13 +27,20 @@ const { el, revealed } = useReveal()
     <div class="relative bg-stone-900 py-24 overflow-hidden">
       <div class="grain-overlay opacity-[0.04]" />
       <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
-        <p class="text-xs tracking-[0.5em] uppercase text-amber-400 mb-3">Menu</p>
-        <h1 class="font-serif text-5xl md:text-6xl font-semibold text-white">メニュー</h1>
+        <p class="text-xs tracking-[0.5em] uppercase text-amber-400 mb-3">
+          Menu
+        </p>
+        <h1 class="font-serif text-5xl md:text-6xl font-semibold text-white">
+          メニュー
+        </h1>
         <div class="w-12 h-0.5 bg-amber-500 mt-4" />
       </div>
     </div>
 
-    <div ref="el" class="max-w-4xl mx-auto px-4 sm:px-6 py-20">
+    <div
+      ref="el"
+      class="max-w-4xl mx-auto px-4 sm:px-6 py-20"
+    >
       <div
         class="transition-all duration-700 mb-12"
         :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
@@ -46,8 +53,8 @@ const { el, revealed } = useReveal()
 
       <div
         v-for="(menu, index) in siteConfig.menus"
-        :key="menu.category"
         v-show="activeTab === index"
+        :key="menu.category"
       >
         <div class="grid sm:grid-cols-2 gap-4">
           <div
@@ -65,7 +72,9 @@ const { el, revealed } = useReveal()
                 ¥{{ item.price.toLocaleString() }}
               </span>
             </div>
-            <p class="text-sm text-stone-500 leading-relaxed">{{ item.description }}</p>
+            <p class="text-sm text-stone-500 leading-relaxed">
+              {{ item.description }}
+            </p>
           </div>
         </div>
       </div>

@@ -1,14 +1,14 @@
 const safeJson = (obj: unknown): string =>
   JSON.stringify(obj).replace(/</g, '\\u003C').replace(/>/g, '\\u003E')
 
-function buildPostalAddress(address: { zip: string; prefecture: string; city: string; street: string; building?: string }) {
+function buildPostalAddress(address: { zip: string, prefecture: string, city: string, street: string, building?: string }) {
   return {
     '@type': 'PostalAddress',
-    postalCode: address.zip,
-    addressRegion: address.prefecture,
-    addressLocality: address.city,
-    streetAddress: address.street + (address.building ? ` ${address.building}` : ''),
-    addressCountry: 'JP',
+    'postalCode': address.zip,
+    'addressRegion': address.prefecture,
+    'addressLocality': address.city,
+    'streetAddress': address.street + (address.building ? ` ${address.building}` : ''),
+    'addressCountry': 'JP',
   }
 }
 
@@ -22,13 +22,13 @@ export function useJsonLd() {
     const s: Record<string, unknown> = {
       '@context': 'https://schema.org',
       '@type': cfg.value.business.type,
-      name: cfg.value.name,
-      description: cfg.value.description,
-      url: siteUrl,
-      telephone: cfg.value.tel,
-      email: cfg.value.email,
-      address: buildPostalAddress(cfg.value.address),
-      openingHours: cfg.value.business.openingHours,
+      'name': cfg.value.name,
+      'description': cfg.value.description,
+      'url': siteUrl,
+      'telephone': cfg.value.tel,
+      'email': cfg.value.email,
+      'address': buildPostalAddress(cfg.value.address),
+      'openingHours': cfg.value.business.openingHours,
       ...(cfg.value.business.cuisine && { servesCuisine: cfg.value.business.cuisine }),
       ...(cfg.value.business.priceRange && { priceRange: cfg.value.business.priceRange }),
       ...(cfg.value.seo.ogImage && { image: `${siteUrl}${cfg.value.seo.ogImage}` }),
@@ -52,13 +52,13 @@ export function useCorpJsonLd() {
     const s: Record<string, unknown> = {
       '@context': 'https://schema.org',
       '@type': cfg.value.business.type,
-      name: cfg.value.name,
-      description: cfg.value.description,
-      url: siteUrl,
-      telephone: cfg.value.tel,
-      email: cfg.value.email,
-      address: buildPostalAddress(cfg.value.address),
-      openingHours: cfg.value.business.openingHours,
+      'name': cfg.value.name,
+      'description': cfg.value.description,
+      'url': siteUrl,
+      'telephone': cfg.value.tel,
+      'email': cfg.value.email,
+      'address': buildPostalAddress(cfg.value.address),
+      'openingHours': cfg.value.business.openingHours,
       ...(cfg.value.serviceArea && { areaServed: cfg.value.serviceArea }),
       ...(cfg.value.license && { hasCredential: cfg.value.license }),
       ...(cfg.value.seo.ogImage && { image: `${siteUrl}${cfg.value.seo.ogImage}` }),
@@ -86,17 +86,17 @@ export function useArticleJsonLd(article: {
   const schema = computed(() => ({
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    headline: article.title,
-    description: article.body.slice(0, 160),
-    datePublished: article.date,
-    mainEntityOfPage: {
+    'headline': article.title,
+    'description': article.body.slice(0, 160),
+    'datePublished': article.date,
+    'mainEntityOfPage': {
       '@type': 'WebPage',
       '@id': `${siteUrl}${prefix.value}/news/${article.id}`,
     },
-    publisher: {
+    'publisher': {
       '@type': 'Organization',
-      name: cfg.value.name,
-      url: siteUrl,
+      'name': cfg.value.name,
+      'url': siteUrl,
     },
   }))
 

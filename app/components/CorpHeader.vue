@@ -74,7 +74,10 @@ function isActive(link: { to: string }): boolean {
           ? 'bg-sky-600 text-white hover:bg-sky-700'
           : 'bg-white/15 text-white border border-white/30 hover:bg-white/25'"
       >
-        <UIcon name="i-heroicons-phone" class="w-4 h-4" />
+        <UIcon
+          name="i-heroicons-phone"
+          class="w-4 h-4"
+        />
         {{ cfg.tel }}
       </a>
 
@@ -85,12 +88,18 @@ function isActive(link: { to: string }): boolean {
         aria-label="メニューを開く"
         @click="isMenuOpen = true"
       >
-        <UIcon name="i-heroicons-bars-3" class="w-6 h-6" />
+        <UIcon
+          name="i-heroicons-bars-3"
+          class="w-6 h-6"
+        />
       </button>
     </div>
 
     <!-- モバイルスライドオーバー -->
-    <USlideover v-model:open="isMenuOpen" side="right">
+    <USlideover
+      v-model:open="isMenuOpen"
+      side="right"
+    >
       <template #content>
         <div class="h-full bg-white">
           <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
@@ -100,7 +109,10 @@ function isActive(link: { to: string }): boolean {
               aria-label="閉じる"
               @click="isMenuOpen = false"
             >
-              <UIcon name="i-heroicons-x-mark" class="w-5 h-5" />
+              <UIcon
+                name="i-heroicons-x-mark"
+                class="w-5 h-5"
+              />
             </button>
           </div>
           <nav class="flex flex-col px-6 pt-6">
@@ -114,7 +126,10 @@ function isActive(link: { to: string }): boolean {
               @click="isMenuOpen = false"
             >
               <span class="font-medium">{{ link.label }}</span>
-              <UIcon name="i-heroicons-chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-sky-400 transition-colors" />
+              <UIcon
+                name="i-heroicons-chevron-right"
+                class="w-4 h-4 text-slate-300 group-hover:text-sky-400 transition-colors"
+              />
             </NuxtLink>
           </nav>
           <!-- 電話番号 (モバイル) -->
@@ -123,7 +138,10 @@ function isActive(link: { to: string }): boolean {
               :href="`tel:${cfg.tel}`"
               class="flex items-center justify-center gap-2 w-full py-3 bg-sky-600 text-white rounded-xl font-semibold text-base"
             >
-              <UIcon name="i-heroicons-phone" class="w-5 h-5" />
+              <UIcon
+                name="i-heroicons-phone"
+                class="w-5 h-5"
+              />
               {{ cfg.tel }}
             </a>
           </div>

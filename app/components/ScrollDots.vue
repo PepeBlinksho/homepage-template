@@ -10,8 +10,7 @@ function scrollToSection(index: number) {
   const lenis = nuxtApp.$lenis
   if (lenis) {
     lenis.scrollTo(section, { duration: 1.2 })
-  }
-  else {
+  } else {
     section.scrollIntoView({ behavior: 'smooth' })
   }
 }

@@ -16,9 +16,9 @@ export const corpConfig = {
 
   services: [
     { icon: 'i-heroicons-wrench-screwdriver', title: 'サービス名', description: 'サービスの説明文を入力してください。' },
-  ] as Array<{ icon: string; title: string; description: string }>,
+  ] as Array<{ icon: string, title: string, description: string }>,
 
-  works: [] as Array<{ title: string; category: string; location: string; image: string; description: string }>,
+  works: [] as Array<{ title: string, category: string, location: string, image: string, description: string }>,
 
   hours: [
     { day: '月〜土', time: '8:00 〜 17:00', closed: false },
@@ -46,7 +46,7 @@ export const corpConfig = {
   // 例: 'https://www.google.com/maps/embed?pb=!1m18!...'
   googleMapEmbed: 'https://maps.google.com/maps?q=石川県小松市&output=embed',
 
-  news: [] as Array<{ id: string; date: string; category: string; title: string; body: string }>,
+  news: [] as Array<{ id: string, date: string, category: string, title: string, body: string }>,
 
   images: {
     hero: '',

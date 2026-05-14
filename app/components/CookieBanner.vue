@@ -5,7 +5,7 @@ const route = useRoute()
 const prefix = useRoutePrefix()
 
 const isDemoRoute = computed(() =>
-  ['/shop/', '/demo/', '/beauty/', '/corp/'].some(p => route.path.startsWith(p))
+  ['/shop/', '/demo/', '/beauty/', '/corp/'].some(p => route.path.startsWith(p)),
 )
 
 // GAが設定されており未選択かつメインサイトのみ表示
@@ -26,7 +26,10 @@ const privacyUrl = computed(() => `${prefix.value || ''}/privacy`)
         <p class="text-sm text-stone-600 leading-relaxed flex-1">
           当サイトはGoogle Analyticsを使用してアクセス状況を分析しています。
           詳細は
-          <NuxtLink :to="privacyUrl" class="underline underline-offset-2 hover:text-stone-900 transition-colors">
+          <NuxtLink
+            :to="privacyUrl"
+            class="underline underline-offset-2 hover:text-stone-900 transition-colors"
+          >
             プライバシーポリシー
           </NuxtLink>
           をご確認ください。

@@ -2,7 +2,7 @@ import { corpConfig, type CorpConfig } from '~/config/corp'
 import { corpRegistry } from '~/config/corpRegistry'
 
 const corpConfigs: Record<string, CorpConfig> = Object.fromEntries(
-  corpRegistry.map(c => [c.slug, c.config])
+  corpRegistry.map(c => [c.slug, c.config]),
 )
 
 export function useCorpConfig() {
