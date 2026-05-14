@@ -9,9 +9,13 @@ const isDemoRoute = computed(() =>
   ['/shop/', '/demo/', '/beauty/', '/corp/'].some(p => route.path.startsWith(p))
 )
 
+// layout: false を指定したページはヘッダー・フッター共に独自実装するため、共通chromeを抑制
+const isCustomChrome = computed(() => route.meta.layout === false)
+
 // トップ・デモindexページはスナップスクロールのため AppFooter を非表示
 const showFooter = computed(() => {
   if (isCorpRoute.value) return false
+  if (isCustomChrome.value) return false
   const prefix = useRoutePrefix()
   const base = prefix.value || '/'
   return route.path !== base
@@ -58,7 +62,7 @@ useCanonical()
       メインコンテンツへスキップ
     </a>
 
-    <AppHeader v-if="!isCorpRoute" />
+    <AppHeader v-if="!isCorpRoute && !isCustomChrome" />
     <main id="main-content">
       <NuxtPage />
     </main>
