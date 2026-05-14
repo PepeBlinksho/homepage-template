@@ -2,11 +2,12 @@
  * テーマシステム
  * デモ config の theme フィールド ('amber' | 'forest' | 'crimson' | 'cobalt' | 'rose')
  * が `[data-theme="..."]` 属性として描画ルートに付与され、Tailwind v4 の
- * --color-amber-* CSS 変数を上書きしてアクセントカラー全体を切り替える。
+ * --color-amber-* と Nuxt UI の --ui-color-primary-* CSS 変数を上書きして
+ * アクセントカラー全体を切り替える。
  *
- * amber 系の利用箇所（Hero グラデーション・CTA・Nuxt UI primary・SectionHeader
- * 装飾線・MenuPreview ホバー等）が一括で別配色になる。stone 系の背景・
- * 装飾は維持して、design language は揃える。
+ * 注意: --color-amber-* だけでは UButton 等の Nuxt UI コンポーネントは変わらない。
+ * --ui-color-primary-* は :root で var(--color-amber-X) を解決した結果がそのまま
+ * 子に伝わるため、[data-theme] スコープで両方を独立に上書きする必要がある。
  */
 
 /* forest: 緑系 — 和食・抹茶系・自然派 */
@@ -22,6 +23,18 @@
   --color-amber-800: #166534;
   --color-amber-900: #14532d;
   --color-amber-950: #052e16;
+
+  --ui-color-primary-50: #f0fdf4;
+  --ui-color-primary-100: #dcfce7;
+  --ui-color-primary-200: #bbf7d0;
+  --ui-color-primary-300: #86efac;
+  --ui-color-primary-400: #4ade80;
+  --ui-color-primary-500: #22c55e;
+  --ui-color-primary-600: #16a34a;
+  --ui-color-primary-700: #15803d;
+  --ui-color-primary-800: #166534;
+  --ui-color-primary-900: #14532d;
+  --ui-color-primary-950: #052e16;
 }
 
 /* crimson: 赤系 — ラーメン・焼肉・中華 */
@@ -37,6 +50,18 @@
   --color-amber-800: #991b1b;
   --color-amber-900: #7f1d1d;
   --color-amber-950: #450a0a;
+
+  --ui-color-primary-50: #fef2f2;
+  --ui-color-primary-100: #fee2e2;
+  --ui-color-primary-200: #fecaca;
+  --ui-color-primary-300: #fca5a5;
+  --ui-color-primary-400: #f87171;
+  --ui-color-primary-500: #ef4444;
+  --ui-color-primary-600: #dc2626;
+  --ui-color-primary-700: #b91c1c;
+  --ui-color-primary-800: #991b1b;
+  --ui-color-primary-900: #7f1d1d;
+  --ui-color-primary-950: #450a0a;
 }
 
 /* cobalt: 青系 — 寿司・モダンビストロ・スペシャルティコーヒー */
@@ -52,6 +77,18 @@
   --color-amber-800: #075985;
   --color-amber-900: #0c4a6e;
   --color-amber-950: #082f49;
+
+  --ui-color-primary-50: #f0f9ff;
+  --ui-color-primary-100: #e0f2fe;
+  --ui-color-primary-200: #bae6fd;
+  --ui-color-primary-300: #7dd3fc;
+  --ui-color-primary-400: #38bdf8;
+  --ui-color-primary-500: #0ea5e9;
+  --ui-color-primary-600: #0284c7;
+  --ui-color-primary-700: #0369a1;
+  --ui-color-primary-800: #075985;
+  --ui-color-primary-900: #0c4a6e;
+  --ui-color-primary-950: #082f49;
 }
 
 /* rose: ピンク系 — スイーツ・美容・フェミニン */
@@ -67,4 +104,16 @@
   --color-amber-800: #9f1239;
   --color-amber-900: #881337;
   --color-amber-950: #4c0519;
+
+  --ui-color-primary-50: #fff1f2;
+  --ui-color-primary-100: #ffe4e6;
+  --ui-color-primary-200: #fecdd3;
+  --ui-color-primary-300: #fda4af;
+  --ui-color-primary-400: #fb7185;
+  --ui-color-primary-500: #f43f5e;
+  --ui-color-primary-600: #e11d48;
+  --ui-color-primary-700: #be123c;
+  --ui-color-primary-800: #9f1239;
+  --ui-color-primary-900: #881337;
+  --ui-color-primary-950: #4c0519;
 }
