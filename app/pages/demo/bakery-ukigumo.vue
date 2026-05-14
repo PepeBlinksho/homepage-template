@@ -666,6 +666,7 @@ header.site.scrolled {
 }
 header.site .left, header.site .right { display: flex; gap: 28px; align-items: center; }
 header.site .right { justify-content: flex-end; }
+header.site nav.links { display: flex; gap: 28px; align-items: center; }
 header.site nav a {
   font-size: 12px;
   letter-spacing: 0.14em;
