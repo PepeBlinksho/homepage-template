@@ -131,8 +131,8 @@ onMounted(() => {
             <span class="arrow" />
           </a>
           <div class="hero-meta">
-            <div><b>08:00 — 18:00</b> &nbsp;·&nbsp; 月・火曜定休</div>
-            <div>石川県野々市市住吉町2-12 &nbsp;·&nbsp; 076-000-0000</div>
+            <div><b>08:00 — 18:00</b> &nbsp;·&nbsp; 水・木曜定休</div>
+            <div>石川県野々市市白山町392 &nbsp;·&nbsp; 076-000-0000</div>
           </div>
         </div>
       </div>
@@ -425,7 +425,7 @@ onMounted(() => {
               <text x="40" y="30" font-family="JetBrains Mono, monospace" font-size="11" fill="#58504a" letter-spacing="2">NONOICHI · 野々市市</text>
               <text x="700" y="630" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="10" fill="#58504a" letter-spacing="2" opacity="0.6">36.51°N  136.61°E</text>
               <text x="180" y="240" font-family="Cormorant Garamond, serif" font-style="italic" font-size="14" fill="#8a6a4a">Kanazawa Outskirts</text>
-              <text x="350" y="445" font-family="JetBrains Mono, monospace" font-size="9" fill="#58504a" letter-spacing="2" opacity="0.7">SUMIYOSHI ROAD</text>
+              <text x="350" y="445" font-family="JetBrains Mono, monospace" font-size="9" fill="#58504a" letter-spacing="2" opacity="0.7">HAKUSANCHO</text>
             </svg>
             <div class="map-pin">
               <span class="pin-dot" />
@@ -435,11 +435,11 @@ onMounted(() => {
           <dl class="info-block">
             <div class="info-row reveal">
               <dt>住所</dt>
-              <dd>石川県野々市市住吉町2-12<br><small>野々市工大前駅から徒歩7分</small></dd>
+              <dd>石川県野々市市白山町392<br><small>金沢からアクセスしやすい立地</small></dd>
             </div>
             <div class="info-row reveal">
               <dt>営業時間</dt>
-              <dd>水〜日 &nbsp; 08:00 — 18:00<br><span class="closed">月・火曜定休</span></dd>
+              <dd>金〜火 &nbsp; 08:00 — 18:00<br><span class="closed">水・木曜定休</span></dd>
             </div>
             <div class="info-row reveal">
               <dt>イートイン</dt>
@@ -509,7 +509,8 @@ onMounted(() => {
         </div>
         <div class="foot-bottom">
           <span>© 2026 NiOR</span>
-          <span>石川県野々市市住吉町2-12</span>
+          <span>石川県野々市市白山町392</span>
+          <span>Est. 2016</span>
         </div>
       </div>
     </footer>
