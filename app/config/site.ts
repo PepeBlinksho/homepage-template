@@ -144,7 +144,10 @@ export function buildFullAddress(address: SiteConfig['address']): string {
   return address.prefecture + address.city + address.street + (address.building ?? '')
 }
 
+// テーマ名（themes.css と一致）
+export type ThemeName = 'amber' | 'forest' | 'crimson' | 'cobalt' | 'rose'
+
 // 型定義
-export type SiteConfig = typeof siteConfig
+export type SiteConfig = typeof siteConfig & { theme?: ThemeName }
 export type MenuItem = (typeof siteConfig.menus)[0]['items'][0]
 export type NewsItem = (typeof siteConfig.news)[0]

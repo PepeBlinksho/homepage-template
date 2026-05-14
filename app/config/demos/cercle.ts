@@ -1,6 +1,7 @@
 import type { SiteConfig } from '../site'
 
 export const cercleConfig: SiteConfig = {
+  theme: 'cobalt',
   name: 'CAFE CERCLE',
   nameEn: 'CAFE CERCLE',
   catchcopy: '十年続いた、いつもの一杯。',

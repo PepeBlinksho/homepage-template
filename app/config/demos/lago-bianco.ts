@@ -1,6 +1,7 @@
 import type { SiteConfig } from '../site'
 
 export const lagoBiancoConfig: SiteConfig = {
+  theme: 'cobalt',
   name: 'LAGO BIANCO',
   nameEn: 'AQUA TERRACE CAFE LAGO BIANCO',
   catchcopy: '湖を見ながら、ゆっくりとした一日を。',

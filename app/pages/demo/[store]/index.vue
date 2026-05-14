@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const cfg = useShopConfig()
+const theme = computed(() => cfg.value.theme ?? 'amber')
 
 useFullPageScroll()
 
@@ -18,7 +19,7 @@ useJsonLd()
 </script>
 
 <template>
-  <div>
+  <div :data-theme="theme">
     <div
       id="snap-hero"
       class="md:h-screen md:overflow-hidden"

@@ -1,6 +1,7 @@
 import type { SiteConfig } from '../site'
 
 export const bebConfig: SiteConfig = {
+  theme: 'rose',
   name: 'Beb',
   nameEn: 'BEB',
   catchcopy: 'ゆっくり、自分のペースで。',

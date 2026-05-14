@@ -1,6 +1,7 @@
 import type { SiteConfig } from '../site'
 
 export const machiyabunkoConfig: SiteConfig = {
+  theme: 'forest',
   name: 'こまつ町家文庫',
   nameEn: 'KOMATSU MACHIYA BUNKO',
   catchcopy: '本と、ジャムと、町家の時間。',

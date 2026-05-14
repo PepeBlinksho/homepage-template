@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+@import "./themes.css";
 
 /* フォント定義 */
 @theme static {
