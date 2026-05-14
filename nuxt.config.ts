@@ -2,7 +2,9 @@ import { siteConfig } from './app/config/site'
 import { demoRegistry, DEMO_SUB_ROUTES } from './app/config/demoRegistry'
 import { corpRegistry, CORP_SUB_ROUTES } from './app/config/corpRegistry'
 
-if (process.env.NODE_ENV === 'production' && !process.env.NUXT_PUBLIC_SITE_URL) {
+// Vercel ビルド時のみ env 強制チェック。GitHub Actions CI（lint/typecheck）や
+// ローカル開発では発火させない（process.env.VERCEL は Vercel ビルドのみ "1"）
+if (process.env.VERCEL && !process.env.NUXT_PUBLIC_SITE_URL) {
   throw new Error(
     '[homepage-template] NUXT_PUBLIC_SITE_URL が未設定です。'
     + ' canonical URL・OGタグが example.com になるため本番ビルドには必須です。'
@@ -170,4 +172,5 @@ export default defineNuxtConfig({
       },
     },
   },
+
 })
