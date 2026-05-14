@@ -9,6 +9,7 @@ import { bebConfig } from './demos/beb'
 import { machiyabunkoConfig } from './demos/machiyabunko'
 import { cercleConfig } from './demos/cercle'
 import { lagoBiancoConfig } from './demos/lago-bianco'
+import { ramenKakeruConfig } from './demos/ramen-kakeru'
 import type { SiteConfig } from './site'
 
 export const DEMO_SUB_ROUTES = ['', '/menu', '/news', '/contact', '/privacy', '/news/**'] as const
@@ -25,4 +26,5 @@ export const demoRegistry: Array<{ slug: string, config: SiteConfig }> = [
   { slug: 'demo/machiyabunko', config: machiyabunkoConfig },
   { slug: 'demo/cercle', config: cercleConfig },
   { slug: 'demo/lago-bianco', config: lagoBiancoConfig },
+  { slug: 'demo/ramen-kakeru', config: ramenKakeruConfig },
 ]
