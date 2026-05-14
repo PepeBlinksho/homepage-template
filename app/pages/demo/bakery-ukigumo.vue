@@ -102,10 +102,6 @@ onMounted(() => {
         <nav class="links" aria-label="Secondary">
           <a href="#">EN / 日本語</a>
         </nav>
-        <a href="#access" class="reserve-btn">
-          <span class="dot" />
-          ご予約
-        </a>
       </div>
     </header>
 
@@ -127,7 +123,7 @@ onMounted(() => {
         </div>
         <h1 class="display reveal" style="--reveal-delay:120ms">
           <span class="jp-overlay">浮 雲 の パ ン</span>
-          日々の暮らしに、<br>やさしく漂う<em>パン</em>が<br>ここにある。
+          日々のくらしに、<br>そっと寄り添う<em>パン</em>。
         </h1>
         <div class="hero-bottom reveal" style="--reveal-delay:360ms" :style="heroBottomStyle">
           <a href="#story" class="hero-cta">
@@ -157,7 +153,7 @@ onMounted(() => {
           <div class="eyebrow">Philosophy &nbsp;·&nbsp; 哲学</div>
         </div>
         <h2 class="display reveal" style="--reveal-delay:100ms">
-          手でこね、季節に従う。<br>静かな朝の、<em>小さな営み</em>。
+          手でこね、季節と歩む。<br>朝の<em>小さな営み</em>。
         </h2>
       </header>
       <div class="story-grid">
@@ -170,10 +166,10 @@ onMounted(() => {
         </div>
         <div class="copy reveal" style="--reveal-delay:120ms">
           <p class="body-large">
-            浮雲は、小松の外れにある静かな木造の家の一室から始まりました。日本海と白山に抱かれたこの街で、毎日のパンは小さな天気予報です。その日の湿度、粉の気分、長い発酵の忍耐。
+            浮雲は、小松の郊外にある小さな木造の家から始まりました。日本海と白山に挟まれたこの街で、その日の湿度や気温と向き合いながら、時間をかけて発酵させたパンを毎朝焼いています。
           </p>
           <p class="body-large">
-            石川の農家から届く石臼挽きの穀物、能登の海塩、そして開店初日から守り続けてきたひとつのサワードウ種。急ぐものは何もありません。パンが準備できたと、教えてくれます。
+            石川の農家から届く石臼挽きの小麦、能登の海塩、開店当初から育ててきたサワードウ種。急がず、パンが焼き上がるのを待ちます。
           </p>
         </div>
         <div class="ph ph-2 reveal" style="--reveal-delay:200ms">
@@ -191,8 +187,8 @@ onMounted(() => {
           </div>
         </div>
         <div class="story-pull reveal">
-          <blockquote>「素早く作るのではなく、丁寧に作る。そして朝が追いついてくるのを待つのです。」</blockquote>
-          <cite>— 辻村 澪、ヘッドベーカー</cite>
+          <blockquote>「急いで作るのではなく、丁寧に。そして朝が訪れるのを待ちます。」</blockquote>
+          <cite>— 辻村 澪、店主</cite>
         </div>
       </div>
     </section>
@@ -227,7 +223,7 @@ onMounted(() => {
             <div class="eyebrow">Signature breads &nbsp;·&nbsp; パン</div>
           </div>
           <h2 class="display reveal" style="--reveal-delay:100ms">
-            毎朝<em>一度だけ</em>焼く、八種の静かなパン。
+            毎朝<em>一度だけ</em>焼く、八種類のパン。
           </h2>
         </header>
         <div class="breads-grid">
@@ -238,8 +234,8 @@ onMounted(() => {
             <div class="meta">
               <h3 class="name">Pain de <em>Campagne</em></h3>
               <span class="price">¥980</span>
-              <p class="desc">三日間の低温発酵。石川産小麦・ライ麦・海塩。パリッと割れる皮、乳白色のクラム。</p>
-              <div class="tag-row"><span class="tag">36時間発酵</span><span class="tag">ヴィーガン</span></div>
+              <p class="desc">石川産小麦とライ麦、能登の海塩。じっくり低温発酵させた、皮はパリッと、中はしっとりのカンパーニュ。</p>
+              <div class="tag-row"><span class="tag">36時間低温発酵</span><span class="tag">ヴィーガン</span></div>
             </div>
           </article>
           <article class="bread offset-up reveal" style="--reveal-delay:120ms">
@@ -249,8 +245,8 @@ onMounted(() => {
             <div class="meta">
               <h3 class="name">Croissant <em>au Beurre</em></h3>
               <span class="price">¥420</span>
-              <p class="desc">北海道産発酵バターを27層に折り込む。砕けるように軽く、ほとんど無重力。</p>
-              <div class="tag-row"><span class="tag">毎日限定</span></div>
+              <p class="desc">北海道産の発酵バターを27層に折り込んだ、軽やかな食感のクロワッサン。</p>
+              <div class="tag-row"><span class="tag">数量限定</span></div>
             </div>
           </article>
           <article class="bread reveal" style="--reveal-delay:240ms">
@@ -260,8 +256,8 @@ onMounted(() => {
             <div class="meta">
               <h3 class="name">Hakusan <em>Rye</em></h3>
               <span class="price">¥1,180</span>
-              <p class="desc">どっしりと暗く、ほろ苦い。白山産石臼挽きライ麦、キャラウェイ、糖蜜。</p>
-              <div class="tag-row"><span class="tag">全粒粉</span><span class="tag">5日間保存可</span></div>
+              <p class="desc">白山産のライ麦を石臼挽きに。キャラウェイと糖蜜を加えた、深い味わいのライブレッド。</p>
+              <div class="tag-row"><span class="tag">全粒粉</span><span class="tag">5日間日持ち</span></div>
             </div>
           </article>
           <article class="bread offset-up reveal">
@@ -271,7 +267,7 @@ onMounted(() => {
             <div class="meta">
               <h3 class="name">Yuzu <em>Brioche</em></h3>
               <span class="price">¥640</span>
-              <p class="desc">加賀市河北産ゆず皮の香りをまとった、卵たっぷりのクラム。温かいうちに手でちぎって。</p>
+              <p class="desc">加賀産ゆずの皮を練り込んだ、卵たっぷりのブリオッシュ。温かいうちにちぎってどうぞ。</p>
               <div class="tag-row"><span class="tag">季節限定</span><span class="tag">冬季のみ</span></div>
             </div>
           </article>
@@ -282,7 +278,7 @@ onMounted(() => {
             <div class="meta">
               <h3 class="name">Hojicha <em>Anpan</em></h3>
               <span class="price">¥380</span>
-              <p class="desc">ほうじ茶カスタードと十勝産小豆餡を包んだ、懐かしいあんパン。</p>
+              <p class="desc">ほうじ茶のカスタードと十勝産小豆の餡を包んだ、ほっとする味わい。</p>
               <div class="tag-row"><span class="tag">定番人気</span></div>
             </div>
           </article>
@@ -293,8 +289,8 @@ onMounted(() => {
             <div class="meta">
               <h3 class="name">Open <em>Sandwich</em></h3>
               <span class="price">¥1,420</span>
-              <p class="desc">能登産燻製トラウト、発酵バター、ディル。トーストしたカンパーニュにのせて。正午から売切れ次第終了。</p>
-              <div class="tag-row"><span class="tag">カフェのみ</span><span class="tag">12:00 →</span></div>
+              <p class="desc">自家製スモークサーモン、発酵バター、ディル。トーストしたカンパーニュにのせて。</p>
+              <div class="tag-row"><span class="tag">カフェのみ</span><span class="tag">12:00 〜</span></div>
             </div>
           </article>
         </div>
@@ -313,7 +309,7 @@ onMounted(() => {
             <div class="eyebrow">The space &nbsp;·&nbsp; 喫茶室</div>
           </div>
           <h2 class="display reveal" style="--reveal-delay:100ms">
-            朝の光に包まれた、<em>木の部屋</em>。
+            朝の光が差し込む、<em>木のぬくもり</em>。
           </h2>
         </header>
         <div class="cafe-hero ph reveal">
@@ -325,10 +321,10 @@ onMounted(() => {
         </div>
         <div class="cafe-cap">
           <div class="left reveal">
-            <h3 class="display">十席。<em>一枚の長いテーブル。</em><br>ゆっくりとした会話。</h3>
+            <h3 class="display">十席。<em>一枚の長いテーブル。</em><br>ゆったりとした時間。</h3>
           </div>
           <div class="right body-large reveal" style="--reveal-delay:120ms">
-            <p>カフェは小さな中庭に面しています。金沢・ロースタリー星のハンドドリップコーヒー、和束産のポアオーバー茶、そしてパンに寄り添う日替わりプレートをご用意しています。本、静かな音楽、11時以降はWi-Fiなし。</p>
+            <p>小さな中庭に面したカフェです。金沢のロースタリーから届くハンドドリップコーヒー、和束の煎茶、パンに合わせた日替わりプレートをご用意しています。本と静かな音楽のなかで、ゆっくりお過ごしください。</p>
           </div>
         </div>
         <div class="cafe-strip">
@@ -361,7 +357,7 @@ onMounted(() => {
           <div class="seasonal-text">
             <h2 class="display reveal">山苺と<em>燻製ライ麦。</em></h2>
             <p class="body-large reveal" style="--reveal-delay:120ms">
-              毎年五月、白山の麓に車を走らせ、山本家を訪ねます。春のパンに色を与える、小ぶりで芳醇な山苺を育てる農家です。富山の知人の窯で作られた燻製ライ麦と合わせました。午前限定、一日50本。
+              毎年五月、白山の麓まで車を走らせ、山本さんの畑へ。春のパンに彩りを添える、小ぶりで甘い山苺を育てる農家さんです。富山の燻製所で仕上げたライ麦と合わせました。
             </p>
             <dl class="seasonal-detail reveal" style="--reveal-delay:240ms">
               <div>
@@ -370,13 +366,9 @@ onMounted(() => {
               </div>
               <div>
                 <dt>素材</dt>
-                <dd>山本農園・白山<br>水野薫製所・富山</dd>
+                <dd>山本農園・白山<br>水野燻製所・富山</dd>
               </div>
             </dl>
-            <a href="#" class="seasonal-cta reveal" style="--reveal-delay:360ms">
-              <span>1本予約する</span>
-              <span class="arrow" />
-            </a>
           </div>
           <div class="ph reveal" style="--reveal-delay:120ms">
             <div class="label">
@@ -401,7 +393,7 @@ onMounted(() => {
             <div class="eyebrow">Access &amp; hours &nbsp;·&nbsp; ご来店</div>
           </div>
           <h2 class="display reveal" style="--reveal-delay:100ms">
-            川と<em>旧街道</em>の間に、私たちはいます。
+            梯川と<em>旧街道</em>のあいだに。
           </h2>
         </header>
         <div class="access-grid">
@@ -451,16 +443,12 @@ onMounted(() => {
             </div>
             <div class="info-row reveal">
               <dt>カフェ席</dt>
-              <dd>ラストオーダー 17:00<br><small>10席・ウォークイン歓迎、週末はご予約推奨。</small></dd>
+              <dd>ラストオーダー 17:00<br><small>10席・ご来店歓迎。</small></dd>
             </div>
             <div class="info-row reveal">
               <dt>お問い合わせ</dt>
               <dd>0761-00-0000<br><small>hello@ukigumo.jp</small></dd>
             </div>
-            <a href="#" class="reserve-cta reveal">
-              <span>テーブルを予約する</span>
-              <span class="arrow" />
-            </a>
           </dl>
         </div>
       </div>
@@ -470,7 +458,7 @@ onMounted(() => {
     <section class="insta">
       <div class="wrap">
         <div class="insta-head">
-          <h3 class="reveal">静かな瞬間 <em>· @bakery.ukigumo</em></h3>
+          <h3 class="reveal">日々のひとこま <em>· @bakery_ukigmo</em></h3>
           <a href="#" class="hero-cta reveal" style="color:var(--char);border-color:var(--line)">
             <span>Follow</span><span class="arrow" />
           </a>
@@ -499,7 +487,7 @@ onMounted(() => {
             <ul>
               <li><a href="#access">場所</a></li>
               <li><a href="#access">営業時間</a></li>
-              <li><a href="#access">予約</a></li>
+              <li><a href="#access">お問い合わせ</a></li>
             </ul>
           </div>
           <div class="foot-col">
@@ -522,7 +510,6 @@ onMounted(() => {
         <div class="foot-bottom">
           <span>© 2026 Bakery Ukigumo</span>
           <span>石川県小松市横町3-14-7</span>
-          <span>朝の光の中で</span>
         </div>
       </div>
     </footer>
