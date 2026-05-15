@@ -78,7 +78,9 @@ export function buildCorpAddress(address: CorpConfig['address']): string {
   return address.prefecture + address.city + address.street + (address.building ?? '')
 }
 
-export type CorpConfig = typeof corpConfig
+import type { ThemeName } from './site'
+
+export type CorpConfig = typeof corpConfig & { theme?: ThemeName }
 export type CorpService = CorpConfig['services'][0]
 export type CorpWork = CorpConfig['works'][0]
 export type CorpNewsItem = CorpConfig['news'][0]

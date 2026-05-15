@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const cfg = useCorpConfig()
+const theme = computed(() => cfg.value.theme ?? 'amber')
 
 useSeoMeta({
   title: cfg.value.seo.title,
@@ -16,7 +17,7 @@ useCorpJsonLd()
 </script>
 
 <template>
-  <div>
+  <div :data-theme="theme">
     <CorpHeader />
     <main>
       <CorpHero />
