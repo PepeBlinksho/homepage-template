@@ -35,6 +35,10 @@
   --ui-color-primary-800: #166534;
   --ui-color-primary-900: #14532d;
   --ui-color-primary-950: #052e16;
+
+  /* --ui-primary は :root でリテラルoklch値として定義されるため直接上書きが必要 */
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-primary-400: var(--ui-color-primary-400);
 }
 
 /* crimson: 赤系 — ラーメン・焼肉・中華 */
@@ -62,6 +66,9 @@
   --ui-color-primary-800: #991b1b;
   --ui-color-primary-900: #7f1d1d;
   --ui-color-primary-950: #450a0a;
+
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-primary-400: var(--ui-color-primary-400);
 }
 
 /* cobalt: 青系 — 寿司・モダンビストロ・スペシャルティコーヒー */
@@ -89,6 +96,9 @@
   --ui-color-primary-800: #075985;
   --ui-color-primary-900: #0c4a6e;
   --ui-color-primary-950: #082f49;
+
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-primary-400: var(--ui-color-primary-400);
 }
 
 /* rose: ピンク系 — スイーツ・美容・フェミニン */
@@ -116,4 +126,7 @@
   --ui-color-primary-800: #9f1239;
   --ui-color-primary-900: #881337;
   --ui-color-primary-950: #4c0519;
+
+  --ui-primary: var(--ui-color-primary-500);
+  --ui-primary-400: var(--ui-color-primary-400);
 }
