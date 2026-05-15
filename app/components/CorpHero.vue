@@ -32,9 +32,20 @@ function useCounter(target: number, duration = 1800) {
   return { count, start }
 }
 
-const { count: countWorks, start: startWorks } = useCounter(500)
-const { count: countYears, start: startYears } = useCounter(20)
-const { count: countWarranty, start: startWarranty } = useCounter(10)
+const defaultStats = [
+  { value: 500, suffix: '件+', label: '累計施工実績' },
+  { value: 20, suffix: '年', label: '創業' },
+  { value: 10, suffix: '年', label: '施工保証' },
+]
+const statsConfig = computed(() =>
+  cfg.value.stats?.length
+    ? cfg.value.stats
+    : defaultStats,
+)
+
+const stat1 = useCounter(statsConfig.value[0]?.value ?? 0)
+const stat2 = useCounter(statsConfig.value[1]?.value ?? 0)
+const stat3 = useCounter(statsConfig.value[2]?.value ?? 0)
 
 onMounted(() => {
   mounted.value = true
@@ -47,9 +58,9 @@ onMounted(() => {
   }
   setTimeout(() => {
     statsVisible.value = true
-    startWorks()
-    startYears()
-    startWarranty()
+    stat1.start()
+    stat2.start()
+    stat3.start()
   }, 800)
 })
 onUnmounted(() => { io?.disconnect(); io = null })
@@ -167,33 +178,33 @@ onUnmounted(() => { io?.disconnect(); io = null })
           :class="mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
           style="transition-delay: 400ms"
         >
-          <!-- 施工実績 -->
+          <!-- 統計1: メイン（横長） -->
           <div class="bg-white/5 border border-white/10 hover:border-sky-500/40 rounded-2xl p-6 transition-all duration-300 col-span-2">
             <p class="text-4xl font-bold text-white font-serif tabular-nums">
-              {{ statsVisible ? countWorks : 0 }}<span class="text-sky-400 text-2xl">件+</span>
+              {{ statsVisible ? stat1.count.value : 0 }}<span class="text-sky-400 text-2xl">{{ statsConfig[0]?.suffix }}</span>
             </p>
             <p class="text-sm text-slate-500 mt-1.5 font-medium">
-              累計施工実績
+              {{ statsConfig[0]?.label }}
             </p>
           </div>
 
-          <!-- 創業 -->
+          <!-- 統計2 -->
           <div class="bg-white/5 border border-white/10 hover:border-sky-500/40 rounded-2xl p-6 transition-all duration-300">
             <p class="text-4xl font-bold text-white font-serif tabular-nums">
-              {{ statsVisible ? countYears : 0 }}<span class="text-sky-400 text-xl">年</span>
+              {{ statsVisible ? stat2.count.value : 0 }}<span class="text-sky-400 text-xl">{{ statsConfig[1]?.suffix }}</span>
             </p>
             <p class="text-sm text-slate-500 mt-1.5 font-medium">
-              創業
+              {{ statsConfig[1]?.label }}
             </p>
           </div>
 
-          <!-- 保証 -->
+          <!-- 統計3 -->
           <div class="bg-white/5 border border-white/10 hover:border-sky-500/40 rounded-2xl p-6 transition-all duration-300">
             <p class="text-4xl font-bold text-white font-serif tabular-nums">
-              {{ statsVisible ? countWarranty : 0 }}<span class="text-sky-400 text-xl">年</span>
+              {{ statsVisible ? stat3.count.value : 0 }}<span class="text-sky-400 text-xl">{{ statsConfig[2]?.suffix }}</span>
             </p>
             <p class="text-sm text-slate-500 mt-1.5 font-medium">
-              施工保証
+              {{ statsConfig[2]?.label }}
             </p>
           </div>
 

@@ -11,6 +11,15 @@ export const allPaintConfig: CorpConfig = {
   license: '石川県知事許可（般-04）第00000号',
   serviceArea: '小松市・加賀市・能美市・白山市',
 
+  stats: [
+    { value: 500, suffix: '件+', label: '累計施工実績' },
+    { value: 20, suffix: '年', label: '創業' },
+    { value: 10, suffix: '年', label: '施工保証' },
+  ],
+
+  worksSectionTitle: '施工実績',
+  worksSectionDescription: 'これまでに手がけた施工事例の一部をご紹介します。',
+
   features: [
     {
       icon: 'i-heroicons-shield-check',

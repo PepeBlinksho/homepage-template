@@ -29,6 +29,11 @@ function buildDemoRouteRules() {
       if (sub === '/contact') continue
       rules[`/${corp.slug}${sub}`] = { prerender: true }
     }
+    for (const service of corp.config.services) {
+      if (service.slug) {
+        rules[`/${corp.slug}/services/${service.slug}`] = { prerender: true }
+      }
+    }
   }
   return rules
 }

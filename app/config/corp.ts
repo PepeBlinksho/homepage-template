@@ -1,3 +1,5 @@
+import type { ThemeName } from './site'
+
 export const corpConfig = {
   name: '会社名をここに入力',
   nameEn: 'COMPANY NAME',
@@ -14,9 +16,21 @@ export const corpConfig = {
     { icon: 'i-heroicons-star', title: '充実の保証', description: '特徴の説明文を入力' },
   ],
 
+  // ヒーロー右側に表示する 3 つの統計値（カウントアップアニメ付き）
+  // 未指定の場合は施工業デフォルト（500件+/20年/10年）を使用
+  stats: [
+    { value: 500, suffix: '件+', label: '累計施工実績' },
+    { value: 20, suffix: '年', label: '創業' },
+    { value: 10, suffix: '年', label: '施工保証' },
+  ] as Array<{ value: number, suffix: string, label: string }>,
+
+  // 実績セクションの見出し（施工業以外では「取引実績」等に差し替え）
+  worksSectionTitle: '施工実績',
+  worksSectionDescription: 'これまでに手がけた施工事例の一部をご紹介します。',
+
   services: [
-    { icon: 'i-heroicons-wrench-screwdriver', title: 'サービス名', description: 'サービスの説明文を入力してください。' },
-  ] as Array<{ icon: string, title: string, description: string }>,
+    { icon: 'i-heroicons-wrench-screwdriver', title: 'サービス名', slug: '', description: 'サービスの説明文を入力してください。', products: [] as Array<{ name: string, description: string, image: string }> },
+  ] as Array<{ icon: string, title: string, slug?: string, description: string, products?: Array<{ name: string, description: string, image: string }> }>,
 
   works: [] as Array<{ title: string, category: string, location: string, image: string, description: string }>,
 
@@ -78,9 +92,8 @@ export function buildCorpAddress(address: CorpConfig['address']): string {
   return address.prefecture + address.city + address.street + (address.building ?? '')
 }
 
-import type { ThemeName } from './site'
-
 export type CorpConfig = typeof corpConfig & { theme?: ThemeName }
 export type CorpService = CorpConfig['services'][0]
+export type CorpServiceProduct = NonNullable<CorpService['products']>[0]
 export type CorpWork = CorpConfig['works'][0]
 export type CorpNewsItem = CorpConfig['news'][0]

@@ -35,11 +35,15 @@ const { el, revealed } = useReveal()
 
       <!-- サービスグリッド -->
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div
+        <NuxtLink
           v-for="(service, i) in cfg.services"
           :key="service.title"
-          class="group relative bg-slate-50 hover:bg-white rounded-3xl p-8 border border-transparent hover:border-sky-100 hover:shadow-xl hover:shadow-sky-50 transition-all duration-400 cursor-default overflow-hidden"
-          :class="revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
+          :to="service.slug ? `${prefix}/services/${service.slug}` : undefined"
+          class="group relative bg-slate-50 hover:bg-white rounded-3xl p-8 border border-transparent hover:border-sky-100 hover:shadow-xl hover:shadow-sky-50 transition-all duration-400 overflow-hidden"
+          :class="[
+            revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8',
+            service.slug ? 'cursor-pointer' : 'cursor-default',
+          ]"
           :style="{ transitionDelay: `${i * 80}ms`, transitionDuration: '600ms' }"
         >
           <!-- 大番号（背景） -->
@@ -64,9 +68,21 @@ const { el, revealed } = useReveal()
             {{ service.description }}
           </p>
 
+          <!-- 詳細リンク（slug が設定されている場合） -->
+          <div
+            v-if="service.slug"
+            class="relative z-10 mt-5 flex items-center gap-1.5 text-xs font-semibold text-sky-600 group-hover:text-sky-700 transition-colors duration-200"
+          >
+            商品一覧を見る
+            <UIcon
+              name="i-heroicons-arrow-right"
+              class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
+            />
+          </div>
+
           <!-- ホバー時の底線アクセント -->
           <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-sky-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-        </div>
+        </NuxtLink>
       </div>
 
       <!-- CTA バナー -->

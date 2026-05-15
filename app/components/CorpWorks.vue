@@ -44,7 +44,7 @@ function getCategoryColor(cat: string) {
           <span class="text-xs tracking-[0.4em] uppercase text-sky-400 font-medium">Works</span>
         </div>
         <h2 class="font-serif text-5xl md:text-6xl font-bold text-white leading-tight">
-          施工実績
+          {{ cfg.worksSectionTitle ?? '施工実績' }}
         </h2>
       </div>
 
