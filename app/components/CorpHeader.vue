@@ -15,7 +15,7 @@ const navLinks = computed(() => {
   return [
     { label: 'トップ', to: p || '/' },
     { label: '事業内容', to: `${p}/#services` },
-    { label: '施工実績', to: `${p}/#works` },
+    { label: cfg.value.worksSectionTitle ?? '施工実績', to: `${p}/#works` },
     { label: '会社概要', to: `${p}/#about` },
     { label: 'お問い合わせ', to: `${p}/contact` },
   ]

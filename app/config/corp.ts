@@ -28,6 +28,9 @@ export const corpConfig = {
   worksSectionTitle: '施工実績',
   worksSectionDescription: 'これまでに手がけた施工事例の一部をご紹介します。',
 
+  // 事業内容セクション下部のCTAテキスト
+  servicesCta: '無料点検・お見積りを受け付けています',
+
   services: [
     { icon: 'i-heroicons-wrench-screwdriver', title: 'サービス名', slug: '', description: 'サービスの説明文を入力してください。', products: [] as Array<{ name: string, description: string, image: string }> },
   ] as Array<{ icon: string, title: string, slug?: string, description: string, products?: Array<{ name: string, description: string, image: string }> }>,

@@ -96,7 +96,7 @@ const { el, revealed } = useReveal()
             まずはお気軽にご相談ください
           </p>
           <p class="font-serif text-2xl md:text-3xl font-bold text-white">
-            無料点検・お見積りを受け付けています
+            {{ cfg.servicesCta ?? '無料点検・お見積りを受け付けています' }}
           </p>
         </div>
         <div class="flex flex-col sm:flex-row gap-4 shrink-0">

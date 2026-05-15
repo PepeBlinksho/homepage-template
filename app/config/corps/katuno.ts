@@ -20,6 +20,7 @@ export const katunoConfig: CorpConfig = {
 
   worksSectionTitle: '取引実績',
   worksSectionDescription: 'これまでに対応した主な事例をご紹介します。',
+  servicesCta: '包装資材のご相談・お見積りを承ります',
 
   features: [
     {

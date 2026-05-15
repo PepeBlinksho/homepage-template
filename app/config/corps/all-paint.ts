@@ -19,6 +19,7 @@ export const allPaintConfig: CorpConfig = {
 
   worksSectionTitle: '施工実績',
   worksSectionDescription: 'これまでに手がけた施工事例の一部をご紹介します。',
+  servicesCta: '無料点検・お見積りを受け付けています',
 
   features: [
     {
