@@ -96,6 +96,8 @@ export default defineNuxtConfig({
     '/demo/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/beauty/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/corp/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/bine': { redirect: '/bine/' },
+    '/bine/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
 
     // ページ：プリレンダリング（/contact は SSR 必須のため除外）
     '/': { prerender: true },
